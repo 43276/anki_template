@@ -6,3 +6,167 @@
 {{/音标}}
 
 </div>
+
+<script>
+  // --- 桌宠功能（迁移自 jlpt 模板） --- //
+  ;(function () {
+    const PET_ENABLED = true      // 桌宠功能开关: true 开启 | false 关闭
+    const PET_GIFS = [
+      '_aemeath_flyTowardsRightSideOfScreen.gif',
+      '_aemeath_happy.gif',
+      '_aemeath_happy_rightHandUp.gif',
+      '_aemeath_jump_excited.gif',
+      '_aemeath_sigh.gif',
+      '_aemeath_stand.gif',
+      '_aemeath_sunglasses_sway_musicNote.gif',
+    ]
+    const PET_SIZE = 130          // 桌宠尺寸（像素），与 style.css 中 --pet-size 保持一致
+    const PET_DURATION = 2        // 飞行时长（秒）
+    const PET_IDLE_MS = 15000     // 停留监测：用户在当前卡片停留超过该时长则桌宠飘入停留
+    const PET_FLY_CHANCE = 0.1    // 每次渲染触发穿越（飞入再飞出）的概率
+    function isBackSide() {
+      return !!document.getElementById('back')
+    }
+    function createPetEl(src) {
+      const pet = document.createElement('div')
+      pet.id = 'aemeathPet'
+      pet.className = 'aemeath-pet'
+      pet.innerHTML = `<img src="${src}" alt="">`
+      return pet
+    }
+    function setPetPos(pet, x, y, flip) {
+      // 不旋转图像，仅按水平方向镜像（flip = -1 时面朝左），保持图像始终直立
+      pet.style.transform = `translate(${x}px, ${y}px)${flip === -1 ? ' scaleX(-1)' : ''}`
+    }
+    function petMoveTo(pet, x, y, duration, easing, flip) {
+      // 用 CSS animation 移动桌宠（比 transition 更可靠，规避安卓 WebView 离屏元素首帧不渲染的问题）
+      const scale = flip === -1 ? ' scaleX(-1)' : ''
+      const to = `translate(${x}px, ${y}px)${scale}`
+      let from = pet.style.transform
+      if (pet.style.animation) {
+        // 动画进行中被再次触发（如连续点击）：以当前视觉位置为起点
+        from = getComputedStyle(pet).transform
+        pet.style.animation = ''
+      }
+      const key = `aemeathPetMove${Date.now()}${Math.floor(Math.random() * 9999)}`
+      const style = document.createElement('style')
+      style.textContent = `@keyframes ${key} { from { transform: ${from || 'none'}; } to { transform: ${to}; } }`
+      document.head.appendChild(style)
+      pet.style.animation = `${key} ${duration}s ${easing} forwards`
+      const onEnd = () => {
+        if (pet.isConnected) {
+          pet.style.transform = to
+          pet.style.animation = ''
+        }
+      }
+      pet.addEventListener('animationend', onEnd, { once: true })
+      setTimeout(() => { if (style.isConnected) style.remove() }, (duration + 1) * 1000)
+    }
+    function randomEdgePoint(off) {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const edge = Math.floor(Math.random() * 4)
+      if (edge === 0) return { x: Math.random() * vw, y: -off }          // 上
+      if (edge === 1) return { x: vw + off, y: Math.random() * vh }      // 右
+      if (edge === 2) return { x: Math.random() * vw, y: vh + off }      // 下
+      return { x: -off, y: Math.random() * vh }                          // 左
+    }
+    function randomFlyPath(off) {
+      // 起点在屏幕边缘随机位置，终点在对侧边缘（位置与角度任意，保证穿越整个屏幕）
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const from = randomEdgePoint(off)
+      let ex, ey
+      if (from.y <= -off) {            // 从上边进入 → 下边飞出
+        ex = Math.random() * vw
+        ey = vh + off
+      } else if (from.x >= vw + off) { // 从右边进入 → 左边飞出
+        ex = -off
+        ey = Math.random() * vh
+      } else if (from.y >= vh + off) { // 从下边进入 → 上边飞出
+        ex = Math.random() * vw
+        ey = -off
+      } else {                         // 从左边进入 → 右边飞出
+        ex = vw + off
+        ey = Math.random() * vh
+      }
+      return { sx: from.x, sy: from.y, ex, ey }
+    }
+    function getPetBlankSpot(size, exclude) {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const selectors = '#front, #back, #front-extra1, #back-extra1, #back-extra2, .audio'
+      const rects = [...document.querySelectorAll(selectors)]
+        .filter(el => el.getClientRects().length)
+        .map(el => el.getBoundingClientRect())
+      const self = document.getElementById('aemeathPet')
+      if (self) rects.push(self.getBoundingClientRect())
+      if (exclude) rects.push(exclude)
+      const pad = 8
+      for (let i = 0; i < 40; i++) {
+        const x = pad + Math.random() * (vw - size - pad * 2)
+        const y = pad + Math.random() * (vh - size - pad * 2)
+        const r = { left: x, top: y, right: x + size, bottom: y + size }
+        if (!rects.some(b => b.right > r.left && b.left < r.right && b.bottom > r.top && b.top < r.bottom)) {
+          return { x, y }
+        }
+      }
+      return { x: Math.max(pad, vw - size - pad), y: Math.max(pad, vh - size - pad) }
+    }
+    function petFlyThrough() {
+      // 从屏幕边缘带有速度地飞入，从另一端飞出（位置、角度任意，约 2 秒）；图像保持直立不旋转
+      const pet = createPetEl(PET_GIFS[Math.floor(Math.random() * PET_GIFS.length)])
+      const off = PET_SIZE
+      const { sx, sy, ex, ey } = randomFlyPath(off)
+      const flip = ex < sx ? -1 : 1
+      setPetPos(pet, sx, sy, flip)
+      document.body.appendChild(pet)
+      petMoveTo(pet, ex, ey, PET_DURATION, 'linear', flip)
+      setTimeout(() => pet.remove(), (PET_DURATION + 0.1) * 1000)
+    }
+    function petSettleIn() {
+      // 从屏幕边缘飘入，减速停在避开文字的空白处；单击飞往其他空白处
+      const pet = createPetEl(PET_GIFS[Math.floor(Math.random() * PET_GIFS.length)])
+      const off = PET_SIZE
+      const start = randomEdgePoint(off)
+      const spot = getPetBlankSpot(PET_SIZE)
+      const flip = spot.x < start.x ? -1 : 1
+      setPetPos(pet, start.x, start.y, flip)
+      document.body.appendChild(pet)
+      petMoveTo(pet, spot.x, spot.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flip)
+      pet.addEventListener('click', e => {
+        e.preventDefault()
+        const next = getPetBlankSpot(PET_SIZE, pet.getBoundingClientRect())
+        const flipNext = next.x < pet.getBoundingClientRect().left ? -1 : 1
+        petMoveTo(pet, next.x, next.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flipNext)
+      })
+    }
+    function aemeathPet() {
+      if (!PET_ENABLED) return
+      if (document.getElementById('aemeathPetSentinel')) return
+      // 哨兵元素用于检测翻页：翻页后随卡片内容被替换而消失
+      const sentinel = document.createElement('span')
+      sentinel.id = 'aemeathPetSentinel'
+      sentinel.style.display = 'none'
+      const root = document.querySelector('#qa') || document.querySelector('.card') || document.body
+      root.appendChild(sentinel)
+      // 穿越（飞入再飞出）：仅背面允许；正面不触发。
+      // 注意：back 页面中 {{FrontSide}} 内嵌的 script 执行时 #back 尚未解析，
+      // 此时 isBackSide() 会误判为 false，故延迟到 DOM 解析完成后再判定。
+      setTimeout(() => {
+        if (!sentinel.isConnected) return
+        if (isBackSide() && Math.random() < PET_FLY_CHANCE) {
+          petFlyThrough()
+        }
+      }, 0)
+      // 停留监测：用户在当前卡片停留超过 15 秒，桌宠飘入并停留在界面
+      setTimeout(() => {
+        if (!PET_ENABLED) return
+        if (!sentinel.isConnected) return              // 已翻页（哨兵随卡片内容被替换而移除）
+        if (document.getElementById('aemeathPet')) return  // 已有桌宠
+        petSettleIn()
+      }, PET_IDLE_MS)
+    }
+    aemeathPet()
+  })()
+</script>
