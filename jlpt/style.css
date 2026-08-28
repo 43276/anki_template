@@ -88,8 +88,8 @@ body,
   --fg: #1f2937;
   --fg-subtle: #737373;
   --canvas: #fff0f000;
-  --canvas-elevated: white;
-  --canvas-inset: #f9fafb;
+  --canvas-elevated: #fff0f000;
+  --canvas-inset: #fff0f000;
   --border: #d1d5db;
   --border-subtle: #e4e4e4;
   --border-radius: 7px;
@@ -126,9 +126,9 @@ body,
 :root .nightMode,
 [data-bs-theme='dark'] {
   --fg: #e5e7eb;
-  --canvas: #2c2c2c;
-  --canvas-elevated: #363636;
-  --canvas-inset: #2c2c2c;
+  --canvas: #2c2c2c00;
+  --canvas-elevated: #36363600;
+  --canvas-inset: #2c2c2c00;
   --border: #494949;
   --border-subtle: #252525;
   --border-radius: 7px;
@@ -192,9 +192,6 @@ body,
 .card ruby rt,
 .card .blur b,
 .card .blur span,
-.card .Top,
-.card .Search,
-.card .Feedback,
 .card .VocabPitch,
 .card .DialogContent {
   -webkit-touch-callout: none;
@@ -234,14 +231,6 @@ body,
   fill: var(--svg-path);
 }
 
-.tts.replay-button svg circle {
-  stroke: var(--fg-highlight-purple);
-}
-
-.tts.replay-button svg path {
-  fill: var(--fg-highlight-purple);
-}
-
 .CardSide {
   width: 100%;
   margin: 0 auto;
@@ -256,19 +245,6 @@ body,
 .LabelIndent2 {
   padding-left: var(--label-indent2-padding);
   text-indent: var(--label-indent2-text);
-}
-
-.Top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 4px 0;
-  color: var(--fg-subtle);
-  font-size: 14px;
-}
-
-a.Feedback {
-  color: var(--fg-subtle);
 }
 
 .Question {
@@ -314,12 +290,6 @@ a.Feedback {
 
 .VocabKanji .VocabPitch {
   margin-left: -0.6em;
-}
-
-.Search {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--text-xl);
 }
 
 .SentenceList {
