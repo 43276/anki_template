@@ -630,6 +630,11 @@ body,
   cursor: pointer;
   will-change: transform;
   transform-origin: center;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* 禁用长按弹出菜单 */
+  -webkit-tap-highlight-color: transparent; /* 禁用点击高亮 */
+  -webkit-user-drag: none;
 }
 
 .aemeath-pet img {
@@ -637,4 +642,5 @@ body,
   height: 100%;
   object-fit: contain;
   pointer-events: none;
+  -webkit-user-drag: none;
 }

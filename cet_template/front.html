@@ -8,7 +8,7 @@
 </div>
 
 <script>
-  // --- 桌宠功能（迁移自 jlpt 模板） --- //
+  // --- 桌宠功能 --- //
   ;(function () {
     const PET_ENABLED = true      // 桌宠功能开关: true 开启 | false 关闭
     const PET_GIFS = [
@@ -134,6 +134,8 @@
       setPetPos(pet, start.x, start.y, flip)
       document.body.appendChild(pet)
       petMoveTo(pet, spot.x, spot.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flip)
+      // 阻止点击桌宠时触发文本选中（移动端双击/选择），不影响 click 触发移动
+      pet.addEventListener('mousedown', e => e.preventDefault())
       pet.addEventListener('click', e => {
         e.preventDefault()
         const next = getPetBlankSpot(PET_SIZE, pet.getBoundingClientRect())

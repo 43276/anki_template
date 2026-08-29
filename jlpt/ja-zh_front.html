@@ -378,6 +378,8 @@
     setPetPos(pet, start.x, start.y, flip)
     document.body.appendChild(pet)
     petMoveTo(pet, spot.x, spot.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flip)
+    // 阻止点击桌宠时触发文本选中（移动端双击/选择），不影响 click 触发移动
+    pet.addEventListener('mousedown', e => e.preventDefault())
     pet.addEventListener('click', e => {
       e.preventDefault()
       const next = getPetBlankSpot(PET_SIZE, pet.getBoundingClientRect())
