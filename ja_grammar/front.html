@@ -29,105 +29,42 @@ countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
 
 <div class="card">
     <div class="header">
-    <span class="word"><span class="jp">{{kanji:Word}}</span></span>
+    <span class="word" lang="ja">{{kanji:Word}}</span>
     </div>
-    {{#ConnectiveType1}}
-    <br>
-                        <div class="footer">
-      <span class="connectiveTag">接続 <span class="num">①</span></span>
-    </div>{{/ConnectiveType1}}
-    {{#ConnectiveType2}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">②</span></span>
-    </div>{{/ConnectiveType2}}
-    {{#ConnectiveType3}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">③</span></span>
-    </div>{{/ConnectiveType3}}
-    {{#ConnectiveType4}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">④</span></span>
-    </div>{{/ConnectiveType4}}
-    {{#ConnectiveType5}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑤</span></span>
-    </div>{{/ConnectiveType5}}
-    {{#ConnectiveType6}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑥</span></span>
-    </div>{{/ConnectiveType6}}
-    {{#ConnectiveType7}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑦</span></span>
-    </div>{{/ConnectiveType7}}
-    {{#ConnectiveType8}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑧</span></span>
-    </div>{{/ConnectiveType8}}
-    {{#ConnectiveType9}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑨</span></span>
-    </div>{{/ConnectiveType9}}
-    {{#ConnectiveType10}}<div class="footer">
-      <span class="connectiveTag">接続 <span class="num">⑩</span></span>
-    </div>{{/ConnectiveType10}}
-    {{#GakkoConnective1}}
-    <br>
-                        <div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">①</span></span>
-    </div>{{/GakkoConnective1}}
-    {{#GakkoConnective2}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">②</span></span>
-    </div>{{/GakkoConnective2}}
-    {{#GakkoConnective3}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">③</span></span>
-    </div>{{/GakkoConnective3}}
-    {{#GakkoConnective4}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">④</span></span>
-    </div>{{/GakkoConnective4}}
-    {{#GakkoConnective5}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑤</span></span>
-    </div>{{/GakkoConnective5}}
-    {{#GakkoConnective6}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑥</span></span>
-    </div>{{/GakkoConnective6}}
-    {{#GakkoConnective7}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑦</span></span>
-    </div>{{/GakkoConnective7}}
-    {{#GakkoConnective8}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑧</span></span>
-    </div>{{/GakkoConnective8}}
-    {{#GakkoConnective9}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑨</span></span>
-    </div>{{/GakkoConnective9}}
-    {{#GakkoConnective10}}<div class="footer">
-      <span class="connectiveTag">学校文法 <span class="num">⑩</span></span>
-    </div>{{/GakkoConnective10}}
+    
     <hr />
     <div class="content">
-        {{#Example1}}<div class="examplefront"><span class="leader">[例]</span><span class="num">①</span> <span class="jp">{{kanji:Example1}}</span> <br /></div>{{/Example1}}
-        {{#Example2}}<div class="examplefront"><span class="leader">[例]</span><span class="num">②</span> <span class="jp">{{kanji:Example2}}</span> <br /></div>{{/Example2}}
-        {{#Example3}}<div class="examplefront"><span class="leader">[例]</span><span class="num">③</span> <span class="jp">{{kanji:Example3}}</span> <br /></div>{{/Example3}}
-        {{#Example4}}<div class="examplefront"><span class="leader">[例]</span><span class="num">④</span> <span class="jp">{{kanji:Example4}}</span> <br /></div>{{/Example4}}
-        {{#Example5}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑤</span> <span class="jp">{{kanji:Example5}}</span> <br /></div>{{/Example5}}
-        {{#Example6}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑥</span> <span class="jp">{{kanji:Example6}}</span> <br /></div>{{/Example6}}
-        {{#Example7}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑦</span> <span class="jp">{{kanji:Example7}}</span> <br /></div>{{/Example7}}
-        {{#Example8}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑧</span> <span class="jp">{{kanji:Example8}}</span> <br /></div>{{/Example8}}
-        {{#Example9}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑨</span> <span class="jp">{{kanji:Example9}}</span> <br /></div>{{/Example9}}
-        {{#Example10}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑩</span> <span class="jp">{{kanji:Example10}}</span> <br /></div>{{/Example10}}
-        {{#Example11}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑪</span> <span class="jp">{{kanji:Example11}}</span> <br /></div>{{/Example11}}
-        {{#Example12}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑫</span> <span class="jp">{{kanji:Example12}}</span> <br /></div>{{/Example12}}
-        {{#Example13}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑬</span> <span class="jp">{{kanji:Example13}}</span> <br /></div>{{/Example13}}
-        {{#Example14}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑭</span> <span class="jp">{{kanji:Example14}}</span> <br /></div>{{/Example14}}
-        {{#Example15}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑮</span> <span class="jp">{{kanji:Example15}}</span> <br /></div>{{/Example15}}
-        {{#Example16}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑯</span> <span class="jp">{{kanji:Example16}}</span> <br /></div>{{/Example16}}
-        {{#Example17}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑰</span> <span class="jp">{{kanji:Example17}}</span> <br /></div>{{/Example17}}
-        {{#Example18}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑱</span> <span class="jp">{{kanji:Example18}}</span> <br /></div>{{/Example18}}
-        {{#Example19}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑲</span> <span class="jp">{{kanji:Example19}}</span> <br /></div>{{/Example19}}
-        {{#Example20}}<div class="examplefront"><span class="leader">[例]</span><span class="num">⑳</span> <span class="jp">{{kanji:Example20}}</span> <br /></div>{{/Example20}}
-        {{#Example21}}<div class="examplefront"><span class="leader">[例]</span><span class="num">㉑</span> <span class="jp">{{kanji:Example21}}</span> <br /></div>{{/Example21}}
-        {{#Example22}}<div class="examplefront"><span class="leader">[例]</span><span class="num">㉒</span> <span class="jp">{{kanji:Example22}}</span> <br /></div>{{/Example22}}
-        {{#Example23}}<div class="examplefront"><span class="leader">[例]</span><span class="num">㉓</span> <span class="jp">{{kanji:Example23}}</span> <br /></div>{{/Example23}}
-        {{#Example24}}<div class="examplefront"><span class="leader">[例]</span><span class="num">㉔</span> <span class="jp">{{kanji:Example24}}</span> <br /></div>{{/Example24}}
-        {{#Example25}}<div class="examplefront"><span class="leader">[例]</span><span class="num">㉕</span> <span class="jp">{{kanji:Example25}}</span> <br /></div>{{/Example25}}
+        {{#Example1}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">①</span> <span lang="ja">{{kanji:Example1}}</span> <br /></div>{{/Example1}}
+        {{#Example2}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">②</span> <span lang="ja">{{kanji:Example2}}</span> <br /></div>{{/Example2}}
+        {{#Example3}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">③</span> <span lang="ja">{{kanji:Example3}}</span> <br /></div>{{/Example3}}
+        {{#Example4}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">④</span> <span lang="ja">{{kanji:Example4}}</span> <br /></div>{{/Example4}}
+        {{#Example5}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑤</span> <span lang="ja">{{kanji:Example5}}</span> <br /></div>{{/Example5}}
+        {{#Example6}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑥</span> <span lang="ja">{{kanji:Example6}}</span> <br /></div>{{/Example6}}
+        {{#Example7}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑦</span> <span lang="ja">{{kanji:Example7}}</span> <br /></div>{{/Example7}}
+        {{#Example8}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑧</span> <span lang="ja">{{kanji:Example8}}</span> <br /></div>{{/Example8}}
+        {{#Example9}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑨</span> <span lang="ja">{{kanji:Example9}}</span> <br /></div>{{/Example9}}
+        {{#Example10}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑩</span> <span lang="ja">{{kanji:Example10}}</span> <br /></div>{{/Example10}}
+        {{#Example11}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑪</span> <span lang="ja">{{kanji:Example11}}</span> <br /></div>{{/Example11}}
+        {{#Example12}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑫</span> <span lang="ja">{{kanji:Example12}}</span> <br /></div>{{/Example12}}
+        {{#Example13}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑬</span> <span lang="ja">{{kanji:Example13}}</span> <br /></div>{{/Example13}}
+        {{#Example14}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑭</span> <span lang="ja">{{kanji:Example14}}</span> <br /></div>{{/Example14}}
+        {{#Example15}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑮</span> <span lang="ja">{{kanji:Example15}}</span> <br /></div>{{/Example15}}
+        {{#Example16}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑯</span> <span lang="ja">{{kanji:Example16}}</span> <br /></div>{{/Example16}}
+        {{#Example17}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑰</span> <span lang="ja">{{kanji:Example17}}</span> <br /></div>{{/Example17}}
+        {{#Example18}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑱</span> <span lang="ja">{{kanji:Example18}}</span> <br /></div>{{/Example18}}
+        {{#Example19}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑲</span> <span lang="ja">{{kanji:Example19}}</span> <br /></div>{{/Example19}}
+        {{#Example20}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">⑳</span> <span lang="ja">{{kanji:Example20}}</span> <br /></div>{{/Example20}}
+        {{#Example21}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">㉑</span> <span lang="ja">{{kanji:Example21}}</span> <br /></div>{{/Example21}}
+        {{#Example22}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">㉒</span> <span lang="ja">{{kanji:Example22}}</span> <br /></div>{{/Example22}}
+        {{#Example23}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">㉓</span> <span lang="ja">{{kanji:Example23}}</span> <br /></div>{{/Example23}}
+        {{#Example24}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">㉔</span> <span lang="ja">{{kanji:Example24}}</span> <br /></div>{{/Example24}}
+        {{#Example25}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">㉕</span> <span lang="ja">{{kanji:Example25}}</span> <br /></div>{{/Example25}}
     </div>
 </div>
 
 <script>
   function removeSpaces() {
-    document.querySelectorAll('.jp').forEach(el => {
+    document.querySelectorAll('[lang="ja"]').forEach(el => {
       el.innerHTML = el.innerHTML
         .replace(/\s*\n\s*/g, '')
         .replace(/>\s+</g, '><')

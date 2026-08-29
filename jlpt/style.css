@@ -67,6 +67,14 @@ ul {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'KleeOne LXGW Mono GB';
+  src: url('_KleeOneLXGWMonoGB.ttf') format('opentype');
+  font-weight: 500;
+  font-display: block;
+}
+
+
 body,
 :lang(zh-Hans) {
   font-family: 'Source Han Sans CN', 'Source Han Sans JP', serif;
@@ -81,7 +89,7 @@ body,
 }
 
 .VocabKanji :lang(ja) {
-  font-family: 'Source Han Sans JP', 'YuKyokasho Yoko', 'UD Digi Kyokasho NK', 'UD Digi Kyokasho NK-R', serif;
+  font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', serif;
 }
 
 :root {

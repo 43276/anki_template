@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'Source Han Serif CN';
-  src: url('_SourceHanSerifCN-Medium.otf') format('opentype');
+  font-family: 'Source Han Sans CN';
+  src: url('_SourceHanSansCN-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: block;
 }
 
 @font-face {
-  font-family: 'Source Han Serif JP';
-  src: url('_SourceHanSerifJP-Medium.otf') format('opentype');
+  font-family: 'Source Han Sans JP';
+  src: url('_SourceHanSansJP-Medium.otf') format('opentype');
   font-weight: 500;
   font-display: block;
 }
@@ -20,7 +20,35 @@
 }
 
 body {
-  font-family: 'Source Han Serif JP', 'Source Han Serif CN', serif;
+    font-family:  'Source Han Sans CN', 'Source Han Sans JP',serif;
+}
+
+:lang(zh) {
+    font-family:  'Source Han Sans CN', 'Source Han Sans JP',serif;
+}
+
+:lang(ja) {
+    font-family: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+}
+
+.num {
+    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+}
+
+.word[lang="ja"] {
+    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+}
+
+.connectiveTag[lang="ja"] {
+    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+}
+
+.connectiveNote[lang="ja"] {
+    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+}
+
+.leader {
+    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
 }
 
 
@@ -38,24 +66,13 @@ body {
     align-items: flex-start; /* Aligns items to the top */
 }
 
-.left-side {
-    display: flex;
-    align-items: center;
-}
-
 .right-side {
     display: flex;
     align-items: center;
     gap: 0px; /* Add some space between "Level" and "Link" */
 }
 
-.word {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Serif JP', serif;
-    font-size: 36px;
-}
-
 hr {
-    border: 1px solid #ddd;
     margin: 15px 0;
 }
 
@@ -63,11 +80,6 @@ hr {
     margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.meaning {
-    font-size: 18px;
-    margin-bottom: 10px;
 }
 
 .explain {
@@ -151,17 +163,7 @@ hr {
     color: #999999;
 }
 
-.level {
-    margin-left: auto; /* Pushes the new field to the right */
-    color: #666666;
-}
-
-.nightMode .level {
-    color: #999999;
-}
-
 .cnote {
-    font-family: 'Source Han Serif CN', serif;
     font-size: 18px;
     color: #666666;
     display: inline-flex; /* or display: flex; */
@@ -172,76 +174,9 @@ hr {
     color: #999999;
 }
 
-.enote {
-    font-family: 'Source Han Serif CN', serif;
-    font-size: 18px;
-    color: #666666;
-    display: inline-flex; /* or display: flex; */
-    align-items: start;
-}
-
-.nightMode .enote {
-    color: #999999;
-}
-
-.level {
-    font-family: "KleeOne LXGW Mono GB";
-    font-weight: bold;
-    font-size: 14px;
-    color: #666666;
-}
-
-.nightMode .level {
-    color: #999999;
-}
-
-.link {
-    font-family: "KleeOne LXGW Mono GB";
-    font-weight: bold;
-    font-size: 14px;
-    color: #666666;
-}
-
-.nightMode .link {
-    color: #999999;
-}
-
 .image {
     text-align: center; /* Center the content within the .image div */
     margin-top: 10px; /* Optional: Adds spacing above the image */
-}
-
-
-.sentenceexample {
-    font-size: 22px;
-    display: flex;
-    align-items: flex-start;
-    margin-left: 0px;
-    margin-bottom: 10px;
-}
-
-.sentencecnote {
-    font-family: 'Source Han Serif CN', serif;
-    font-size: 16px;
-    color: #666666;
-    display: inline-flex; /* or display: flex; */
-    align-items: start;
-}
-
-.nightMode .sentencecnote {
-    color: #999999;
-}
-
-.sentenceexamplenote {
-    font-family: 'Source Han Serif CN', serif;
-    font-size: 22px;
-    color: #666666;
-    display: inline-flex; /* or display: flex; */
-    align-items: start;
-}
-
-.nightMode .sentenceexamplenote {
-    color: #999999;
 }
 
 b {
@@ -254,8 +189,8 @@ b {
     color: #fdba74;
 }
 
-.ios .jp:not(.word .jp) rt,
-.safari .jp:not(.word .jp) rt {
+.ios [lang="ja"]:not(.word) rt,
+.safari [lang="ja"]:not(.word) rt {
   transform: translateY(0.6em);
 }
 
@@ -264,17 +199,6 @@ b {
   height: 30px;
 }
 
-/* --- 安卓平台使用系统默认字体 --- */
-.android body,
-.android .word,
-.android .cnote,
-.android .enote,
-.android .level,
-.android .link,
-.android .sentencecnote,
-.android .sentenceexamplenote {
-  font-family: ui-sans-serif, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-}
 
 .replay-button svg circle {
   fill: transparent;
