@@ -10,16 +10,28 @@
 <script>
   // --- 桌宠功能 --- //
   ;(function () {
-    const PET_ENABLED = true      // 桌宠功能开关: true 开启 | false 关闭
-    const PET_GIFS = [
-      '_aemeath_flyTowardsRightSideOfScreen.gif',
-      '_aemeath_happy.gif',
-      '_aemeath_happy_rightHandUp.gif',
-      '_aemeath_jump_excited.gif',
-      '_aemeath_sigh.gif',
-      '_aemeath_stand.gif',
-      '_aemeath_sunglasses_sway_musicNote.gif',
-    ]
+    // 桌宠配置：enabled 为总开关；pets 为桌宠列表，按名称分别启用/关闭。
+    // 媒体文件命名规则: _name_keyword1_keyword2.xxx（.gif/.jpg/.png 等均可），在此自行添加或删除。
+    const PET_CONFIG = {
+      enabled: true,   // 桌宠功能总开关: true 开启 | false 关闭
+      pets: [
+        {
+          name: 'aemeath', // 桌宠名称（对应文件名中的 name 部分）
+          enabled: true,   // 该桌宠开关: true 启用 | false 关闭
+          files: [         // 媒体文件（.gif/.jpg/.png 等均可）
+            '_aemeath_flyTowardsRightSideOfScreen.gif',
+            '_aemeath_happy.gif',
+            '_aemeath_happy_rightHandUp.gif',
+            '_aemeath_jump_excited.gif',
+            '_aemeath_sigh.gif',
+            '_aemeath_stand.gif',
+            '_aemeath_sunglasses_sway_musicNote.gif',
+          ],
+        },
+        // 添加新桌宠示例（取消注释后按需修改）：
+        // { name: 'cat', enabled: false, files: ['_cat_wave.gif', '_cat_sleep.jpg'] },
+      ],
+    }
     const PET_SIZE = 130          // 桌宠尺寸（像素），与 style.css 中 --pet-size 保持一致
     const PET_DURATION = 2        // 飞行时长（秒）
     const PET_IDLE_MS = 15000     // 停留监测：用户在当前卡片停留超过该时长则桌宠飘入停留
@@ -27,10 +39,21 @@
     function isBackSide() {
       return !!document.getElementById('back')
     }
+    function getPetFiles() {
+      // 汇总所有已启用桌宠的媒体文件（文件名与启用状态在 PET_CONFIG 中维护）
+      if (!PET_CONFIG || !PET_CONFIG.enabled) return []
+      return (PET_CONFIG.pets || [])
+        .filter(p => p && p.enabled && Array.isArray(p.files) && p.files.length)
+        .flatMap(p => p.files)
+    }
+    function randomPetFile() {
+      const files = getPetFiles()
+      return files.length ? files[Math.floor(Math.random() * files.length)] : ''
+    }
     function createPetEl(src) {
       const pet = document.createElement('div')
-      pet.id = 'aemeathPet'
-      pet.className = 'aemeath-pet'
+      pet.id = 'petEl'
+      pet.className = 'pet'
       pet.innerHTML = `<img src="${src}" alt="">`
       return pet
     }
@@ -48,7 +71,7 @@
         from = getComputedStyle(pet).transform
         pet.style.animation = ''
       }
-      const key = `aemeathPetMove${Date.now()}${Math.floor(Math.random() * 9999)}`
+      const key = `petMove${Date.now()}${Math.floor(Math.random() * 9999)}`
       const style = document.createElement('style')
       style.textContent = `@keyframes ${key} { from { transform: ${from || 'none'}; } to { transform: ${to}; } }`
       document.head.appendChild(style)
@@ -99,7 +122,7 @@
       const rects = [...document.querySelectorAll(selectors)]
         .filter(el => el.getClientRects().length)
         .map(el => el.getBoundingClientRect())
-      const self = document.getElementById('aemeathPet')
+      const self = document.getElementById('petEl')
       if (self) rects.push(self.getBoundingClientRect())
       if (exclude) rects.push(exclude)
       const pad = 8
@@ -115,7 +138,9 @@
     }
     function petFlyThrough() {
       // 从屏幕边缘带有速度地飞入，从另一端飞出（位置、角度任意，约 2 秒）；图像保持直立不旋转
-      const pet = createPetEl(PET_GIFS[Math.floor(Math.random() * PET_GIFS.length)])
+      const src = randomPetFile()
+      if (!src) return
+      const pet = createPetEl(src)
       const off = PET_SIZE
       const { sx, sy, ex, ey } = randomFlyPath(off)
       const flip = ex < sx ? -1 : 1
@@ -126,7 +151,9 @@
     }
     function petSettleIn() {
       // 从屏幕边缘飘入，减速停在避开文字的空白处；单击飞往其他空白处
-      const pet = createPetEl(PET_GIFS[Math.floor(Math.random() * PET_GIFS.length)])
+      const src = randomPetFile()
+      if (!src) return
+      const pet = createPetEl(src)
       const off = PET_SIZE
       const start = randomEdgePoint(off)
       const spot = getPetBlankSpot(PET_SIZE)
@@ -143,12 +170,13 @@
         petMoveTo(pet, next.x, next.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flipNext)
       })
     }
-    function aemeathPet() {
-      if (!PET_ENABLED) return
-      if (document.getElementById('aemeathPetSentinel')) return
+    function setupPet() {
+      if (!PET_CONFIG || !PET_CONFIG.enabled) return
+      if (!getPetFiles().length) return
+      if (document.getElementById('petSentinel')) return
       // 哨兵元素用于检测翻页：翻页后随卡片内容被替换而消失
       const sentinel = document.createElement('span')
-      sentinel.id = 'aemeathPetSentinel'
+      sentinel.id = 'petSentinel'
       sentinel.style.display = 'none'
       const root = document.querySelector('#qa') || document.querySelector('.card') || document.body
       root.appendChild(sentinel)
@@ -163,12 +191,12 @@
       }, 0)
       // 停留监测：用户在当前卡片停留超过 15 秒，桌宠飘入并停留在界面
       setTimeout(() => {
-        if (!PET_ENABLED) return
+        if (!PET_CONFIG || !PET_CONFIG.enabled) return
         if (!sentinel.isConnected) return              // 已翻页（哨兵随卡片内容被替换而移除）
-        if (document.getElementById('aemeathPet')) return  // 已有桌宠
+        if (document.getElementById('petEl')) return   // 已有桌宠
         petSettleIn()
       }, PET_IDLE_MS)
     }
-    aemeathPet()
+    setupPet()
   })()
 </script>
