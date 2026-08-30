@@ -1,32 +1,6 @@
-<div style="text-align: center;"><span class="timer" id="s2" style="font-size: 16px"></span></div>
-<script>
-function countdown( elementName, minutes, seconds )
-{
-    var element, endTime, hours, mins, msLeft, time;
-    function twoDigits( n )
-    {
-        return (n <= 9 ? "0" + n : n);
-    }
-    function updateTimer()
-    {
-        msLeft = endTime - (+new Date);
-        if ( msLeft < 1000 ) {
-            element.innerHTML = "Time's Up!";
-        } else {
-            time = new Date( msLeft );
-            hours = time.getUTCHours();
-            mins = time.getUTCMinutes();
-            element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
-            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
-        }
-    }
-    element = document.getElementById( elementName );
-    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-    updateTimer();
-}
-countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
-</script>
+{{FrontSide}}
 
+<main id="BackSide">
 <div class="card">
     <div class="header">
     <span class="word" lang="ja">{{furigana:Word}}</span>
@@ -271,6 +245,17 @@ countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
     {{#Image9}}<hr /><div class="image">{{Image9}}</div>{{/Image9}}
     {{#Image10}}<hr /><div class="image">{{Image10}}</div>{{/Image10}}
 </div>
+</main>
+
+<script>
+  // 背面适配：隐藏整个正面内容（word + 例句），处理背面内容的空格。
+  // 与 front.html 内嵌的背面适配脚本互为双保险。
+  try {
+    var frontSide = document.getElementById('frontSide')
+    if (frontSide) frontSide.style.display = 'none'
+    removeSpaces()
+  } catch (e) { console.error(e) }
+</script>
 
 <script>
   function triggerAudioPlayback(hotkey, gamepadButton) {
@@ -313,16 +298,4 @@ countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
       }).catch(() => (isError = true))
     }
   }
-</script>
-
-<script>
-  function removeSpaces() {
-    document.querySelectorAll('[lang="ja"]').forEach(el => {
-      el.innerHTML = el.innerHTML
-        .replace(/\s*\n\s*/g, '')
-        .replace(/>\s+</g, '><')
-        .replace(/(<[^>]+>)|\s+/g, (m, tag) => tag || '')
-    })
-  }
-  removeSpaces()
 </script>

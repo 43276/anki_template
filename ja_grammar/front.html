@@ -1,39 +1,10 @@
-<div style="text-align: center;"><span class="timer" id="s2" style="font-size: 16px"></span></div>
-<script>
-function countdown( elementName, minutes, seconds )
-{
-    var element, endTime, hours, mins, msLeft, time;
-    function twoDigits( n )
-    {
-        return (n <= 9 ? "0" + n : n);
-    }
-    function updateTimer()
-    {
-        msLeft = endTime - (+new Date);
-        if ( msLeft < 1000 ) {
-            element.innerHTML = "Time's Up!";
-        } else {
-            time = new Date( msLeft );
-            hours = time.getUTCHours();
-            mins = time.getUTCMinutes();
-            element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
-            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
-        }
-    }
-    element = document.getElementById( elementName );
-    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-    updateTimer();
-}
-countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
-</script>
-
-<div class="card">
+<div class="card" id="frontSide">
     <div class="header">
     <span class="word" lang="ja">{{kanji:Word}}</span>
     </div>
     
     <hr />
-    <div class="content">
+    <div class="content" id="frontExamples">
         {{#Example1}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">①</span> <span lang="ja">{{kanji:Example1}}</span> <br /></div>{{/Example1}}
         {{#Example2}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">②</span> <span lang="ja">{{kanji:Example2}}</span> <br /></div>{{/Example2}}
         {{#Example3}}<div class="examplefront"><span class="leader" lang="ja">[例]</span><span class="num">③</span> <span lang="ja">{{kanji:Example3}}</span> <br /></div>{{/Example3}}
@@ -72,4 +43,207 @@ countdown("s2", 0, 5 );//2nd value is the minute, 3rd is the seconds
     })
   }
   removeSpaces()
+</script>
+
+<script>
+  // --- 桌宠功能（与 jlpt / cet 模板一致；back 页面通过 {{FrontSide}} 自动继承本脚本） --- //
+  ;(function () {
+    // 桌宠配置：enabled 为总开关；pets 为桌宠列表，按名称分别启用/关闭。
+    // 媒体文件命名规则: _name_keyword1_keyword2.xxx（.gif/.jpg/.png 等均可），在此自行添加或删除。
+    const PET_CONFIG = {
+      enabled: true,   // 桌宠功能总开关: true 开启 | false 关闭
+      pets: [
+        {
+          name: 'aemeath', // 桌宠名称（对应文件名中的 name 部分）
+          enabled: true,   // 该桌宠开关: true 启用 | false 关闭
+          files: [         // 媒体文件（.gif/.jpg/.png 等均可）
+            '_aemeath_flyTowardsRightSideOfScreen.gif',
+            '_aemeath_happy.gif',
+            '_aemeath_happy_rightHandUp.gif',
+            '_aemeath_jump_excited.gif',
+            '_aemeath_sigh.gif',
+            '_aemeath_stand.gif',
+            '_aemeath_sunglasses_sway_musicNote.gif',
+          ],
+        },
+        // 添加新桌宠示例（取消注释后按需修改）：
+        // { name: 'cat', enabled: false, files: ['_cat_wave.gif', '_cat_sleep.jpg'] },
+      ],
+    }
+    const PET_SIZE = 130          // 桌宠尺寸（像素），与 style.css 中 --pet-size 保持一致
+    const PET_DURATION = 2        // 飞行时长（秒）
+    const PET_IDLE_MS = 15000     // 停留监测：用户在当前卡片停留超过该时长则桌宠飘入停留
+    const PET_FLY_CHANCE = 0.1    // 每次渲染触发穿越（飞入再飞出）的概率
+    function isBackSide() {
+      // 背面页面有 <main id="BackSide">；正面页面没有 → 不穿越
+      return !!document.getElementById('BackSide')
+    }
+    function getPetFiles() {
+      // 汇总所有已启用桌宠的媒体文件（文件名与启用状态在 PET_CONFIG 中维护）
+      if (!PET_CONFIG || !PET_CONFIG.enabled) return []
+      return (PET_CONFIG.pets || [])
+        .filter(p => p && p.enabled && Array.isArray(p.files) && p.files.length)
+        .flatMap(p => p.files)
+    }
+    function randomPetFile() {
+      const files = getPetFiles()
+      return files.length ? files[Math.floor(Math.random() * files.length)] : ''
+    }
+    function createPetEl(src) {
+      const pet = document.createElement('div')
+      pet.id = 'petEl'
+      pet.className = 'pet'
+      pet.innerHTML = `<img src="${src}" alt="">`
+      return pet
+    }
+    function setPetPos(pet, x, y, flip) {
+      // 不旋转图像，仅按水平方向镜像（flip = -1 时面朝左），保持图像始终直立
+      pet.style.transform = `translate(${x}px, ${y}px)${flip === -1 ? ' scaleX(-1)' : ''}`
+    }
+    function petMoveTo(pet, x, y, duration, easing, flip) {
+      // 用 CSS animation 移动桌宠（比 transition 更可靠，规避安卓 WebView 离屏元素首帧不渲染的问题）
+      const scale = flip === -1 ? ' scaleX(-1)' : ''
+      const to = `translate(${x}px, ${y}px)${scale}`
+      let from = pet.style.transform
+      if (pet.style.animation) {
+        // 动画进行中被再次触发（如连续点击）：以当前视觉位置为起点
+        from = getComputedStyle(pet).transform
+        pet.style.animation = ''
+      }
+      const key = `petMove${Date.now()}${Math.floor(Math.random() * 9999)}`
+      const style = document.createElement('style')
+      style.textContent = `@keyframes ${key} { from { transform: ${from || 'none'}; } to { transform: ${to}; } }`
+      document.head.appendChild(style)
+      pet.style.animation = `${key} ${duration}s ${easing} forwards`
+      const onEnd = () => {
+        if (pet.isConnected) {
+          pet.style.transform = to
+          pet.style.animation = ''
+        }
+      }
+      pet.addEventListener('animationend', onEnd, { once: true })
+      setTimeout(() => { if (style.isConnected) style.remove() }, (duration + 1) * 1000)
+    }
+    function randomEdgePoint(off) {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const edge = Math.floor(Math.random() * 4)
+      if (edge === 0) return { x: Math.random() * vw, y: -off }          // 上
+      if (edge === 1) return { x: vw + off, y: Math.random() * vh }      // 右
+      if (edge === 2) return { x: Math.random() * vw, y: vh + off }      // 下
+      return { x: -off, y: Math.random() * vh }                          // 左
+    }
+    function randomFlyPath(off) {
+      // 起点在屏幕边缘随机位置，终点在对侧边缘（位置与角度任意，保证穿越整个屏幕）
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const from = randomEdgePoint(off)
+      let ex, ey
+      if (from.y <= -off) {            // 从上边进入 → 下边飞出
+        ex = Math.random() * vw
+        ey = vh + off
+      } else if (from.x >= vw + off) { // 从右边进入 → 左边飞出
+        ex = -off
+        ey = Math.random() * vh
+      } else if (from.y >= vh + off) { // 从下边进入 → 上边飞出
+        ex = Math.random() * vw
+        ey = -off
+      } else {                         // 从左边进入 → 右边飞出
+        ex = vw + off
+        ey = Math.random() * vh
+      }
+      return { sx: from.x, sy: from.y, ex, ey }
+    }
+    function getPetBlankSpot(size, exclude) {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const selectors = '.word, .examplefront, .exampleback, .explain, .connectiveNote, .connectiveTag, .cnote, .categoryheader, .footer'
+      const rects = [...document.querySelectorAll(selectors)]
+        .filter(el => el.getClientRects().length)
+        .map(el => el.getBoundingClientRect())
+      const self = document.getElementById('petEl')
+      if (self) rects.push(self.getBoundingClientRect())
+      if (exclude) rects.push(exclude)
+      const pad = 8
+      for (let i = 0; i < 40; i++) {
+        const x = pad + Math.random() * (vw - size - pad * 2)
+        const y = pad + Math.random() * (vh - size - pad * 2)
+        const r = { left: x, top: y, right: x + size, bottom: y + size }
+        if (!rects.some(b => b.right > r.left && b.left < r.right && b.bottom > r.top && b.top < r.bottom)) {
+          return { x, y }
+        }
+      }
+      return { x: Math.max(pad, vw - size - pad), y: Math.max(pad, vh - size - pad) }
+    }
+    function petFlyThrough() {
+      // 从屏幕边缘带有速度地飞入，从另一端飞出（位置、角度任意，约 2 秒）；图像保持直立不旋转
+      const src = randomPetFile()
+      if (!src) return
+      const pet = createPetEl(src)
+      const off = PET_SIZE
+      const { sx, sy, ex, ey } = randomFlyPath(off)
+      const flip = ex < sx ? -1 : 1
+      setPetPos(pet, sx, sy, flip)
+      document.body.appendChild(pet)
+      petMoveTo(pet, ex, ey, PET_DURATION, 'linear', flip)
+      setTimeout(() => pet.remove(), (PET_DURATION + 0.1) * 1000)
+    }
+    function petSettleIn() {
+      // 从屏幕边缘飘入，减速停在避开文字的空白处；单击飞往其他空白处
+      const src = randomPetFile()
+      if (!src) return
+      const pet = createPetEl(src)
+      const off = PET_SIZE
+      const start = randomEdgePoint(off)
+      const spot = getPetBlankSpot(PET_SIZE)
+      const flip = spot.x < start.x ? -1 : 1
+      setPetPos(pet, start.x, start.y, flip)
+      document.body.appendChild(pet)
+      petMoveTo(pet, spot.x, spot.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flip)
+      // 阻止点击桌宠时触发文本选中（移动端双击/选择），不影响 click 触发移动
+      pet.addEventListener('mousedown', e => e.preventDefault())
+      pet.addEventListener('click', e => {
+        e.preventDefault()
+        const next = getPetBlankSpot(PET_SIZE, pet.getBoundingClientRect())
+        const flipNext = next.x < pet.getBoundingClientRect().left ? -1 : 1
+        petMoveTo(pet, next.x, next.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flipNext)
+      })
+    }
+    function setupPet() {
+      if (!PET_CONFIG || !PET_CONFIG.enabled) return
+      if (!getPetFiles().length) return
+      if (document.getElementById('petSentinel')) return
+      // 哨兵元素用于检测翻页：翻页后随卡片内容被替换而消失
+      const sentinel = document.createElement('span')
+      sentinel.id = 'petSentinel'
+      sentinel.style.display = 'none'
+      const root = document.querySelector('#qa') || document.querySelector('.card') || document.body
+      root.appendChild(sentinel)
+      // 穿越（飞入再飞出）：仅背面允许；正面不触发。延迟到 DOM 解析完成后再判定。
+      setTimeout(() => {
+        if (!sentinel.isConnected) return
+        if (isBackSide() && Math.random() < PET_FLY_CHANCE) {
+          petFlyThrough()
+        }
+      }, 0)
+      // 停留监测：用户在当前卡片停留超过 15 秒，桌宠飘入并停留在界面
+      setTimeout(() => {
+        if (!PET_CONFIG || !PET_CONFIG.enabled) return
+        if (!sentinel.isConnected) return              // 已翻页（哨兵随卡片内容被替换而移除）
+        if (document.getElementById('petEl')) return   // 已有桌宠
+        petSettleIn()
+      }, PET_IDLE_MS)
+    }
+    setupPet()
+  })()
+</script>
+
+<script>
+  // 背面适配：若为背面页面，隐藏整个正面内容（word + 例句）。
+  // 本脚本随 {{FrontSide}} 在背面执行；延迟到 DOM 解析完成后判定（#BackSide 此时已存在）。
+  setTimeout(function () {
+    if (!document.getElementById('BackSide')) return
+    var frontSide = document.getElementById('frontSide')
+    if (frontSide) frontSide.style.display = 'none'
+  }, 0)
 </script>
