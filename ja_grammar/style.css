@@ -37,6 +37,7 @@ body {
 
 .word[lang="ja"] {
     font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-size: 36px;
 }
 
 .connectiveTag[lang="ja"] {
