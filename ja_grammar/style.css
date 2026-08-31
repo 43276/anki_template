@@ -32,19 +32,22 @@ body {
 }
 
 .num {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-family: 'Source Han Sans JP', 'KleeOne LXGW Mono GB', 'Source Han Sans CN', serif;
 }
 
-.word[lang="ja"] {
+.word,
+.word * {
     font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
     font-size: 36px;
 }
 
-.connectiveTag[lang="ja"] {
+.word rt {
     font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-size: 14px;
 }
 
-.connectiveNote[lang="ja"] {
+.footer,
+.footer * {
     font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
 }
 
