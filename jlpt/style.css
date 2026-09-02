@@ -68,10 +68,10 @@ ul {
 }
 
 @font-face {
-  font-family: 'KleeOne LXGW Mono GB';
-  src: url('_KleeOneLXGWMonoGB.ttf') format('opentype');
+  font-family: 'KleeOne';
+  src: url('_KleeOne_Regular.ttf') format('opentype');
   font-weight: 500;
-  font-display: block;
+  font-display: swap;
 }
 
 
@@ -89,7 +89,7 @@ body,
 }
 
 .VocabKanji :lang(ja) {
-  font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', serif;
+  font-family: 'KleeOne', 'Source Han Sans JP', serif;
 }
 
 :root {
@@ -652,3 +652,4 @@ body,
   pointer-events: none;
   -webkit-user-drag: none;
 }
+

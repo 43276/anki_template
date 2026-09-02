@@ -2,21 +2,21 @@
   font-family: 'Source Han Sans CN';
   src: url('_SourceHanSansCN-Medium.otf') format('opentype');
   font-weight: 500;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Source Han Sans JP';
   src: url('_SourceHanSansJP-Medium.otf') format('opentype');
   font-weight: 500;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'KleeOne LXGW Mono GB';
-  src: url('_KleeOneLXGWMonoGB.ttf') format('opentype');
+  font-family: 'KleeOne';
+  src: url('_KleeOne_Regular.ttf') format('opentype');
   font-weight: 500;
-  font-display: block;
+  font-display: swap;
 }
 
 body {
@@ -32,27 +32,27 @@ body {
 }
 
 .num {
-    font-family: 'Source Han Sans JP', 'KleeOne LXGW Mono GB', 'Source Han Sans CN', serif;
+    font-family: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
 }
 
 .word,
 .word * {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
     font-size: 36px;
 }
 
 .word rt {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
     font-size: 14px;
 }
 
 .footer,
 .footer * {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
 }
 
 .leader {
-    font-family: 'KleeOne LXGW Mono GB', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
 }
 
 
@@ -248,3 +248,4 @@ b {
   pointer-events: none;
   -webkit-user-drag: none;
 }
+
