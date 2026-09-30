@@ -23,6 +23,7 @@
   --grammar-font-sans: 'Source Han Sans CN', 'Source Han Sans JP', serif;
   --grammar-font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
   --grammar-font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --grammar-font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
   --grammar-surface: #e6e6e6;
   --grammar-surface-accent: #e7eeff;
   --grammar-muted: #666666;
@@ -54,7 +55,7 @@ body {
 }
 
 .num {
-  font-family: var(--grammar-font-display);
+  font-family: var(--grammar-font-number);
 }
 
 .word,
