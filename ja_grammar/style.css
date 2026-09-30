@@ -19,178 +19,167 @@
   font-display: swap;
 }
 
+:root {
+  --grammar-font-sans: 'Source Han Sans CN', 'Source Han Sans JP', serif;
+  --grammar-font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --grammar-font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --grammar-surface: #e6e6e6;
+  --grammar-surface-accent: #e7eeff;
+  --grammar-muted: #666666;
+  --grammar-accent: #f97316;
+  --grammar-audio: #666666;
+  --grammar-radius: 5px;
+  --grammar-space-sm: 5px;
+  --grammar-space-md: 10px;
+}
+
+.nightMode {
+  --grammar-surface: #191919;
+  --grammar-surface-accent: #001a54;
+  --grammar-muted: #999999;
+  --grammar-accent: #fdba74;
+  --grammar-audio: #999999;
+}
+
 body {
-    font-family:  'Source Han Sans CN', 'Source Han Sans JP',serif;
+  font-family: var(--grammar-font-sans);
 }
 
 :lang(zh) {
-    font-family:  'Source Han Sans CN', 'Source Han Sans JP',serif;
+  font-family: var(--grammar-font-sans);
 }
 
 :lang(ja) {
-    font-family: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  font-family: var(--grammar-font-ja);
 }
 
 .num {
-    font-family: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
+  font-family: var(--grammar-font-display);
 }
 
 .word,
 .word * {
-    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
-    font-size: 36px;
+  font-family: var(--grammar-font-display);
+  font-size: 36px;
 }
 
 .word rt {
-    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
-    font-size: 14px;
+  font-family: var(--grammar-font-display);
+  font-size: 14px;
 }
 
 .footer,
 .footer * {
-    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  font-family: var(--grammar-font-display);
 }
 
 .leader {
-    font-family: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  font-family: var(--grammar-font-display);
 }
 
-
 .card {
-    text-align: left;
-    padding: 10px;
+  text-align: left;
+  padding: var(--grammar-space-md);
 }
 
 .header {
-    justify-content: space-between;
-    font-size: 24px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    align-items: flex-start; /* Aligns items to the top */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 var(--grammar-space-md);
+  font-size: 24px;
 }
 
 .right-side {
-    display: flex;
-    align-items: center;
-    gap: 0px; /* Add some space between "Level" and "Link" */
+  display: flex;
+  align-items: center;
 }
 
 hr {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .content {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+  margin: var(--grammar-space-md) var(--grammar-space-md) 0;
 }
 
 .explain {
-    font-size: 18px;
-    margin-bottom: 10px;
+  margin-bottom: var(--grammar-space-md);
+  font-size: 18px;
 }
 
 .examplefront {
-    font-size: 18px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--grammar-space-md);
+  font-size: 18px;
 }
 
 .exampleback {
-    font-size: 18px;
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 5px
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--grammar-space-sm);
+  font-size: 18px;
 }
 
 .examplesentences {
-    justify-content: space-between;
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-.num {
-    font-weight: bold;
-    margin-left: 0px;
-    margin-right: 5px;
-}
-
+.num,
 .leader {
-    font-weight: bold;
-    margin-left: 0px;
-    margin-right: 5px;
+  margin-right: var(--grammar-space-sm);
+  font-weight: bold;
 }
 
 .footer {
-    margin-bottom: 10px;
-    margin-left: 0px;
-    margin-right: 0px;
-    background-color: #e6e6e6;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-.nightMode .footer {
-    background-color: #191919;
+  margin: 0 0 var(--grammar-space-md);
+  padding: var(--grammar-space-md);
+  border-radius: var(--grammar-radius);
+  background-color: var(--grammar-surface);
+  font-size: 18px;
 }
 
 .categoryheader {
-    display: inline-block; /* Allows width to adjust according to content */
-    background-color: #e7eeff;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-.nightMode .categoryheader {
-    background-color: #001a54;
+  display: inline-block;
+  padding: var(--grammar-space-md);
+  border-radius: var(--grammar-radius);
+  background-color: var(--grammar-surface-accent);
+  font-size: 18px;
 }
 
 .connectiveTag {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: left;
-    margin-right: 5px;
+  margin-right: var(--grammar-space-sm);
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
 }
 
 .connectiveNote {
-    font-size: 18px;
-    color: #666666;
-    margin-top: 10px;
-    text-align: left;
-}
-
-.nightMode .connectiveNote {
-    color: #999999;
+  margin-top: var(--grammar-space-md);
+  color: var(--grammar-muted);
+  font-size: 18px;
+  text-align: left;
 }
 
 .cnote {
-    font-size: 18px;
-    color: #666666;
-    display: inline-flex; /* or display: flex; */
-    align-items: start;
-}
-
-.nightMode .cnote {
-    color: #999999;
+  display: inline-flex;
+  align-items: flex-start;
+  color: var(--grammar-muted);
+  font-size: 18px;
 }
 
 .image {
-    text-align: center; /* Center the content within the .image div */
-    margin-top: 10px; /* Optional: Adds spacing above the image */
+  margin-top: var(--grammar-space-md);
+  text-align: center;
 }
 
-b {
-    color: #f97316;
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-}
-
-.nightMode b{
-    color: #fdba74;
+.card b {
+  color: var(--grammar-accent);
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
 }
 
 .ios [lang="ja"]:not(.word) rt,
@@ -206,19 +195,11 @@ b {
 
 .replay-button svg circle {
   fill: transparent;
-  stroke: #666666;
+  stroke: var(--grammar-audio);
 }
 
 .replay-button svg path {
-  fill: #666666;
-}
-
-.nightMode .replay-button svg circle {
-  stroke: #999999;
-}
-
-.nightMode .replay-button svg path {
-  fill: #999999;
+  fill: var(--grammar-audio);
 }
 
 /* --- 桌宠样式 --- */

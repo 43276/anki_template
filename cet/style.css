@@ -7,23 +7,23 @@ site:https://github.com/ninja33/odh
 :root {
   --cet-fg: #414141;
   --cet-hr: #e5e5e5;
+  --cet-font-family: "Segoe UI", Arial, "Microsoft Yahei", sans-serif;
+  --cet-space-sm: 5px;
+  --cet-space-md: 12px;
 }
 
 :root.night-mode,
-:root .night_mode,
-:root .nightMode,
-:root .nightmode,
-body.nightMode,
-body.night-mode,
+.night_mode,
+.nightMode,
+.nightmode,
 [data-bs-theme='dark'],
-[data-theme='dark'],
-.nightMode {
+[data-theme='dark'] {
   --cet-fg: #e5e7eb;
   --cet-hr: #494949;
 }
 
 .card {
-  margin: 12px;
+  margin: var(--cet-space-md);
   text-align: left;
   background-color: transparent;
   color: var(--cet-fg);
@@ -32,36 +32,35 @@ body.night-mode,
 .section {
   color: var(--cet-fg);
   background-color: transparent;
-  font-family:"Segoe UI", Arial, "Microsoft Yahei", sans-serif;
+  font-family: var(--cet-font-family);
   font-size: 16px;
-  margin: 12px 0;
+  margin: var(--cet-space-md) 0;
 }
 
-
-.items{
-  margin: 0 12px;
+.items {
+  margin: 0 var(--cet-space-md);
   padding: 10px 0;
 }
 
-.audio{
-  margin-left: 5px;
+.audio {
+  margin-left: var(--cet-space-sm);
 }
 
-.audio img{
+.audio img {
   width: 64px;
   height: 64px;
   vertical-align: middle;
 }
 
-hr{
+hr {
   border: 0;
-  margin: 0 12px;
+  margin: 0 var(--cet-space-md);
   border-top: 1px solid var(--cet-hr);
 }
 
-.items hr{
+.items hr {
   border: 0;
-  margin: 12px 0;
+  margin: var(--cet-space-md) 0;
   border-top: 1px solid var(--cet-hr);
 }
 
@@ -70,29 +69,20 @@ hr{
   display: none;
 }
 
-#front, 
-#back{
+#front,
+#back {
   line-height: 1.5em;
 }
 
-#front{
+#front {
   font-size: 2em;
   font-weight: bold;
   text-align: left;
 }
 
-#back{
-}
-
-#front-extra1{
+#front-extra1 {
   font-size: 0.8em;
   margin-top: -1.5em;
-}
-#front-extra2{
-}
-#back-extra1{
-}
-#back-extra1{
 }
 
 /* --- 桌宠样式 --- */
