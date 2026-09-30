@@ -47,7 +47,6 @@
   function CONFIG() {
     // --- 以下为设置里的预设项，根据个人需求调整 --- //
     const settings = {
-      lang: 'zh-Hans',      // 显示语言: 'zh-Hans' 简体中文 | 'zh-Hant' 繁体中文
       display: 'default',   // 正面单词显示: 'default' 显示汉字和注音假名（如有） | 'kana' 只显示假名 | 'kanji' 只显示汉字
       frontExamples: 'all', // 正面例句区显示：'none' 无 | 'examples' 仅例句 | 'all' 例句、关联词和反义词
       playback: 'force',    // 背面播放设置: 'default' 跟随牌组的系统设置 | 'force' 强制只播放单词音频
@@ -139,15 +138,6 @@
       ;(isAndroid() || hasRuby || hasHTMLTags)
         ? el.innerHTML = text
         : el.textContent = text
-    }
-  }
-  function setLang() {
-    const lang = CONFIG().settings.lang
-    if (lang === 'zh-Hant') {
-      document.documentElement.lang = lang
-      updateText('.VocabDef', '{{VocabDefTC}}')
-      const defs = ['{{SentDefTC1}}', '{{SentDefTC2}}', '{{SentDefTC3}}', '{{SentDefTC4}}']
-      defs.forEach((def, index) => updateText(`li:nth-child(${index + 1}) .SentDef`, def))
     }
   }
   function removeSpaces() {
@@ -267,7 +257,6 @@
     }, 0)
   }
   function setupCard() {
-    setLang()
     setType()
     markWords()
     setFrontExamples()

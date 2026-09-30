@@ -54,13 +54,6 @@ ul {
 }
 
 @font-face {
-  font-family: 'Source Han Sans TW';
-  src: url('_SourceHanSansTW-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Source Han Sans JP';
   src: url('_SourceHanSansJP-Medium.otf') format('opentype');
   font-weight: 500;
@@ -78,10 +71,6 @@ ul {
 body,
 :lang(zh-Hans) {
   font-family: 'Source Han Sans CN', 'Source Han Sans JP', serif;
-}
-
-:lang(zh-Hant) {
-  font-family: 'Source Han Sans TW', 'Source Han Sans JP', 'Source Han Sans CN', serif;
 }
 
 :lang(ja) {
