@@ -1,0 +1,28 @@
+<!-- Card1 [日-中] 正面 -->
+{{^Alt1}}
+<main id="FrontSide" class="anki-card jlpt-card CardSide" lang="zh-Hans">
+  <header class="Question">
+    <h1 class="VocabKanji">
+      <span lang="ja">{{furigana:VocabKanji}}</span>
+      <span class="VocabPitch"></span>
+    </h1>
+    <div class="VocabAudio"></div>
+  </header>
+  <ul class="SentenceList">
+    <!-- @repeat front-sentence.html 4 -->
+  </ul>
+</main>
+<div class="jlpt-fields" hidden>
+  <span data-field="kanji">{{text:kanji:VocabKanji}}</span>
+  <span data-field="word">{{VocabKanji}}</span>
+  <span data-field="furigana">{{furigana:VocabKanji}}</span>
+  <span data-field="plain-kanji">{{kanji:VocabKanji}}</span>
+  <span data-field="kana">{{VocabFurigana}}</span>
+  <span data-field="pos">{{VocabPoS}}</span>
+  <span data-field="type1">{{SentType1}}</span>
+  <span data-field="type2">{{SentType2}}</span>
+  <span data-field="type3">{{SentType3}}</span>
+  <span data-field="type4">{{SentType4}}</span>
+</div>
+<!-- @runtime -->
+{{/Alt1}}

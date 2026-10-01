@@ -1,0 +1,12 @@
+{{#SentKanji@@INDEX@@}}
+<li class="Sentence" data-index="@@INDEX@@">
+  <div class="SentGroup">
+    <h3 class="SentFurigana LabelIndent" lang="ja">
+      {{#SentFurigana@@INDEX@@}}{{furigana:SentFurigana@@INDEX@@}}{{/SentFurigana@@INDEX@@}}
+      {{^SentFurigana@@INDEX@@}}{{furigana:SentKanji@@INDEX@@}}{{/SentFurigana@@INDEX@@}}
+    </h3>
+    <h3 class="SentDef LabelIndent" lang="zh-Hans">{{SentDefSC@@INDEX@@}}</h3>
+  </div>
+  <div class="SentAudio">{{SentAudio@@INDEX@@}}</div>
+</li>
+{{/SentKanji@@INDEX@@}}

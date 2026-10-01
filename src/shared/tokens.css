@@ -1,0 +1,10 @@
+/* Shared values; template-specific aliases preserve each card's appearance. */
+:root {
+  --font-cn: 'Source Han Sans CN', 'Source Han Sans JP', serif;
+  --font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 12px;
+}

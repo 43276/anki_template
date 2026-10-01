@@ -1,0 +1,10 @@
+{
+  "display": "default",
+  "frontExamples": "all",
+  "playback": "force",
+  "autoCopy": {
+    "ipad": true,
+    "iphone": false,
+    "ankiweb": false
+  }
+}

@@ -1,6 +1,7 @@
+<!-- 自动生成：请修改 src 并运行 npm run build。 -->
 <!-- Card1 [日-中] 正面 -->
 {{^Alt1}}
-<main id="FrontSide" class="CardSide">
+<main id="FrontSide" class="anki-card jlpt-card CardSide" lang="zh-Hans">
   <header class="Question">
     <h1 class="VocabKanji">
       <span lang="ja">{{furigana:VocabKanji}}</span>
@@ -10,429 +11,466 @@
   </header>
   <ul class="SentenceList">
     {{#SentKanji1}}
-    <li class="Sentence">
-      <h3 class="SentKanji LabelIndent" lang="ja">
-        {{#SentFurigana1}}{{kanji:SentFurigana1}}{{/SentFurigana1}}
-        {{^SentFurigana1}}{{kanji:SentKanji1}}{{/SentFurigana1}}
-      </h3>
-    </li>
-    {{/SentKanji1}}
-    {{#SentKanji2}}
-    <li class="Sentence">
-      <h3 class="SentKanji LabelIndent" lang="ja">
-        {{#SentFurigana2}}{{kanji:SentFurigana2}}{{/SentFurigana2}}
-        {{^SentFurigana2}}{{kanji:SentKanji2}}{{/SentFurigana2}}
-      </h3>
-    </li>
-    {{/SentKanji2}}
-    {{#SentKanji3}}
-    <li class="Sentence">
-      <h3 class="SentKanji LabelIndent" lang="ja">
-        {{#SentFurigana3}}{{kanji:SentFurigana3}}{{/SentFurigana3}}
-        {{^SentFurigana3}}{{kanji:SentKanji3}}{{/SentFurigana3}}
-      </h3>
-    </li>
-    {{/SentKanji3}}
-    {{#SentKanji4}}
-    <li class="Sentence">
-      <h3 class="SentKanji LabelIndent" lang="ja">
-        {{#SentFurigana4}}{{kanji:SentFurigana4}}{{/SentFurigana4}}
-        {{^SentFurigana4}}{{kanji:SentKanji4}}{{/SentFurigana4}}
-      </h3>
-    </li>
-    {{/SentKanji4}}
+<li class="Sentence" data-index="1">
+  <h3 class="SentKanji LabelIndent" lang="ja">
+    {{#SentFurigana1}}{{kanji:SentFurigana1}}{{/SentFurigana1}}
+    {{^SentFurigana1}}{{kanji:SentKanji1}}{{/SentFurigana1}}
+  </h3>
+</li>
+{{/SentKanji1}}
+{{#SentKanji2}}
+<li class="Sentence" data-index="2">
+  <h3 class="SentKanji LabelIndent" lang="ja">
+    {{#SentFurigana2}}{{kanji:SentFurigana2}}{{/SentFurigana2}}
+    {{^SentFurigana2}}{{kanji:SentKanji2}}{{/SentFurigana2}}
+  </h3>
+</li>
+{{/SentKanji2}}
+{{#SentKanji3}}
+<li class="Sentence" data-index="3">
+  <h3 class="SentKanji LabelIndent" lang="ja">
+    {{#SentFurigana3}}{{kanji:SentFurigana3}}{{/SentFurigana3}}
+    {{^SentFurigana3}}{{kanji:SentKanji3}}{{/SentFurigana3}}
+  </h3>
+</li>
+{{/SentKanji3}}
+{{#SentKanji4}}
+<li class="Sentence" data-index="4">
+  <h3 class="SentKanji LabelIndent" lang="ja">
+    {{#SentFurigana4}}{{kanji:SentFurigana4}}{{/SentFurigana4}}
+    {{^SentFurigana4}}{{kanji:SentKanji4}}{{/SentFurigana4}}
+  </h3>
+</li>
+{{/SentKanji4}}
   </ul>
 </main>
+<div class="jlpt-fields" hidden>
+  <span data-field="kanji">{{text:kanji:VocabKanji}}</span>
+  <span data-field="word">{{VocabKanji}}</span>
+  <span data-field="furigana">{{furigana:VocabKanji}}</span>
+  <span data-field="plain-kanji">{{kanji:VocabKanji}}</span>
+  <span data-field="kana">{{VocabFurigana}}</span>
+  <span data-field="pos">{{VocabPoS}}</span>
+  <span data-field="type1">{{SentType1}}</span>
+  <span data-field="type2">{{SentType2}}</span>
+  <span data-field="type3">{{SentType3}}</span>
+  <span data-field="type4">{{SentType4}}</span>
+</div>
 <script>
-  function CONFIG() {
-    // --- 以下为设置里的预设项，根据个人需求调整 --- //
-    const settings = {
-      display: 'default',   // 正面单词显示: 'default' 显示汉字和注音假名（如有） | 'kana' 只显示假名 | 'kanji' 只显示汉字
-      frontExamples: 'all', // 正面例句区显示：'none' 无 | 'examples' 仅例句 | 'all' 例句、关联词和反义词
-      playback: 'force',    // 背面播放设置: 'default' 跟随牌组的系统设置 | 'force' 强制只播放单词音频
-      autoCopy: {           // 背面自动复制: true 开启 | false 关闭
-        ipad: true,
-        iphone: false,
-        ankiweb: false,
-      },
-      pet: {
-        enabled: true,   // 桌宠功能总开关: true 开启 | false 关闭
-        pets: [          // 桌宠列表，按名称分别启用/关闭；媒体文件命名规则: _name_keyword1_keyword2.xxx（.gif/.jpg/.png 等均可）
-          {
-            name: 'aemeath', // 桌宠名称（对应文件名中的 name 部分）
-            enabled: true,   // 该桌宠开关: true 启用 | false 关闭
-            files: [         // 媒体文件（.gif/.jpg/.png 等均可），在此自行添加或删除
-              '_aemeath_flyTowardsRightSideOfScreen.gif',
-              '_aemeath_happy.gif',
-              '_aemeath_happy_rightHandUp.gif',
-              '_aemeath_jump_excited.gif',
-              '_aemeath_sigh.gif',
-              '_aemeath_stand.gif',
-              '_aemeath_sunglasses_sway_musicNote.gif',
-            ],
-          },
-          // 添加新桌宠示例（取消注释后按需修改）：
-          // { name: 'cat', enabled: false, files: ['_cat_wave.gif', '_cat_sleep.jpg'] },
-        ],
-      },
-    }
-    return { settings }
+// Generated from src; edit source files, then run npm run build.
+;(function () {
+// Each generated script is enclosed in an IIFE; Anki may reuse the same WebView.
+function createContext() {
+  const back = document.getElementById('BackSide')
+  const root = back || document.getElementById('FrontSide')
+  if (!root) return null
+  const previous = window.__ankiTemplateContext
+  if (previous && previous.root === root) return null
+  if (previous) previous.dispose()
+
+  const disposers = new Set()
+  let disposed = false
+  const context = {
+    root,
+    isBack: !!back,
+    get active() { return !disposed && root.isConnected },
+    onCleanup(fn) { disposers.add(fn); return fn },
+    timeout(fn, delay) {
+      const cleanup = () => clearTimeout(id)
+      const id = setTimeout(() => {
+        disposers.delete(cleanup)
+        if (context.active) fn()
+      }, delay)
+      disposers.add(cleanup)
+      return id
+    },
+    listen(target, event, fn, options) {
+      target.addEventListener(event, fn, options)
+      disposers.add(() => target.removeEventListener(event, fn, options))
+    },
+    dispose() {
+      if (disposed) return
+      disposed = true
+      disposers.forEach(fn => fn())
+      disposers.clear()
+      if (window.__ankiTemplateContext === context) delete window.__ankiTemplateContext
+    },
   }
-  function getDevice() {
-    if (isAnkiWeb()) return 'ankiweb'
-    return ['iphone', 'ipad'].find(p => document.documentElement.className.includes(p)) || 'other'
-  }
-  function isAndroid() {
-    return !!document.documentElement.className.includes('android')
-  }
-  function isAnkiWeb() {
-    return !!document.getElementById('quiz')
-  }
-  function isBackSide() {
-    return !!document.getElementById('BackSide')
-  }
-  function cleanWord(word = '{{text:kanji:VocabKanji}}') {
-    return word.replace(/\[[^\]]*\]|\([^)]*\)|[0-9!@#$%^&*()_+\-='":\\|,.<>/?~～〜\s]+/g, '')
-  }
-  function forcePlayback() {
-    if (CONFIG().settings.playback !== 'force') return
-    const el = document.querySelector('.VocabAudio .replay-button')
-    if (el) el.click()
-  }
-  function hideFrontElements() {
-    document.querySelector('#FrontSide ul').style.display = 'none'
-  }
-  function hideFurigana() {
-    if (CONFIG().settings.display === 'kanji') {
-      document.querySelectorAll('.VocabKanji rt').forEach(rt => {
-        rt.style.display = isBackSide() ? 'ruby-text' : 'none'
-      })
-    }
-  }
-  function hideKanji() {
-    if (CONFIG().settings.display === 'kana') {
-      if (isBackSide()) {
-        if (isAndroid()) {
-          updateText('.VocabKanji span[lang="ja"]', '{{furigana:VocabKanji}}')
-        }
-        return
-      }
-      const isKatakana = /^[ァ-ヴー]+$/.test('{{VocabKanji}}')
-      updateText('.VocabKanji span[lang="ja"]', isKatakana ? '{{kanji:VocabKanji}}' : '{{VocabFurigana}}')
-    }
-  }
-  function audioStylePatch() {
-    const target = document.querySelector('#FrontSide .VocabAudio')
-    const source = document.querySelector('#qa > .VocabAudio')
-    if (source && target && !target.innerHTML.trim()) {
-      source.classList.remove('!hidden')
-      target.replaceWith(source)
-    }
-  }
-  function updateText(selector, text) {
-    if (!text) return
-    const el = document.querySelector(selector)
-    if (el) {
-      const hasRuby = el.innerHTML.includes('<ruby>')
-      const hasHTMLTags = /<[^>]+>/i.test(text)
-      ;(isAndroid() || hasRuby || hasHTMLTags)
-        ? el.innerHTML = text
-        : el.textContent = text
-    }
-  }
-  function removeSpaces() {
-    document.querySelectorAll('.VocabPlus, .VocabPoS, .SentKanji, .SentFurigana, .SentDef').forEach(el => {
-      el.innerHTML = el.innerHTML
-        .replace(/\s*\n\s*/g, '')
-        .replace(/>\s+</g, '><')
-        .replace(/(<[^>]+>)|\s+/g, (m, tag) => tag || '')
-    })
-  }
-  function toggleBlur() {
-    document.querySelectorAll('.VocabKanji, .VocabFurigana, .VocabPlus, .SentKanji').forEach(el =>
-      el.classList.toggle('blur')
-    )
-  }
-  function getType(index) {
-    return ['{{SentType1}}', '{{SentType2}}', '{{SentType3}}', '{{SentType4}}'][index] || '例'
-  }
-  function setFrontExamples() {
-    const mode = CONFIG().settings.frontExamples
-    if (mode === 'all') return
-    const list = document.querySelector('#FrontSide .SentenceList')
-    if (!list) return
-    if (mode === 'none') {
-      list.style.display = 'none'
-      return
-    }
-    if (mode === 'examples') {
-      let shown = false
-      list.querySelectorAll('.Sentence').forEach((el, i) => {
-        const show = getType(i) === '例'
-        el.style.display = show ? '' : 'none'
-        if (show) shown = true
-      })
-      if (!shown) list.style.display = 'none'
-    }
-  }
-  function setType() {
-    ['.SentKanji', '.SentFurigana', '.SentDef', '.VocabPlus', '.VocabPoS'].forEach(selector => {
-      document.querySelectorAll(selector).forEach((el, i) => {
-        if (!el.textContent.trim() || el.querySelector('em')) return
-        const typeMap = {
-          'SentDef': '［訳］',
-          'VocabPlus': '［補］',
-          'SentKanji': `［${getType(i)}］`,
-          'SentFurigana': `［${getType(i)}］`,
-          'VocabPoS': '{{VocabPoS}}' ? '［{{VocabPoS}}］' : '［名］',
-        }
-        const type = typeMap[Object.keys(typeMap).find(key => el.className.includes(key))]
-        el.insertAdjacentHTML('afterbegin', `<em lang='ja'>${type}</em>`)
-      })
-    })
-  }
-  function markWords(word = '{{text:kanji:VocabKanji}}') {
-    const wordRegex = /[一-龠々ヵヶ]+|[ぁ-んァ-ヴー]+/g
-    const kanjiRegex = /[一-龠々ヵヶ]/
-    const parts = cleanWord().match(wordRegex) ?? []
-    if (parts.length === 0) return
-    const regexParts = parts.map(part => {
-      return kanjiRegex.test(part)
-        ? `(?:<ruby><rb>${part}</rb><rt>[^<]+</rt></ruby>|${part})`
-        : `(?:<ruby><rb>[^<]+</rb><rt>${part}</rt></ruby>|${part})`
-    })
-    const regex = new RegExp(regexParts.join('(?:\\s*?)'), 'g');
-    ['.SentKanji', '.SentFurigana'].forEach(selector => {
-      document.querySelectorAll(selector).forEach((el, i) => {
-        const type = getType(i)
-        if (el.querySelector('b, i, u, span, strong') || type !== '例') return
-        el.innerHTML = el.innerHTML
-          .replace(regex, match => `<strong>${match}</strong>`)
-          .replace(/[～〜]/g, `<strong>${cleanWord()}</strong>`)
-      })
-    })
-  }
-  function highlightWords() {
-    document.querySelectorAll('.SentFurigana').forEach((el, i) => {
-      if (el.querySelector('b, i, u, span')) return
-      const type = getType(i)
-      const prefix = type.match(/^(関|対)/)
-      if (!prefix) return
-      const tag = prefix[1] === '関' ? 'synonym' : 'antonym'
-      const content = el.innerHTML
-        .replace(/^<em[^>]*>［[^]*?］<\/em>/, '')
-        .trim()
-        .replace(/^［[^]*?］/, '')
-      el.innerHTML = el.querySelector('em') ? `<em lang='ja'>［${type}］</em><span class='${tag}'>${content}</span>` : `<span class='${tag}'>${content}</span>`
-    })
-  }
-  function showHint() {
-    if (isBackSide()) {
-      document.querySelectorAll('a.hint').forEach(hint => hint.style.display = 'none')
-    }
-  }
-  function setAnkiWebAudio() {
-    if (!isAnkiWeb()) return
-    document.querySelectorAll('.VocabAudio, .SentAudio').forEach(el => {
-      const audio = el.querySelector('audio')
-      if (!audio) return
-      audio.removeAttribute('controls')
-      el.insertAdjacentHTML('beforeend', '<a class="replay-button soundLink"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"/></svg></a>')
-      el.querySelector('.replay-button').addEventListener('click', e => {
-        e.preventDefault()
-        document.querySelectorAll('audio').forEach(a => a !== audio && !a.paused && a.pause())
-        audio.currentTime = 0
-        audio.play()
-      })
-    })
-  }
-  function autoCopyWord() {
-    if (!CONFIG().settings.autoCopy[getDevice()]) return
-    setTimeout(async () => {
-      try {
-        await navigator.clipboard.writeText(cleanWord())
-      } catch (err) {
-        console.error(err)
-      }
-    }, 0)
-  }
-  function setupCard() {
-    setType()
-    markWords()
-    setFrontExamples()
-    hideKanji()
-    removeSpaces()
-  }
-  // --- 桌宠功能 --- //
-  const PET_SIZE = 130          // 桌宠尺寸（像素），与 style.css 中 --pet-size 保持一致
-  const PET_DURATION = 2        // 飞行时长（秒）
-  const PET_IDLE_MS = 15000     // 停留监测：用户在当前卡片停留超过该时长则桌宠飘入停留
-  const PET_FLY_CHANCE = 0.1    // 每次渲染触发穿越（飞入再飞出）的概率
-  function getPetFiles() {
-    // 汇总所有已启用桌宠的媒体文件（文件名与启用状态在 CONFIG().settings.pet.pets 中维护）
-    const cfg = CONFIG().settings.pet
-    if (!cfg || !cfg.enabled) return []
-    return (cfg.pets || [])
-      .filter(p => p && p.enabled && Array.isArray(p.files) && p.files.length)
-      .flatMap(p => p.files)
-  }
-  function randomPetFile() {
-    const files = getPetFiles()
-    return files.length ? files[Math.floor(Math.random() * files.length)] : ''
-  }
-  function createPetEl(src) {
-    const pet = document.createElement('div')
-    pet.id = 'petEl'
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) context.dispose()
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
+  context.onCleanup(() => observer.disconnect())
+  window.__ankiTemplateContext = context
+  return context
+}
+
+// Edit text nodes only: keep ruby structure, audio nodes and their listeners.
+function stripSpaces(element) {
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT)
+  while (walker.nextNode()) walker.currentNode.nodeValue = walker.currentNode.nodeValue.replace(/\s+/g, '')
+}
+function setupPet(context, config, obstacleSelector) {
+  if (!config.enabled) return
+  const files = config.pets.filter(pet => pet.enabled).flatMap(pet => pet.files)
+  if (!files.length) return
+  let pet = null
+  let cancelMove = null
+  context.onCleanup(() => {
+    if (cancelMove) cancelMove()
+    if (pet) pet.remove()
+  })
+
+  function create() {
+    pet = document.createElement('div')
     pet.className = 'pet'
-    pet.innerHTML = `<img src="${src}" alt="">`
-    return pet
+    const img = document.createElement('img')
+    img.src = files[Math.floor(Math.random() * files.length)]
+    img.alt = ''
+    img.draggable = false
+    pet.appendChild(img)
+    document.body.appendChild(pet)
+    return parseFloat(getComputedStyle(pet).getPropertyValue('--pet-size')) || 130
   }
-  function setPetPos(pet, x, y, flip) {
-    // 不旋转图像，仅按水平方向镜像（flip = -1 时面朝左），保持图像始终直立
-    pet.style.transform = `translate(${x}px, ${y}px)${flip === -1 ? ' scaleX(-1)' : ''}`
+  function position(x, y, flip) {
+    return `translate(${x}px, ${y}px)${flip === -1 ? ' scaleX(-1)' : ''}`
   }
-  function petMoveTo(pet, x, y, duration, easing, flip) {
-    // 用 CSS animation 移动桌宠（比 transition 更可靠，规避安卓 WebView 离屏元素首帧不渲染的问题）
-    const scale = flip === -1 ? ' scaleX(-1)' : ''
-    const to = `translate(${x}px, ${y}px)${scale}`
-    let from = pet.style.transform
-    if (pet.style.animation) {
-      // 动画进行中被再次触发（如连续点击）：以当前视觉位置为起点
-      from = getComputedStyle(pet).transform
-      pet.style.animation = ''
-    }
+  function move(x, y, easing, flip) {
+    const from = getComputedStyle(pet).transform
+    if (cancelMove) cancelMove()
+    const to = position(x, y, flip)
     const key = `petMove${Date.now()}${Math.floor(Math.random() * 9999)}`
     const style = document.createElement('style')
-    style.textContent = `@keyframes ${key} { from { transform: ${from || 'none'}; } to { transform: ${to}; } }`
+    style.textContent = `@keyframes ${key} { from { transform: ${from}; } to { transform: ${to}; } }`
     document.head.appendChild(style)
-    pet.style.animation = `${key} ${duration}s ${easing} forwards`
-    const onEnd = () => {
-      if (pet.isConnected) {
-        pet.style.transform = to
-        pet.style.animation = ''
-      }
+    const element = pet
+    const finish = () => {
+      element.style.transform = to
+      element.style.animation = ''
+      element.removeEventListener('animationend', finish)
+      style.remove()
+      cancelMove = null
     }
-    pet.addEventListener('animationend', onEnd, { once: true })
-    setTimeout(() => { if (style.isConnected) style.remove() }, (duration + 1) * 1000)
-  }
-  function randomEdgePoint(off) {
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-    const edge = Math.floor(Math.random() * 4)
-    if (edge === 0) return { x: Math.random() * vw, y: -off }          // 上
-    if (edge === 1) return { x: vw + off, y: Math.random() * vh }      // 右
-    if (edge === 2) return { x: Math.random() * vw, y: vh + off }      // 下
-    return { x: -off, y: Math.random() * vh }                          // 左
-  }
-  function randomFlyPath(off) {
-    // 起点在屏幕边缘随机位置，终点在对侧边缘（位置与角度任意，保证穿越整个屏幕）
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-    const from = randomEdgePoint(off)
-    let ex, ey
-    if (from.y <= -off) {            // 从上边进入 → 下边飞出
-      ex = Math.random() * vw
-      ey = vh + off
-    } else if (from.x >= vw + off) { // 从右边进入 → 左边飞出
-      ex = -off
-      ey = Math.random() * vh
-    } else if (from.y >= vh + off) { // 从下边进入 → 上边飞出
-      ex = Math.random() * vw
-      ey = -off
-    } else {                         // 从左边进入 → 右边飞出
-      ex = vw + off
-      ey = Math.random() * vh
+    cancelMove = () => {
+      element.removeEventListener('animationend', finish)
+      element.style.animation = ''
+      style.remove()
     }
-    return { sx: from.x, sy: from.y, ex, ey }
+    element.addEventListener('animationend', finish, { once: true })
+    // CSS keyframes retain the original workaround for off-screen Android pets.
+    element.style.animation = `${key} ${config.duration}s ${easing} forwards`
   }
-  function getPetBlankSpot(size, exclude) {
+  function edge(size, side = Math.floor(Math.random() * 4)) {
     const vw = window.innerWidth
     const vh = window.innerHeight
-    const selectors = '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS, .VocabPlus, .SentKanji, .SentFurigana, .SentDef, .VocabPitch'
-    const rects = [...document.querySelectorAll(selectors)]
+    if (side === 0) return { x: Math.random() * vw, y: -size, side }
+    if (side === 1) return { x: vw + size, y: Math.random() * vh, side }
+    if (side === 2) return { x: Math.random() * vw, y: vh + size, side }
+    return { x: -size, y: Math.random() * vh, side }
+  }
+  function blankSpot(size) {
+    const pad = 8
+    const maxX = Math.max(pad, window.innerWidth - size - pad)
+    const maxY = Math.max(pad, window.innerHeight - size - pad)
+    const rects = [...document.querySelectorAll(obstacleSelector)]
       .filter(el => el.getClientRects().length)
       .map(el => el.getBoundingClientRect())
-    const self = document.getElementById('petEl')
-    if (self) rects.push(self.getBoundingClientRect())
-    if (exclude) rects.push(exclude)
-    const pad = 8
+    if (pet) rects.push(pet.getBoundingClientRect())
     for (let i = 0; i < 40; i++) {
-      const x = pad + Math.random() * (vw - size - pad * 2)
-      const y = pad + Math.random() * (vh - size - pad * 2)
-      const r = { left: x, top: y, right: x + size, bottom: y + size }
-      if (!rects.some(b => b.right > r.left && b.left < r.right && b.bottom > r.top && b.top < r.bottom)) {
-        return { x, y }
-      }
+      const x = pad + Math.random() * (maxX - pad)
+      const y = pad + Math.random() * (maxY - pad)
+      if (!rects.some(r => r.right > x && r.left < x + size && r.bottom > y && r.top < y + size)) return { x, y }
     }
-    return { x: Math.max(pad, vw - size - pad), y: Math.max(pad, vh - size - pad) }
+    return { x: maxX, y: maxY }
   }
-  function petFlyThrough() {
-    // 从屏幕边缘带有速度地飞入，从另一端飞出（位置、角度任意，约 2 秒）；图像保持直立不旋转
-    const src = randomPetFile()
-    if (!src) return
-    const pet = createPetEl(src)
-    const off = PET_SIZE
-    const { sx, sy, ex, ey } = randomFlyPath(off)
-    const flip = ex < sx ? -1 : 1
-    setPetPos(pet, sx, sy, flip)
-    document.body.appendChild(pet)
-    petMoveTo(pet, ex, ey, PET_DURATION, 'linear', flip)
-    setTimeout(() => pet.remove(), (PET_DURATION + 0.1) * 1000)
+  function appear(settle) {
+    if (pet) return
+    const size = create()
+    const start = edge(size)
+    const end = settle ? blankSpot(size) : edge(size, (start.side + 2) % 4)
+    const flip = end.x < start.x ? -1 : 1
+    pet.style.transform = position(start.x, start.y, flip)
+    move(end.x, end.y, settle ? 'cubic-bezier(0.22, 1, 0.36, 1)' : 'linear', flip)
+    if (settle) {
+      context.listen(pet, 'mousedown', e => e.preventDefault())
+      context.listen(pet, 'click', e => {
+        e.preventDefault()
+        const next = blankSpot(size)
+        move(next.x, next.y, 'cubic-bezier(0.22, 1, 0.36, 1)', next.x < pet.getBoundingClientRect().left ? -1 : 1)
+      })
+    } else {
+      context.timeout(() => {
+        if (cancelMove) cancelMove()
+        cancelMove = null
+        pet.remove()
+        pet = null
+      }, (config.duration + 0.1) * 1000)
+    }
   }
-  function petSettleIn() {
-    // 从屏幕边缘飘入，减速停在避开文字的空白处；单击飞往其他空白处
-    const src = randomPetFile()
-    if (!src) return
-    const pet = createPetEl(src)
-    const off = PET_SIZE
-    const start = randomEdgePoint(off)
-    const spot = getPetBlankSpot(PET_SIZE)
-    const flip = spot.x < start.x ? -1 : 1
-    setPetPos(pet, start.x, start.y, flip)
-    document.body.appendChild(pet)
-    petMoveTo(pet, spot.x, spot.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flip)
-    // 阻止点击桌宠时触发文本选中（移动端双击/选择），不影响 click 触发移动
-    pet.addEventListener('mousedown', e => e.preventDefault())
-    pet.addEventListener('click', e => {
-      e.preventDefault()
-      const next = getPetBlankSpot(PET_SIZE, pet.getBoundingClientRect())
-      const flipNext = next.x < pet.getBoundingClientRect().left ? -1 : 1
-      petMoveTo(pet, next.x, next.y, PET_DURATION, 'cubic-bezier(0.22, 1, 0.36, 1)', flipNext)
+  if (context.isBack && Math.random() < config.flyChance) appear(false)
+  context.timeout(() => appear(true), config.idleMs)
+}
+const petConfig = {
+  "enabled": true,
+  "duration": 2,
+  "idleMs": 15000,
+  "flyChance": 0.1,
+  "pets": [
+    {
+      "name": "aemeath",
+      "enabled": true,
+      "files": [
+        "_aemeath_flyTowardsRightSideOfScreen.gif",
+        "_aemeath_happy.gif",
+        "_aemeath_happy_rightHandUp.gif",
+        "_aemeath_jump_excited.gif",
+        "_aemeath_sigh.gif",
+        "_aemeath_stand.gif",
+        "_aemeath_sunglasses_sway_musicNote.gif"
+      ]
+    }
+  ]
+}
+const settings = {
+  "display": "default",
+  "frontExamples": "all",
+  "playback": "force",
+  "autoCopy": {
+    "ipad": true,
+    "iphone": false,
+    "ankiweb": false
+  }
+}
+setTimeout(() => {
+  const context = createContext()
+  if (!context) return
+  try {
+function readField(name, html = false) {
+  const element = document.querySelector('.jlpt-fields [data-field="' + name + '"]')
+  return element ? (html ? element.innerHTML : element.textContent) : ''
+}
+function getDevice() {
+  if (isAnkiWeb()) return 'ankiweb'
+  return ['iphone', 'ipad'].find(p => document.documentElement.className.includes(p)) || 'other'
+}
+function isAndroid() {
+  return !!document.documentElement.className.includes('android')
+}
+function isAnkiWeb() {
+  return !!document.getElementById('quiz')
+}
+function isBackSide() {
+  return !!document.getElementById('BackSide')
+}
+function cleanWord(word = readField('kanji')) {
+  return word.replace(/\[[^\]]*\]|\([^)]*\)|[0-9!@#$%^&*()_+\-='":\\|,.<>/?~～〜\s]+/g, '')
+}
+function setupPlayback() {
+  if (settings.playback !== 'force') return
+  let played = false
+  function playOnce() {
+    if (!context.active || played) return
+    const el = document.querySelector('.VocabAudio .replay-button')
+    if (!el) return
+    played = true
+    el.click()
+  }
+  if (typeof onShownHook !== 'undefined' && Array.isArray(onShownHook)) {
+    const hooks = onShownHook
+    hooks.push(playOnce)
+    context.onCleanup(() => {
+      const index = hooks.indexOf(playOnce)
+      if (index !== -1) hooks.splice(index, 1)
     })
   }
-  function setupPet() {
-    const cfg = CONFIG().settings.pet
-    if (!cfg || !cfg.enabled) return
-    if (!getPetFiles().length) return
-    if (document.getElementById('petSentinel')) return
-    // 哨兵元素用于检测翻页：翻页后随卡片内容被替换而消失
-    const sentinel = document.createElement('span')
-    sentinel.id = 'petSentinel'
-    sentinel.style.display = 'none'
-    const root = document.querySelector('#qa') || document.querySelector('.card') || document.body
-    root.appendChild(sentinel)
-    // 穿越（飞入再飞出）：仅背面允许；正面不触发。
-    // 注意：back 页面中 {{FrontSide}} 内嵌的 script 执行时 #BackSide 尚未解析，
-    // 此时 isBackSide() 会误判为 false，故延迟到 DOM 解析完成后再判定。
-    setTimeout(() => {
-      if (!sentinel.isConnected) return
-      if (isBackSide() && Math.random() < PET_FLY_CHANCE) {
-        petFlyThrough()
-      }
-    }, 0)
-    // 停留监测：用户在当前卡片停留超过 15 秒，桌宠飘入并停留在界面
-    setTimeout(() => {
-      if (!CONFIG().settings.pet.enabled) return
-      if (!sentinel.isConnected) return              // 已翻页（哨兵随卡片内容被替换而移除）
-      if (document.getElementById('petEl')) return   // 已有桌宠
-      petSettleIn()
-    }, PET_IDLE_MS)
+  context.timeout(playOnce, 0)
+}
+function hideFrontElements() {
+  const list = document.querySelector('#FrontSide ul')
+  if (list) list.style.display = 'none'
+}
+function hideFurigana() {
+  if (settings.display === 'kanji') {
+    document.querySelectorAll('.VocabKanji rt').forEach(rt => {
+      rt.style.display = isBackSide() ? 'ruby-text' : 'none'
+    })
   }
-</script>
-<script>
-  setupCard()
-  hideFurigana()
-  setAnkiWebAudio()
-  setupPet()
+}
+function hideKanji() {
+  if (settings.display === 'kana') {
+    if (isBackSide()) {
+      if (isAndroid()) {
+        updateText('.VocabKanji span[lang="ja"]', readField('furigana', true))
+      }
+      return
+    }
+    const isKatakana = /^[ァ-ヴー]+$/.test(readField('word'))
+    updateText('.VocabKanji span[lang="ja"]', isKatakana ? readField('plain-kanji', true) : readField('kana', true))
+  }
+}
+function audioStylePatch() {
+  const target = document.querySelector('#FrontSide .VocabAudio')
+  const source = document.querySelector('#qa > .VocabAudio')
+  if (source && target && !target.innerHTML.trim()) {
+    source.classList.remove('!hidden')
+    target.replaceWith(source)
+  }
+}
+function updateText(selector, text) {
+  if (!text) return
+  const el = document.querySelector(selector)
+  if (el) {
+    const hasRuby = el.innerHTML.includes('<ruby>')
+    const hasHTMLTags = /<[^>]+>/i.test(text)
+    ;(isAndroid() || hasRuby || hasHTMLTags)
+      ? el.innerHTML = text
+      : el.textContent = text
+  }
+}
+function removeSpaces() {
+  document.querySelectorAll('.VocabPlus, .VocabPoS, .SentKanji, .SentFurigana, .SentDef').forEach(stripSpaces)
+}
+function toggleBlur() {
+  document.querySelectorAll('.VocabKanji, .VocabFurigana, .VocabPlus, .SentKanji').forEach(el =>
+    el.classList.toggle('blur')
+  )
+}
+function getType(index, element) {
+  const sentence = element && element.closest('.Sentence')
+  const fieldIndex = sentence ? Number(sentence.dataset.index) : index + 1
+  return readField('type' + fieldIndex) || '例'
+}
+function setFrontExamples() {
+  const mode = settings.frontExamples
+  if (mode === 'all') return
+  const list = document.querySelector('#FrontSide .SentenceList')
+  if (!list) return
+  if (mode === 'none') {
+    list.style.display = 'none'
+    return
+  }
+  if (mode === 'examples') {
+    let shown = false
+    list.querySelectorAll('.Sentence').forEach((el, i) => {
+      const show = getType(i, el) === '例'
+      el.style.display = show ? '' : 'none'
+      if (show) shown = true
+    })
+    if (!shown) list.style.display = 'none'
+  }
+}
+function setType() {
+  ['.SentKanji', '.SentFurigana', '.SentDef', '.VocabPlus', '.VocabPoS'].forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      if (!el.textContent.trim() || el.querySelector('em')) return
+      const typeMap = {
+        'SentDef': '［訳］',
+        'VocabPlus': '［補］',
+        'SentKanji': `［${getType(i, el)}］`,
+        'SentFurigana': `［${getType(i, el)}］`,
+        'VocabPoS': readField('pos') ? `［${readField('pos')}］` : '［名］',
+      }
+      const type = typeMap[Object.keys(typeMap).find(key => el.className.includes(key))]
+      const label = document.createElement('em')
+      label.lang = 'ja'
+      label.textContent = type
+      el.prepend(label)
+    })
+  })
+}
+function markWords(word = readField('kanji')) {
+  const wordRegex = /[一-龠々ヵヶ]+|[ぁ-んァ-ヴー]+/g
+  const kanjiRegex = /[一-龠々ヵヶ]/
+  const parts = cleanWord(word).match(wordRegex) || []
+  if (parts.length === 0) return
+  const regexParts = parts.map(part => {
+    return kanjiRegex.test(part)
+      ? `(?:<ruby><rb>${part}</rb><rt>[^<]+</rt></ruby>|${part})`
+      : `(?:<ruby><rb>[^<]+</rb><rt>${part}</rt></ruby>|${part})`
+  })
+  const regex = new RegExp(regexParts.join('(?:\\s*?)'), 'g');
+  ['.SentKanji', '.SentFurigana'].forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      const type = getType(i, el)
+      if (el.querySelector('b, i, u, span, strong') || type !== '例') return
+      el.innerHTML = el.innerHTML
+        .replace(regex, match => `<strong>${match}</strong>`)
+        .replace(/[～〜]/g, `<strong>${cleanWord()}</strong>`)
+    })
+  })
+}
+function highlightWords() {
+  document.querySelectorAll('.SentFurigana').forEach((el, i) => {
+    if (el.querySelector('b, i, u, span')) return
+    const type = getType(i, el)
+    const prefix = type.match(/^(関|対)/)
+    if (!prefix) return
+    const tag = prefix[1] === '関' ? 'synonym' : 'antonym'
+    const content = el.innerHTML
+      .replace(/^<em[^>]*>［[^]*?］<\/em>/, '')
+      .trim()
+      .replace(/^［[^]*?］/, '')
+    el.innerHTML = el.querySelector('em') ? `<em lang='ja'>［${type}］</em><span class='${tag}'>${content}</span>` : `<span class='${tag}'>${content}</span>`
+  })
+}
+function showHint() {
+  if (isBackSide()) {
+    document.querySelectorAll('a.hint').forEach(hint => hint.style.display = 'none')
+  }
+}
+function setAnkiWebAudio() {
+  if (!isAnkiWeb()) return
+  document.querySelectorAll('.VocabAudio, .SentAudio').forEach(el => {
+    const audio = el.querySelector('audio')
+    if (!audio || el.querySelector('.replay-button')) return
+    audio.removeAttribute('controls')
+    el.insertAdjacentHTML('beforeend', '<a class="replay-button soundLink"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"/></svg></a>')
+    context.listen(el.querySelector('.replay-button'), 'click', e => {
+      e.preventDefault()
+      document.querySelectorAll('audio').forEach(a => a !== audio && !a.paused && a.pause())
+      audio.currentTime = 0
+      Promise.resolve(audio.play()).catch(console.error)
+    })
+  })
+}
+function autoCopyWord() {
+  if (!settings.autoCopy[getDevice()]) return
+  context.timeout(async () => {
+    try {
+      await navigator.clipboard.writeText(cleanWord())
+    } catch (err) {
+      console.error(err)
+    }
+  }, 0)
+}
+function setupCard() {
+  setType()
+  markWords()
+  setFrontExamples()
+  hideKanji()
+  removeSpaces()
+}
+
+setupCard()
+hideFurigana()
+document.querySelectorAll('.jlpt-card .blur').forEach(el => {
+  el.classList.toggle('has-hint', !!el.querySelector('a.hint'))
+})
+if (context.isBack) {
+  showHint()
+  autoCopyWord()
+  highlightWords()
+  audioStylePatch()
+  hideFrontElements()
+}
+setAnkiWebAudio()
+if (context.isBack) setupPlayback()
+setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS, .VocabPlus, .SentKanji, .SentFurigana, .SentDef, .VocabPitch, .VocabAudio, .SentAudio')
+  } catch (error) {
+    context.dispose()
+    console.error(error)
+  }
+}, 0)
+})()
 </script>
 {{/Alt1}}

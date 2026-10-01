@@ -1,0 +1,19 @@
+{{#Example@@INDEX@@}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">@@NUMBER@@</span>
+      <span lang="ja">{{furigana:Example@@INDEX@@}}</span>
+    </div>
+    {{#Chinese@@INDEX@@}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">@@NUMBER@@</span>
+        <span lang="zh-Hans">{{furigana:Chinese@@INDEX@@}}</span>
+      </span>
+    </div>
+    {{/Chinese@@INDEX@@}}
+  </div>
+  <div class="right-side">{{Audio@@INDEX@@}}</div>
+</div>
+<br>
+{{/Example@@INDEX@@}}

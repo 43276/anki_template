@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Source Han Sans CN';
+  src: url('_SourceHanSansCN-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Han Sans JP';
+  src: url('_SourceHanSansJP-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KleeOne';
+  src: url('_KleeOne_Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}

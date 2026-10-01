@@ -1,0 +1,221 @@
+function readField(name, html = false) {
+  const element = document.querySelector('.jlpt-fields [data-field="' + name + '"]')
+  return element ? (html ? element.innerHTML : element.textContent) : ''
+}
+function getDevice() {
+  if (isAnkiWeb()) return 'ankiweb'
+  return ['iphone', 'ipad'].find(p => document.documentElement.className.includes(p)) || 'other'
+}
+function isAndroid() {
+  return !!document.documentElement.className.includes('android')
+}
+function isAnkiWeb() {
+  return !!document.getElementById('quiz')
+}
+function isBackSide() {
+  return !!document.getElementById('BackSide')
+}
+function cleanWord(word = readField('kanji')) {
+  return word.replace(/\[[^\]]*\]|\([^)]*\)|[0-9!@#$%^&*()_+\-='":\\|,.<>/?~～〜\s]+/g, '')
+}
+function setupPlayback() {
+  if (settings.playback !== 'force') return
+  let played = false
+  function playOnce() {
+    if (!context.active || played) return
+    const el = document.querySelector('.VocabAudio .replay-button')
+    if (!el) return
+    played = true
+    el.click()
+  }
+  if (typeof onShownHook !== 'undefined' && Array.isArray(onShownHook)) {
+    const hooks = onShownHook
+    hooks.push(playOnce)
+    context.onCleanup(() => {
+      const index = hooks.indexOf(playOnce)
+      if (index !== -1) hooks.splice(index, 1)
+    })
+  }
+  context.timeout(playOnce, 0)
+}
+function hideFrontElements() {
+  const list = document.querySelector('#FrontSide ul')
+  if (list) list.style.display = 'none'
+}
+function hideFurigana() {
+  if (settings.display === 'kanji') {
+    document.querySelectorAll('.VocabKanji rt').forEach(rt => {
+      rt.style.display = isBackSide() ? 'ruby-text' : 'none'
+    })
+  }
+}
+function hideKanji() {
+  if (settings.display === 'kana') {
+    if (isBackSide()) {
+      if (isAndroid()) {
+        updateText('.VocabKanji span[lang="ja"]', readField('furigana', true))
+      }
+      return
+    }
+    const isKatakana = /^[ァ-ヴー]+$/.test(readField('word'))
+    updateText('.VocabKanji span[lang="ja"]', isKatakana ? readField('plain-kanji', true) : readField('kana', true))
+  }
+}
+function audioStylePatch() {
+  const target = document.querySelector('#FrontSide .VocabAudio')
+  const source = document.querySelector('#qa > .VocabAudio')
+  if (source && target && !target.innerHTML.trim()) {
+    source.classList.remove('!hidden')
+    target.replaceWith(source)
+  }
+}
+function updateText(selector, text) {
+  if (!text) return
+  const el = document.querySelector(selector)
+  if (el) {
+    const hasRuby = el.innerHTML.includes('<ruby>')
+    const hasHTMLTags = /<[^>]+>/i.test(text)
+    ;(isAndroid() || hasRuby || hasHTMLTags)
+      ? el.innerHTML = text
+      : el.textContent = text
+  }
+}
+function removeSpaces() {
+  document.querySelectorAll('.VocabPlus, .VocabPoS, .SentKanji, .SentFurigana, .SentDef').forEach(stripSpaces)
+}
+function toggleBlur() {
+  document.querySelectorAll('.VocabKanji, .VocabFurigana, .VocabPlus, .SentKanji').forEach(el =>
+    el.classList.toggle('blur')
+  )
+}
+function getType(index, element) {
+  const sentence = element && element.closest('.Sentence')
+  const fieldIndex = sentence ? Number(sentence.dataset.index) : index + 1
+  return readField('type' + fieldIndex) || '例'
+}
+function setFrontExamples() {
+  const mode = settings.frontExamples
+  if (mode === 'all') return
+  const list = document.querySelector('#FrontSide .SentenceList')
+  if (!list) return
+  if (mode === 'none') {
+    list.style.display = 'none'
+    return
+  }
+  if (mode === 'examples') {
+    let shown = false
+    list.querySelectorAll('.Sentence').forEach((el, i) => {
+      const show = getType(i, el) === '例'
+      el.style.display = show ? '' : 'none'
+      if (show) shown = true
+    })
+    if (!shown) list.style.display = 'none'
+  }
+}
+function setType() {
+  ['.SentKanji', '.SentFurigana', '.SentDef', '.VocabPlus', '.VocabPoS'].forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      if (!el.textContent.trim() || el.querySelector('em')) return
+      const typeMap = {
+        'SentDef': '［訳］',
+        'VocabPlus': '［補］',
+        'SentKanji': `［${getType(i, el)}］`,
+        'SentFurigana': `［${getType(i, el)}］`,
+        'VocabPoS': readField('pos') ? `［${readField('pos')}］` : '［名］',
+      }
+      const type = typeMap[Object.keys(typeMap).find(key => el.className.includes(key))]
+      const label = document.createElement('em')
+      label.lang = 'ja'
+      label.textContent = type
+      el.prepend(label)
+    })
+  })
+}
+function markWords(word = readField('kanji')) {
+  const wordRegex = /[一-龠々ヵヶ]+|[ぁ-んァ-ヴー]+/g
+  const kanjiRegex = /[一-龠々ヵヶ]/
+  const parts = cleanWord(word).match(wordRegex) || []
+  if (parts.length === 0) return
+  const regexParts = parts.map(part => {
+    return kanjiRegex.test(part)
+      ? `(?:<ruby><rb>${part}</rb><rt>[^<]+</rt></ruby>|${part})`
+      : `(?:<ruby><rb>[^<]+</rb><rt>${part}</rt></ruby>|${part})`
+  })
+  const regex = new RegExp(regexParts.join('(?:\\s*?)'), 'g');
+  ['.SentKanji', '.SentFurigana'].forEach(selector => {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      const type = getType(i, el)
+      if (el.querySelector('b, i, u, span, strong') || type !== '例') return
+      el.innerHTML = el.innerHTML
+        .replace(regex, match => `<strong>${match}</strong>`)
+        .replace(/[～〜]/g, `<strong>${cleanWord()}</strong>`)
+    })
+  })
+}
+function highlightWords() {
+  document.querySelectorAll('.SentFurigana').forEach((el, i) => {
+    if (el.querySelector('b, i, u, span')) return
+    const type = getType(i, el)
+    const prefix = type.match(/^(関|対)/)
+    if (!prefix) return
+    const tag = prefix[1] === '関' ? 'synonym' : 'antonym'
+    const content = el.innerHTML
+      .replace(/^<em[^>]*>［[^]*?］<\/em>/, '')
+      .trim()
+      .replace(/^［[^]*?］/, '')
+    el.innerHTML = el.querySelector('em') ? `<em lang='ja'>［${type}］</em><span class='${tag}'>${content}</span>` : `<span class='${tag}'>${content}</span>`
+  })
+}
+function showHint() {
+  if (isBackSide()) {
+    document.querySelectorAll('a.hint').forEach(hint => hint.style.display = 'none')
+  }
+}
+function setAnkiWebAudio() {
+  if (!isAnkiWeb()) return
+  document.querySelectorAll('.VocabAudio, .SentAudio').forEach(el => {
+    const audio = el.querySelector('audio')
+    if (!audio || el.querySelector('.replay-button')) return
+    audio.removeAttribute('controls')
+    el.insertAdjacentHTML('beforeend', '<a class="replay-button soundLink"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M56.502,32.301l-37.502,20.101l0.329,-40.804l37.173,20.703Z"/></svg></a>')
+    context.listen(el.querySelector('.replay-button'), 'click', e => {
+      e.preventDefault()
+      document.querySelectorAll('audio').forEach(a => a !== audio && !a.paused && a.pause())
+      audio.currentTime = 0
+      Promise.resolve(audio.play()).catch(console.error)
+    })
+  })
+}
+function autoCopyWord() {
+  if (!settings.autoCopy[getDevice()]) return
+  context.timeout(async () => {
+    try {
+      await navigator.clipboard.writeText(cleanWord())
+    } catch (err) {
+      console.error(err)
+    }
+  }, 0)
+}
+function setupCard() {
+  setType()
+  markWords()
+  setFrontExamples()
+  hideKanji()
+  removeSpaces()
+}
+
+setupCard()
+hideFurigana()
+document.querySelectorAll('.jlpt-card .blur').forEach(el => {
+  el.classList.toggle('has-hint', !!el.querySelector('a.hint'))
+})
+if (context.isBack) {
+  showHint()
+  autoCopyWord()
+  highlightWords()
+  audioStylePatch()
+  hideFrontElements()
+}
+setAnkiWebAudio()
+if (context.isBack) setupPlayback()
+setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS, .VocabPlus, .SentKanji, .SentFurigana, .SentDef, .VocabPitch, .VocabAudio, .SentAudio')

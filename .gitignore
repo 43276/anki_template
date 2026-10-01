@@ -6,3 +6,5 @@ agent.md
 *.png
 *.webp
 *.txt
+node_modules/
+preview/

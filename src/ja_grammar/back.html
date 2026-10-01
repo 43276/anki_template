@@ -1,0 +1,22 @@
+{{FrontSide}}
+<main id="BackSide" class="anki-card grammar-card GrammarBody" lang="zh-Hans">
+  <header class="header"><span class="word" lang="ja">{{furigana:Word}}</span></header>
+  <!-- @repeat connective.html 5 -->
+  {{#Explain1}}
+  <hr>
+  <div class="categoryheader"><span class="leader" lang="ja">解説</span></div>
+  <div class="content"><div class="explain" lang="ja">{{furigana:Explain1}}</div></div>
+  {{/Explain1}}
+  {{#Note1}}
+  <hr>
+  <div class="categoryheader"><span class="leader" lang="ja">注意</span></div>
+  <div class="content"><div class="explain" lang="ja">{{furigana:Note1}}</div></div>
+  {{/Note1}}
+  {{#Example1}}<hr>{{/Example1}}
+  <div class="content">
+    <!-- @repeat back-example.html 19 -->
+  </div>
+  {{#Image1}}<hr><div class="image">{{Image1}}</div>{{/Image1}}
+  {{#Image2}}<hr><div class="image">{{Image2}}</div>{{/Image2}}
+</main>
+<!-- @runtime -->

@@ -1,179 +1,604 @@
+<!-- 自动生成：请修改 src 并运行 npm run build。 -->
 {{FrontSide}}
-
-<main id="BackSide">
-<div class="card">
-    <div class="header">
-    <span class="word" lang="ja">{{furigana:Word}}</span>
-    </div>
-    {{#ConnectiveType1}}
-      <br>
-      <div class="footer">
-      <span class="connectiveTag" lang="ja">接続 <span class="num">①</span></span>
-      <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType1}}</span>
-    </div>{{/ConnectiveType1}}
-    {{#ConnectiveType2}}<div class="footer">
-      <span class="connectiveTag" lang="ja">接続 <span class="num">②</span></span>
-      <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType2}}</span>
-    </div>{{/ConnectiveType2}}
-    {{#ConnectiveType3}}<div class="footer">
-      <span class="connectiveTag" lang="ja">接続 <span class="num">③</span></span>
-      <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType3}}</span>
-    </div>{{/ConnectiveType3}}
-    {{#ConnectiveType4}}<div class="footer">
-      <span class="connectiveTag" lang="ja">接続 <span class="num">④</span></span>
-      <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType4}}</span>
-    </div>{{/ConnectiveType4}}
-    {{#ConnectiveType5}}<div class="footer">
-      <span class="connectiveTag" lang="ja">接続 <span class="num">⑤</span></span>
-      <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType5}}</span>
-    </div>{{/ConnectiveType5}}
-    {{#Explain1}}
-    <hr />
-    <div class="categoryheader"><span class="leader" lang="ja">解説</span></div>
-    <div class="content">
-                     <div class="explain" lang="ja">{{furigana:Explain1}}</div>
-        <div class="explain" lang="ja"></div>
-    </div>{{/Explain1}}
-    {{#Note1}}
-    <hr />
-    <div class="categoryheader"><span class="leader" lang="ja">注意</span></div>
-    <div class="content">
-                  <div class="explain" lang="ja">{{furigana:Note1}}</div>
-        <div class="explain" lang="ja"></div>
-    </div>{{/Note1}}
-    {{#Example1}}<hr />{{/Example1}}
-    <div class="content">
-        {{#Example1}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">①</span> <span lang="ja">{{furigana:Example1}}</span></div>
-            <div class="exampleback">{{#Chinese1}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">①</span> <span lang="zh">{{furigana:Chinese1}}</span></span></div></div>{{/Chinese1}}<div class="right-side">{{Audio1}}</div></div><br />
-        {{/Example1}}
-        {{#Example2}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">②</span> <span lang="ja">{{furigana:Example2}}</span></div>
-            <div class="exampleback">{{#Chinese2}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">②</span> <span lang="zh">{{furigana:Chinese2}}</span></span></div></div>{{/Chinese2}}<div class="right-side">{{Audio2}}</div></div><br />
-        {{/Example2}}
-        {{#Example3}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">③</span> <span lang="ja">{{furigana:Example3}}</span></div>
-            <div class="exampleback">{{#Chinese3}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">③</span> <span lang="zh">{{furigana:Chinese3}}</span></span></div></div>{{/Chinese3}}<div class="right-side">{{Audio3}}</div></div><br />
-        {{/Example3}}
-        {{#Example4}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">④</span> <span lang="ja">{{furigana:Example4}}</span></div>
-            <div class="exampleback">{{#Chinese4}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">④</span> <span lang="zh">{{furigana:Chinese4}}</span></span></div></div>{{/Chinese4}}<div class="right-side">{{Audio4}}</div></div><br />
-        {{/Example4}}
-        {{#Example5}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑤</span> <span lang="ja">{{furigana:Example5}}</span></div>
-            <div class="exampleback">{{#Chinese5}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑤</span> <span lang="zh">{{furigana:Chinese5}}</span></span></div></div>{{/Chinese5}}<div class="right-side">{{Audio5}}</div></div><br />
-        {{/Example5}}
-        {{#Example6}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑥</span> <span lang="ja">{{furigana:Example6}}</span></div>
-            <div class="exampleback">{{#Chinese6}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑥</span> <span lang="zh">{{furigana:Chinese6}}</span></span></div></div>{{/Chinese6}}<div class="right-side">{{Audio6}}</div></div><br />
-        {{/Example6}}
-        {{#Example7}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑦</span> <span lang="ja">{{furigana:Example7}}</span></div>
-            <div class="exampleback">{{#Chinese7}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑦</span> <span lang="zh">{{furigana:Chinese7}}</span></span></div></div>{{/Chinese7}}<div class="right-side">{{Audio7}}</div></div><br />
-        {{/Example7}}
-        {{#Example8}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑧</span> <span lang="ja">{{furigana:Example8}}</span></div>
-            <div class="exampleback">{{#Chinese8}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑧</span> <span lang="zh">{{furigana:Chinese8}}</span></span></div></div>{{/Chinese8}}<div class="right-side">{{Audio8}}</div></div><br />
-        {{/Example8}}
-        {{#Example9}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑨</span> <span lang="ja">{{furigana:Example9}}</span></div>
-            <div class="exampleback">{{#Chinese9}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑨</span> <span lang="zh">{{furigana:Chinese9}}</span></span></div></div>{{/Chinese9}}<div class="right-side">{{Audio9}}</div></div><br />
-        {{/Example9}}
-        {{#Example10}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑩</span> <span lang="ja">{{furigana:Example10}}</span></div>
-            <div class="exampleback">{{#Chinese10}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑩</span> <span lang="zh">{{furigana:Chinese10}}</span></span></div></div>{{/Chinese10}}<div class="right-side">{{Audio10}}</div></div><br />
-        {{/Example10}}
-        {{#Example11}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑪</span> <span lang="ja">{{furigana:Example11}}</span></div>
-            <div class="exampleback">{{#Chinese11}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑪</span> <span lang="zh">{{furigana:Chinese11}}</span></span></div></div>{{/Chinese11}}<div class="right-side">{{Audio11}}</div></div><br />
-        {{/Example11}}
-        {{#Example12}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑫</span> <span lang="ja">{{furigana:Example12}}</span></div>
-            <div class="exampleback">{{#Chinese12}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑫</span> <span lang="zh">{{furigana:Chinese12}}</span></span></div></div>{{/Chinese12}}<div class="right-side">{{Audio12}}</div></div><br />
-        {{/Example12}}
-        {{#Example13}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑬</span> <span lang="ja">{{furigana:Example13}}</span></div>
-            <div class="exampleback">{{#Chinese13}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑬</span> <span lang="zh">{{furigana:Chinese13}}</span></span></div></div>{{/Chinese13}}<div class="right-side">{{Audio13}}</div></div><br />
-        {{/Example13}}
-        {{#Example14}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑭</span> <span lang="ja">{{furigana:Example14}}</span></div>
-            <div class="exampleback">{{#Chinese14}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑭</span> <span lang="zh">{{furigana:Chinese14}}</span></span></div></div>{{/Chinese14}}<div class="right-side">{{Audio14}}</div></div><br />
-        {{/Example14}}
-        {{#Example15}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑮</span> <span lang="ja">{{furigana:Example15}}</span></div>
-            <div class="exampleback">{{#Chinese15}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑮</span> <span lang="zh">{{furigana:Chinese15}}</span></span></div></div>{{/Chinese15}}<div class="right-side">{{Audio15}}</div></div><br />
-        {{/Example15}}
-        {{#Example16}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑯</span> <span lang="ja">{{furigana:Example16}}</span></div>
-            <div class="exampleback">{{#Chinese16}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑯</span> <span lang="zh">{{furigana:Chinese16}}</span></span></div></div>{{/Chinese16}}<div class="right-side">{{Audio16}}</div></div><br />
-        {{/Example16}}
-        {{#Example17}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑰</span> <span lang="ja">{{furigana:Example17}}</span></div>
-            <div class="exampleback">{{#Chinese17}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑰</span> <span lang="zh">{{furigana:Chinese17}}</span></span></div></div>{{/Chinese17}}<div class="right-side">{{Audio17}}</div></div><br />
-        {{/Example17}}
-        {{#Example18}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑱</span> <span lang="ja">{{furigana:Example18}}</span></div>
-            <div class="exampleback">{{#Chinese18}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑱</span> <span lang="zh">{{furigana:Chinese18}}</span></span></div></div>{{/Chinese18}}<div class="right-side">{{Audio18}}</div></div><br />
-        {{/Example18}}
-        {{#Example19}}<div class="examplesentences"><div>
-            <div class="exampleback"><span class="leader" lang="ja">[例]</span><span class="num">⑲</span> <span lang="ja">{{furigana:Example19}}</span></div>
-            <div class="exampleback">{{#Chinese19}}<span class="cnote"><span class="leader" lang="zh">[中]</span><span class="num">⑲</span> <span lang="zh">{{furigana:Chinese19}}</span></span></div></div>{{/Chinese19}}<div class="right-side">{{Audio19}}</div></div><br />
-        {{/Example19}}
-    </div>
-    {{#Image1}}<hr /><div class="image">{{Image1}}</div>{{/Image1}}
-    {{#Image2}}<hr /><div class="image">{{Image2}}</div>{{/Image2}}
+<main id="BackSide" class="anki-card grammar-card GrammarBody" lang="zh-Hans">
+  <header class="header"><span class="word" lang="ja">{{furigana:Word}}</span></header>
+  {{#ConnectiveType1}}
+<div class="footer">
+  <span class="connectiveTag" lang="ja">接続 <span class="num">①</span></span>
+  <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType1}}</span>
 </div>
+{{/ConnectiveType1}}
+{{#ConnectiveType2}}
+<div class="footer">
+  <span class="connectiveTag" lang="ja">接続 <span class="num">②</span></span>
+  <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType2}}</span>
+</div>
+{{/ConnectiveType2}}
+{{#ConnectiveType3}}
+<div class="footer">
+  <span class="connectiveTag" lang="ja">接続 <span class="num">③</span></span>
+  <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType3}}</span>
+</div>
+{{/ConnectiveType3}}
+{{#ConnectiveType4}}
+<div class="footer">
+  <span class="connectiveTag" lang="ja">接続 <span class="num">④</span></span>
+  <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType4}}</span>
+</div>
+{{/ConnectiveType4}}
+{{#ConnectiveType5}}
+<div class="footer">
+  <span class="connectiveTag" lang="ja">接続 <span class="num">⑤</span></span>
+  <span class="connectiveNote" lang="ja">{{furigana:ConnectiveType5}}</span>
+</div>
+{{/ConnectiveType5}}
+  {{#Explain1}}
+  <hr>
+  <div class="categoryheader"><span class="leader" lang="ja">解説</span></div>
+  <div class="content"><div class="explain" lang="ja">{{furigana:Explain1}}</div></div>
+  {{/Explain1}}
+  {{#Note1}}
+  <hr>
+  <div class="categoryheader"><span class="leader" lang="ja">注意</span></div>
+  <div class="content"><div class="explain" lang="ja">{{furigana:Note1}}</div></div>
+  {{/Note1}}
+  {{#Example1}}<hr>{{/Example1}}
+  <div class="content">
+    {{#Example1}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">①</span>
+      <span lang="ja">{{furigana:Example1}}</span>
+    </div>
+    {{#Chinese1}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">①</span>
+        <span lang="zh-Hans">{{furigana:Chinese1}}</span>
+      </span>
+    </div>
+    {{/Chinese1}}
+  </div>
+  <div class="right-side">{{Audio1}}</div>
+</div>
+<br>
+{{/Example1}}
+{{#Example2}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">②</span>
+      <span lang="ja">{{furigana:Example2}}</span>
+    </div>
+    {{#Chinese2}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">②</span>
+        <span lang="zh-Hans">{{furigana:Chinese2}}</span>
+      </span>
+    </div>
+    {{/Chinese2}}
+  </div>
+  <div class="right-side">{{Audio2}}</div>
+</div>
+<br>
+{{/Example2}}
+{{#Example3}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">③</span>
+      <span lang="ja">{{furigana:Example3}}</span>
+    </div>
+    {{#Chinese3}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">③</span>
+        <span lang="zh-Hans">{{furigana:Chinese3}}</span>
+      </span>
+    </div>
+    {{/Chinese3}}
+  </div>
+  <div class="right-side">{{Audio3}}</div>
+</div>
+<br>
+{{/Example3}}
+{{#Example4}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">④</span>
+      <span lang="ja">{{furigana:Example4}}</span>
+    </div>
+    {{#Chinese4}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">④</span>
+        <span lang="zh-Hans">{{furigana:Chinese4}}</span>
+      </span>
+    </div>
+    {{/Chinese4}}
+  </div>
+  <div class="right-side">{{Audio4}}</div>
+</div>
+<br>
+{{/Example4}}
+{{#Example5}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑤</span>
+      <span lang="ja">{{furigana:Example5}}</span>
+    </div>
+    {{#Chinese5}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑤</span>
+        <span lang="zh-Hans">{{furigana:Chinese5}}</span>
+      </span>
+    </div>
+    {{/Chinese5}}
+  </div>
+  <div class="right-side">{{Audio5}}</div>
+</div>
+<br>
+{{/Example5}}
+{{#Example6}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑥</span>
+      <span lang="ja">{{furigana:Example6}}</span>
+    </div>
+    {{#Chinese6}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑥</span>
+        <span lang="zh-Hans">{{furigana:Chinese6}}</span>
+      </span>
+    </div>
+    {{/Chinese6}}
+  </div>
+  <div class="right-side">{{Audio6}}</div>
+</div>
+<br>
+{{/Example6}}
+{{#Example7}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑦</span>
+      <span lang="ja">{{furigana:Example7}}</span>
+    </div>
+    {{#Chinese7}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑦</span>
+        <span lang="zh-Hans">{{furigana:Chinese7}}</span>
+      </span>
+    </div>
+    {{/Chinese7}}
+  </div>
+  <div class="right-side">{{Audio7}}</div>
+</div>
+<br>
+{{/Example7}}
+{{#Example8}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑧</span>
+      <span lang="ja">{{furigana:Example8}}</span>
+    </div>
+    {{#Chinese8}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑧</span>
+        <span lang="zh-Hans">{{furigana:Chinese8}}</span>
+      </span>
+    </div>
+    {{/Chinese8}}
+  </div>
+  <div class="right-side">{{Audio8}}</div>
+</div>
+<br>
+{{/Example8}}
+{{#Example9}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑨</span>
+      <span lang="ja">{{furigana:Example9}}</span>
+    </div>
+    {{#Chinese9}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑨</span>
+        <span lang="zh-Hans">{{furigana:Chinese9}}</span>
+      </span>
+    </div>
+    {{/Chinese9}}
+  </div>
+  <div class="right-side">{{Audio9}}</div>
+</div>
+<br>
+{{/Example9}}
+{{#Example10}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑩</span>
+      <span lang="ja">{{furigana:Example10}}</span>
+    </div>
+    {{#Chinese10}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑩</span>
+        <span lang="zh-Hans">{{furigana:Chinese10}}</span>
+      </span>
+    </div>
+    {{/Chinese10}}
+  </div>
+  <div class="right-side">{{Audio10}}</div>
+</div>
+<br>
+{{/Example10}}
+{{#Example11}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑪</span>
+      <span lang="ja">{{furigana:Example11}}</span>
+    </div>
+    {{#Chinese11}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑪</span>
+        <span lang="zh-Hans">{{furigana:Chinese11}}</span>
+      </span>
+    </div>
+    {{/Chinese11}}
+  </div>
+  <div class="right-side">{{Audio11}}</div>
+</div>
+<br>
+{{/Example11}}
+{{#Example12}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑫</span>
+      <span lang="ja">{{furigana:Example12}}</span>
+    </div>
+    {{#Chinese12}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑫</span>
+        <span lang="zh-Hans">{{furigana:Chinese12}}</span>
+      </span>
+    </div>
+    {{/Chinese12}}
+  </div>
+  <div class="right-side">{{Audio12}}</div>
+</div>
+<br>
+{{/Example12}}
+{{#Example13}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑬</span>
+      <span lang="ja">{{furigana:Example13}}</span>
+    </div>
+    {{#Chinese13}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑬</span>
+        <span lang="zh-Hans">{{furigana:Chinese13}}</span>
+      </span>
+    </div>
+    {{/Chinese13}}
+  </div>
+  <div class="right-side">{{Audio13}}</div>
+</div>
+<br>
+{{/Example13}}
+{{#Example14}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑭</span>
+      <span lang="ja">{{furigana:Example14}}</span>
+    </div>
+    {{#Chinese14}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑭</span>
+        <span lang="zh-Hans">{{furigana:Chinese14}}</span>
+      </span>
+    </div>
+    {{/Chinese14}}
+  </div>
+  <div class="right-side">{{Audio14}}</div>
+</div>
+<br>
+{{/Example14}}
+{{#Example15}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑮</span>
+      <span lang="ja">{{furigana:Example15}}</span>
+    </div>
+    {{#Chinese15}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑮</span>
+        <span lang="zh-Hans">{{furigana:Chinese15}}</span>
+      </span>
+    </div>
+    {{/Chinese15}}
+  </div>
+  <div class="right-side">{{Audio15}}</div>
+</div>
+<br>
+{{/Example15}}
+{{#Example16}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑯</span>
+      <span lang="ja">{{furigana:Example16}}</span>
+    </div>
+    {{#Chinese16}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑯</span>
+        <span lang="zh-Hans">{{furigana:Chinese16}}</span>
+      </span>
+    </div>
+    {{/Chinese16}}
+  </div>
+  <div class="right-side">{{Audio16}}</div>
+</div>
+<br>
+{{/Example16}}
+{{#Example17}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑰</span>
+      <span lang="ja">{{furigana:Example17}}</span>
+    </div>
+    {{#Chinese17}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑰</span>
+        <span lang="zh-Hans">{{furigana:Chinese17}}</span>
+      </span>
+    </div>
+    {{/Chinese17}}
+  </div>
+  <div class="right-side">{{Audio17}}</div>
+</div>
+<br>
+{{/Example17}}
+{{#Example18}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑱</span>
+      <span lang="ja">{{furigana:Example18}}</span>
+    </div>
+    {{#Chinese18}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑱</span>
+        <span lang="zh-Hans">{{furigana:Chinese18}}</span>
+      </span>
+    </div>
+    {{/Chinese18}}
+  </div>
+  <div class="right-side">{{Audio18}}</div>
+</div>
+<br>
+{{/Example18}}
+{{#Example19}}
+<div class="examplesentences">
+  <div>
+    <div class="exampleback">
+      <span class="leader" lang="ja">[例]</span><span class="num">⑲</span>
+      <span lang="ja">{{furigana:Example19}}</span>
+    </div>
+    {{#Chinese19}}
+    <div class="exampleback">
+      <span class="cnote"><span class="leader" lang="zh-Hans">[中]</span><span class="num">⑲</span>
+        <span lang="zh-Hans">{{furigana:Chinese19}}</span>
+      </span>
+    </div>
+    {{/Chinese19}}
+  </div>
+  <div class="right-side">{{Audio19}}</div>
+</div>
+<br>
+{{/Example19}}
+  </div>
+  {{#Image1}}<hr><div class="image">{{Image1}}</div>{{/Image1}}
+  {{#Image2}}<hr><div class="image">{{Image2}}</div>{{/Image2}}
 </main>
-
 <script>
-  // 背面适配：隐藏整个正面内容（word + 例句），处理背面内容的空格。
-  // 与 front.html 内嵌的背面适配脚本互为双保险。
-  try {
-    var frontSide = document.getElementById('frontSide')
-    if (frontSide) frontSide.style.display = 'none'
-    removeSpaces()
-  } catch (e) { console.error(e) }
-</script>
+// Generated from src; edit source files, then run npm run build.
+;(function () {
+// Each generated script is enclosed in an IIFE; Anki may reuse the same WebView.
+function createContext() {
+  const back = document.getElementById('BackSide')
+  const root = back || document.getElementById('FrontSide')
+  if (!root) return null
+  const previous = window.__ankiTemplateContext
+  if (previous && previous.root === root) return null
+  if (previous) previous.dispose()
 
-<script>
-  function triggerAudioPlayback(hotkey, gamepadButton) {
-    if (!hotkey && gamepadButton === undefined) return
-    let currentAudioIndex = 0
-    let isError = false
-    document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === hotkey.toLowerCase()) {
-        playAudio()
-      }
-    })
-    window.addEventListener('gamepadconnected', () => {
-      const checkGamepadInput = setInterval(() => {
-        const gp = navigator.getGamepads()[0];
-        if (gp && gp.buttons[gamepadButton].pressed) {
-          playAudio();
-          // Optionally, you might want to add a small delay or condition here
-          // to prevent rapid firing of playAudio() if the button is held down.
-        }
-      }, 100); // Check every 100ms
-    });
-    function playAudio() {
-      const audios = document.querySelectorAll('audio')
-      for (const audio of audios) {
-        audio.pause()
-        audio.currentTime = 0
-      }
-      if (!isError) currentAudioIndex = 0
-      playNext(audios)
+  const disposers = new Set()
+  let disposed = false
+  const context = {
+    root,
+    isBack: !!back,
+    get active() { return !disposed && root.isConnected },
+    onCleanup(fn) { disposers.add(fn); return fn },
+    timeout(fn, delay) {
+      const cleanup = () => clearTimeout(id)
+      const id = setTimeout(() => {
+        disposers.delete(cleanup)
+        if (context.active) fn()
+      }, delay)
+      disposers.add(cleanup)
+      return id
+    },
+    listen(target, event, fn, options) {
+      target.addEventListener(event, fn, options)
+      disposers.add(() => target.removeEventListener(event, fn, options))
+    },
+    dispose() {
+      if (disposed) return
+      disposed = true
+      disposers.forEach(fn => fn())
+      disposers.clear()
+      if (window.__ankiTemplateContext === context) delete window.__ankiTemplateContext
+    },
+  }
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) context.dispose()
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
+  context.onCleanup(() => observer.disconnect())
+  window.__ankiTemplateContext = context
+  return context
+}
+
+// Edit text nodes only: keep ruby structure, audio nodes and their listeners.
+function stripSpaces(element) {
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT)
+  while (walker.nextNode()) walker.currentNode.nodeValue = walker.currentNode.nodeValue.replace(/\s+/g, '')
+}
+function setupPet(context, config, obstacleSelector) {
+  if (!config.enabled) return
+  const files = config.pets.filter(pet => pet.enabled).flatMap(pet => pet.files)
+  if (!files.length) return
+  let pet = null
+  let cancelMove = null
+  context.onCleanup(() => {
+    if (cancelMove) cancelMove()
+    if (pet) pet.remove()
+  })
+
+  function create() {
+    pet = document.createElement('div')
+    pet.className = 'pet'
+    const img = document.createElement('img')
+    img.src = files[Math.floor(Math.random() * files.length)]
+    img.alt = ''
+    img.draggable = false
+    pet.appendChild(img)
+    document.body.appendChild(pet)
+    return parseFloat(getComputedStyle(pet).getPropertyValue('--pet-size')) || 130
+  }
+  function position(x, y, flip) {
+    return `translate(${x}px, ${y}px)${flip === -1 ? ' scaleX(-1)' : ''}`
+  }
+  function move(x, y, easing, flip) {
+    const from = getComputedStyle(pet).transform
+    if (cancelMove) cancelMove()
+    const to = position(x, y, flip)
+    const key = `petMove${Date.now()}${Math.floor(Math.random() * 9999)}`
+    const style = document.createElement('style')
+    style.textContent = `@keyframes ${key} { from { transform: ${from}; } to { transform: ${to}; } }`
+    document.head.appendChild(style)
+    const element = pet
+    const finish = () => {
+      element.style.transform = to
+      element.style.animation = ''
+      element.removeEventListener('animationend', finish)
+      style.remove()
+      cancelMove = null
     }
-    function playNext(audios) {
-      if (currentAudioIndex >= audios.length) return
-      const audio = audios[currentAudioIndex]
-      audio.play().then(() => {
-        audio.addEventListener('ended', () => {
-          currentAudioIndex++
-          playNext(audios)
-        })
-        isError = false
-      }).catch(() => (isError = true))
+    cancelMove = () => {
+      element.removeEventListener('animationend', finish)
+      element.style.animation = ''
+      style.remove()
+    }
+    element.addEventListener('animationend', finish, { once: true })
+    // CSS keyframes retain the original workaround for off-screen Android pets.
+    element.style.animation = `${key} ${config.duration}s ${easing} forwards`
+  }
+  function edge(size, side = Math.floor(Math.random() * 4)) {
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    if (side === 0) return { x: Math.random() * vw, y: -size, side }
+    if (side === 1) return { x: vw + size, y: Math.random() * vh, side }
+    if (side === 2) return { x: Math.random() * vw, y: vh + size, side }
+    return { x: -size, y: Math.random() * vh, side }
+  }
+  function blankSpot(size) {
+    const pad = 8
+    const maxX = Math.max(pad, window.innerWidth - size - pad)
+    const maxY = Math.max(pad, window.innerHeight - size - pad)
+    const rects = [...document.querySelectorAll(obstacleSelector)]
+      .filter(el => el.getClientRects().length)
+      .map(el => el.getBoundingClientRect())
+    if (pet) rects.push(pet.getBoundingClientRect())
+    for (let i = 0; i < 40; i++) {
+      const x = pad + Math.random() * (maxX - pad)
+      const y = pad + Math.random() * (maxY - pad)
+      if (!rects.some(r => r.right > x && r.left < x + size && r.bottom > y && r.top < y + size)) return { x, y }
+    }
+    return { x: maxX, y: maxY }
+  }
+  function appear(settle) {
+    if (pet) return
+    const size = create()
+    const start = edge(size)
+    const end = settle ? blankSpot(size) : edge(size, (start.side + 2) % 4)
+    const flip = end.x < start.x ? -1 : 1
+    pet.style.transform = position(start.x, start.y, flip)
+    move(end.x, end.y, settle ? 'cubic-bezier(0.22, 1, 0.36, 1)' : 'linear', flip)
+    if (settle) {
+      context.listen(pet, 'mousedown', e => e.preventDefault())
+      context.listen(pet, 'click', e => {
+        e.preventDefault()
+        const next = blankSpot(size)
+        move(next.x, next.y, 'cubic-bezier(0.22, 1, 0.36, 1)', next.x < pet.getBoundingClientRect().left ? -1 : 1)
+      })
+    } else {
+      context.timeout(() => {
+        if (cancelMove) cancelMove()
+        cancelMove = null
+        pet.remove()
+        pet = null
+      }, (config.duration + 0.1) * 1000)
     }
   }
+  if (context.isBack && Math.random() < config.flyChance) appear(false)
+  context.timeout(() => appear(true), config.idleMs)
+}
+const petConfig = {
+  "enabled": true,
+  "duration": 2,
+  "idleMs": 15000,
+  "flyChance": 0.1,
+  "pets": [
+    {
+      "name": "aemeath",
+      "enabled": true,
+      "files": [
+        "_aemeath_flyTowardsRightSideOfScreen.gif",
+        "_aemeath_happy.gif",
+        "_aemeath_happy_rightHandUp.gif",
+        "_aemeath_jump_excited.gif",
+        "_aemeath_sigh.gif",
+        "_aemeath_stand.gif",
+        "_aemeath_sunglasses_sway_musicNote.gif"
+      ]
+    }
+  ]
+}
+const settings = {}
+setTimeout(() => {
+  const context = createContext()
+  if (!context) return
+  try {
+document.querySelectorAll('.grammar-card [lang="ja"]').forEach(stripSpaces)
+if (context.isBack) {
+  const front = document.getElementById('FrontSide')
+  if (front) front.hidden = true
+}
+setupPet(context, petConfig, '.grammar-card .word, .grammar-card .content, .grammar-card .footer, .grammar-card .right-side')
+  } catch (error) {
+    context.dispose()
+    console.error(error)
+  }
+}, 0)
+})()
 </script>

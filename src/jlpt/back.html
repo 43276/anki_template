@@ -1,0 +1,32 @@
+<!-- Card1 [日-中] 背面 -->
+
+{{^Alt1}}
+
+{{FrontSide}}
+
+<div class="VocabAudio !hidden">{{VocabAudio}}</div>
+
+<main id="BackSide" class="anki-card jlpt-card CardSide" lang="zh-Hans">
+  <section class="Answer">
+    <h2 class="VocabFurigana">
+      <span lang="ja">{{kana:VocabFurigana}}</span>
+      <span class="VocabPitch">{{VocabPitch}}</span>
+    </h2>
+
+    <h3 class="VocabPoS LabelIndent2">
+      <span class="VocabDef" lang="zh-Hans">{{VocabDefSC}}</span>
+    </h3>
+
+    {{#VocabPlus}}
+    <h3 class="VocabPlus LabelIndent" lang="ja">
+      {{furigana:VocabPlus}}
+    </h3>
+    {{/VocabPlus}}
+  </section>
+
+  <ul class="SentenceList">
+    <!-- @repeat back-sentence.html 4 -->
+  </ul>
+</main>
+<!-- @runtime -->
+{{/Alt1}}

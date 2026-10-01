@@ -1,36 +1,3 @@
-/* 自动生成：请修改 src 并运行 npm run build。 */
-/* Shared values; template-specific aliases preserve each card's appearance. */
-:root {
-  --font-cn: 'Source Han Sans CN', 'Source Han Sans JP', serif;
-  --font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
-  --font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
-  --font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
-  --space-1: 5px;
-  --space-2: 10px;
-  --space-3: 12px;
-}
-
-@font-face {
-  font-family: 'Source Han Sans CN';
-  src: url('_SourceHanSansCN-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Source Han Sans JP';
-  src: url('_SourceHanSansJP-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'KleeOne';
-  src: url('_KleeOne_Regular.ttf') format('truetype');
-  font-weight: 500;
-  font-display: swap;
-}
-
 :root {
   --grammar-font-sans: var(--font-cn);
   --grammar-font-ja: var(--font-ja);
@@ -229,31 +196,4 @@ hr {
 .grammar-card .image img {
   max-width: 100%;
   height: auto;
-}
-
-.pet {
-  --pet-size: 130px; /* JS 从这里读取尺寸，避免两份配置不一致。 */
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 2147483647; /* 置于最上层 */
-  width: var(--pet-size);
-  height: var(--pet-size);
-  pointer-events: auto;
-  cursor: pointer;
-  will-change: transform;
-  transform-origin: center;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none; /* 禁用长按弹出菜单 */
-  -webkit-tap-highlight-color: transparent; /* 禁用点击高亮 */
-  -webkit-user-drag: none;
-}
-
-.pet img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  pointer-events: none;
-  -webkit-user-drag: none;
 }
