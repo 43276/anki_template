@@ -5,11 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "build:jlpt-test": "node temp/build-jlpt.mjs",
     "check": "node scripts/build.mjs --check",
     "verify:browser": "node scripts/verify-browser.mjs",
-    "verify:jlpt-anki": "node temp/verify-jlpt-anki.mjs",
-    "test": "node --test tests/*.test.mjs temp/*.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
