@@ -1,4 +1,8 @@
 <!-- 自动生成：请修改 src 并运行 npm run build。 -->
+<!-- 背面在插入 FrontSide 前隐藏整个正面，不依赖延迟初始化。 -->
+<style>
+  #FrontSide.grammar-card { display: none !important; }
+</style>
 {{FrontSide}}
 <main id="BackSide" class="anki-card grammar-card GrammarBody" lang="zh-Hans">
   <header class="header"><span class="word" lang="ja">{{furigana:Word}}</span></header>

@@ -200,3 +200,33 @@ test('Anki shown hooks do not double-play or survive a card replacement', async 
     assert.deepEqual(app.errors, [])
   } finally { app.close() }
 })
+
+test('Japanese answers hide inherited front content before any initializer runs', async () => {
+  const outputs = await generate()
+  for (const name of ['jlpt', 'ja_grammar']) {
+    const template = templates.find(item => item.name === name)
+    const rawBack = outputs.get(`${name}/${template.back}`)
+    assert.ok(rawBack.indexOf('<style>') < rawBack.indexOf('{{FrontSide}}'), `${name}: guard must precede inherited markup`)
+    const front = await cardHtml(name, 'front')
+    const back = await cardHtml(name, 'back')
+    const app = session(front, outputs.get(`${name}/style.css`))
+    try {
+      for (const executeFront of [true, false]) {
+        app.show(back, executeFront, false)
+        const document = app.window.document
+        const hidden = document.querySelector(name === 'jlpt' ? '#FrontSide > .SentenceList' : '#FrontSide')
+        assert.equal(app.window.getComputedStyle(hidden).display, 'none', `${name}: visible before timers run`)
+        assert.notEqual(app.window.getComputedStyle(document.getElementById('BackSide')).display, 'none')
+        if (name === 'jlpt') {
+          assert.notEqual(app.window.getComputedStyle(document.querySelector('#FrontSide .Question')).display, 'none')
+        }
+        app.advance(0)
+        assert.equal(app.window.__ankiTemplateContext.isBack, true)
+        app.show(front)
+        const restored = document.querySelector(name === 'jlpt' ? '#FrontSide > .SentenceList' : '#FrontSide')
+        assert.notEqual(app.window.getComputedStyle(restored).display, 'none', `${name}: back-only CSS leaked to next front`)
+      }
+      assert.deepEqual(app.errors, [])
+    } finally { app.close() }
+  }
+})

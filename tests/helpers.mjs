@@ -81,11 +81,11 @@ export function session(html, css = '', classes = '', ankiWeb = false) {
     }
     clock = end
   }
-  function show(content, executeFront = true) {
+  function show(content, executeFront = true, initialize = true) {
     const scripts = [...content.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => match[1])
     window.document.getElementById('qa').innerHTML = content.replace(/<script>[\s\S]*?<\/script>/g, '')
     for (const script of executeFront ? scripts : scripts.slice(-1)) window.eval(script)
-    advance(0)
+    if (initialize) advance(0)
   }
   show(html)
   return {

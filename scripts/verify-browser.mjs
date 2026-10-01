@@ -75,4 +75,70 @@ try {
     }
   }
   console.log(`Browser verified ${count} card/viewport/theme combinations; screenshots saved in preview/.`)
+  // Hold initializers across real painted frames. Old runtime-only hiding left
+  // the entire inherited front visible during this window, especially on slow devices.
+  let flipCount = 0
+  for (const name of ['jlpt', 'ja_grammar']) {
+    for (const width of [375, 1280]) {
+      const page = await browser.newPage({ viewport: { width, height: 900 } })
+      const cdp = await page.context().newCDPSession(page)
+      await cdp.send('Emulation.setCPUThrottlingRate', { rate: 6 })
+      const front = await cardHtml(name, 'front')
+      const back = await cardHtml(name, 'back')
+      await page.setContent(`<html><head><style>${outputs.get(`${name}/style.css`)}</style></head><body class="card"><div id="qa">${front}</div></body></html>`)
+      await page.waitForFunction(() => !!window.__ankiTemplateContext)
+      const frames = await page.evaluate(async ({ back, name }) => {
+        Math.random = () => 0.5
+        const nativeTimeout = window.setTimeout
+        const queued = []
+        window.setTimeout = (fn, delay = 0, ...args) => {
+          if (delay !== 0) return nativeTimeout(fn, delay, ...args)
+          queued.push(() => fn(...args))
+          return -queued.length
+        }
+        const qa = document.getElementById('qa')
+        qa.innerHTML = back
+        for (const inert of [...qa.querySelectorAll('script')]) {
+          const executable = document.createElement('script')
+          executable.textContent = inert.textContent
+          inert.replaceWith(executable)
+        }
+        const frames = []
+        const capture = () => {
+          const inherited = document.querySelector(name === 'jlpt' ? '#FrontSide > .SentenceList' : '#FrontSide')
+          frames.push({
+            hidden: getComputedStyle(inherited).display === 'none',
+            answerVisible: document.getElementById('BackSide').getClientRects().length > 0,
+            initialized: !!window.__ankiTemplateContext?.isBack,
+          })
+        }
+        capture()
+        for (let i = 0; i < 12; i++) {
+          await new Promise(resolve => requestAnimationFrame(resolve))
+          capture()
+        }
+        window.setTimeout = nativeTimeout
+        queued.forEach(fn => fn())
+        return frames
+      }, { back, name })
+      assert.equal(frames.length, 13)
+      for (const frame of frames) {
+        assert.equal(frame.initialized, false, 'this check must run before delayed initialization')
+        assert.equal(frame.hidden, true, `${name}/${width}: inherited front flashed`)
+        assert.equal(frame.answerVisible, true, `${name}/${width}: hiding must not blank the answer`)
+      }
+      // Replacing the card removes its inline guard, so the next front is visible.
+      await page.evaluate(front => {
+        const qa = document.getElementById('qa')
+        qa.innerHTML = front.replace(/<script>[\s\S]*?<\/script>/g, '')
+      }, front)
+      assert.equal(await page.evaluate(name => {
+        const element = document.querySelector(name === 'jlpt' ? '#FrontSide > .SentenceList' : '#FrontSide')
+        return getComputedStyle(element).display !== 'none'
+      }, name), true)
+      await page.close()
+      flipCount++
+    }
+  }
+  console.log(`Flip verified ${flipCount} slow-CPU scenarios across 13 pre-initialization samples each.`)
 } finally { await browser.close() }
