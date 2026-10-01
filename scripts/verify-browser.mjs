@@ -145,7 +145,8 @@ try {
           assert.deepEqual(frame.geometry, frames.frames[0].geometry, 'prepared elements moved between frames')
         }
       }
-      // Replacing the card removes its inline guard, so the next front is visible.
+      // Replacing the card removes the answer-only hiding rule. The JLPT
+      // front's own readiness gate is exercised separately below.
       await page.evaluate(front => {
         const qa = document.getElementById('qa')
         qa.innerHTML = front.replace(/<script>[\s\S]*?<\/script>/g, '')
@@ -159,4 +160,71 @@ try {
     }
   }
   console.log(`Flip verified ${flipCount} slow-CPU scenarios across 13 samples each with deferred tasks held.`)
+  let nextCount = 0
+  for (const width of [375, 1280]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 } })
+    const errors = []
+    page.on('pageerror', error => errors.push(error.message))
+    const cdp = await page.context().newCDPSession(page)
+    await cdp.send('Emulation.setCPUThrottlingRate', { rate: 6 })
+    const back = await cardHtml('jlpt', 'back')
+    await page.setContent(`<html><head><style>${outputs.get('jlpt/style.css')}</style></head><body class="card"><div id="qa">${back}</div></body></html>`)
+    await page.waitForFunction(() => !!window.__ankiTemplateContext?.isBack)
+    // First switch from an answer; then replace that front with another front.
+    for (const type of ['例', '関']) {
+      const front = await cardHtml('jlpt', 'front', { ...sampleFields, SentType1: type })
+      const result = await page.evaluate(async front => {
+        Math.random = () => 0.5
+        const nativeTimeout = window.setTimeout
+        const queued = []
+        window.setTimeout = (fn, delay = 0, ...args) => {
+          if (delay !== 0) return nativeTimeout(fn, delay, ...args)
+          queued.push(() => fn(...args))
+          return -queued.length
+        }
+        try {
+          const qa = document.getElementById('qa')
+          qa.innerHTML = front
+          const root = document.getElementById('FrontSide')
+          const hiddenBeforeScripts = getComputedStyle(root).visibility === 'hidden'
+          for (const inert of [...qa.querySelectorAll('script')]) {
+            const executable = document.createElement('script')
+            executable.textContent = inert.textContent
+            inert.replaceWith(executable)
+          }
+          const frames = []
+          const capture = () => frames.push({
+            visible: getComputedStyle(root).visibility === 'visible',
+            initialized: window.__ankiTemplateContext?.root === root && !window.__ankiTemplateContext.isBack,
+            labels: [...root.querySelectorAll('.SentKanji em')].map(el => el.textContent),
+            geometry: [...root.querySelectorAll('.Question, .SentenceList, .SentKanji')].map(el => {
+              const rect = el.getBoundingClientRect()
+              return [rect.x, rect.y, rect.width, rect.height]
+            }),
+          })
+          capture()
+          for (let i = 0; i < 12; i++) {
+            await new Promise(resolve => requestAnimationFrame(resolve))
+            capture()
+          }
+          return { frames, hiddenBeforeScripts }
+        } finally {
+          window.setTimeout = nativeTimeout
+          queued.forEach(fn => fn())
+        }
+      }, front)
+      assert.equal(result.hiddenBeforeScripts, true)
+      assert.equal(result.frames.length, 13)
+      for (const frame of result.frames) {
+        assert.equal(frame.initialized, true, `jlpt/${width}: next front waited for a timer`)
+        assert.equal(frame.visible, true, `jlpt/${width}: next front stayed hidden`)
+        assert.deepEqual(frame.labels, [`［${type}］`])
+        assert.deepEqual(frame.geometry, result.frames[0].geometry, 'next front moved between frames')
+      }
+      nextCount++
+    }
+    assert.deepEqual(errors, [])
+    await page.close()
+  }
+  console.log(`Next front verified ${nextCount} JLPT slow-CPU transitions across 13 samples each with deferred tasks held.`)
 } finally { await browser.close() }

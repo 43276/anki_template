@@ -499,6 +499,8 @@ setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS,
     console.error(error)
   }
   finally {
+    const frontPending = document.getElementById('jlpt-front-layout-pending')
+    if (frontPending) frontPending.remove()
     if (context.isBack) {
       const pending = document.getElementById('jlpt-layout-pending')
       if (pending) pending.remove()

@@ -276,3 +276,48 @@ test('JLPT releases its visibility gate if layout initialization throws', async 
     assert.equal(app.errors.length, 1)
   } finally { app.close() }
 })
+
+test('JLPT next front has its labels before any deferred timer runs', async () => {
+  const outputs = await generate()
+  const app = session(await cardHtml('jlpt', 'back'), outputs.get('jlpt/style.css'))
+  try {
+    for (const previousSide of ['front', 'back']) {
+      for (const fields of [
+        { ...sampleFields, SentType1: '例' },
+        { ...sampleFields, SentType1: '関' },
+        { ...sampleFields, SentKanji1: '', SentKanji3: '習う', SentType3: '対' },
+      ]) {
+        app.show(await cardHtml('jlpt', previousSide))
+        const next = await cardHtml('jlpt', 'front', fields)
+        app.show(next, true, false)
+        const document = app.window.document
+        const label = document.querySelector('#FrontSide .SentKanji em')
+        assert.ok(label, 'next card must not wait for a timer to add its label')
+        assert.equal(label.textContent, `［${fields.SentKanji1 ? fields.SentType1 : fields.SentType3}］`)
+        assert.equal(app.window.__ankiTemplateContext.root, document.getElementById('FrontSide'))
+        assert.equal(app.window.__ankiTemplateContext.isBack, false)
+        assert.equal(app.window.getComputedStyle(document.getElementById('FrontSide')).visibility, 'visible')
+        const prepared = document.getElementById('qa').innerHTML
+        app.advance(0)
+        assert.equal(document.getElementById('qa').innerHTML, prepared)
+      }
+    }
+    assert.deepEqual(app.errors, [])
+  } finally { app.close() }
+})
+
+test('JLPT standalone front releases its visibility gate on initialization failure', async () => {
+  const app = session(await cardHtml('jlpt', 'front'))
+  try {
+    const document = app.window.document
+    const original = document.querySelectorAll.bind(document)
+    document.querySelectorAll = selector => {
+      if (selector === '.SentKanji') throw new Error('simulated front layout failure')
+      return original(selector)
+    }
+    app.show(await cardHtml('jlpt', 'front'), true, false)
+    assert.equal(document.getElementById('jlpt-front-layout-pending'), null)
+    assert.equal(app.window.getComputedStyle(document.getElementById('FrontSide')).visibility, 'visible')
+    assert.equal(app.errors.length, 1)
+  } finally { app.close() }
+})

@@ -1,6 +1,10 @@
 <!-- 自动生成：请修改 src 并运行 npm run build。 -->
 <!-- Card1 [日-中] 正面 -->
 {{^Alt1}}
+<!-- 正面也在标签、注音和例句布局准备好后统一显示。 -->
+<style id="jlpt-front-layout-pending">
+  #FrontSide.jlpt-card { visibility: hidden; }
+</style>
 <main id="FrontSide" class="anki-card jlpt-card CardSide" lang="zh-Hans">
   <header class="Question">
     <h1 class="VocabKanji">
@@ -471,13 +475,19 @@ setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS,
     console.error(error)
   }
   finally {
+    const frontPending = document.getElementById('jlpt-front-layout-pending')
+    if (frontPending) frontPending.remove()
     if (context.isBack) {
       const pending = document.getElementById('jlpt-layout-pending')
       if (pending) pending.remove()
     }
   }
 }
-setTimeout(initialize, 0)
+if (document.getElementById('jlpt-layout-pending')) {
+  setTimeout(initialize, 0)
+} else {
+  initialize()
+}
 })()
 </script>
 {{/Alt1}}
