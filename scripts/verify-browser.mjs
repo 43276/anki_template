@@ -75,8 +75,8 @@ try {
     }
   }
   console.log(`Browser verified ${count} card/viewport/theme combinations; screenshots saved in preview/.`)
-  // Hold initializers across real painted frames. Old runtime-only hiding left
-  // the entire inherited front visible during this window, especially on slow devices.
+  // Hold deferred tasks across real frames. Grammar keeps its inherited front
+  // hidden; JLPT must already have prepared all layout synchronously.
   let flipCount = 0
   for (const name of ['jlpt', 'ja_grammar']) {
     for (const width of [375, 1280]) {
@@ -98,6 +98,10 @@ try {
         }
         const qa = document.getElementById('qa')
         qa.innerHTML = back
+        const pendingState = name === 'jlpt' ? {
+          answerHidden: getComputedStyle(document.getElementById('BackSide')).visibility === 'hidden',
+          titleHidden: getComputedStyle(document.querySelector('#FrontSide .Question')).visibility === 'hidden',
+        } : null
         for (const inert of [...qa.querySelectorAll('script')]) {
           const executable = document.createElement('script')
           executable.textContent = inert.textContent
@@ -110,6 +114,13 @@ try {
             hidden: getComputedStyle(inherited).display === 'none',
             answerVisible: document.getElementById('BackSide').getClientRects().length > 0,
             initialized: !!window.__ankiTemplateContext?.isBack,
+            ready: getComputedStyle(document.getElementById('BackSide')).visibility === 'visible',
+            vocabularyButton: !!document.querySelector('#FrontSide .VocabAudio .replay-button'),
+            labels: [...document.querySelectorAll('#BackSide em')].map(el => el.textContent),
+            geometry: [...document.querySelectorAll('#FrontSide .Question, #BackSide .VocabPoS, #BackSide .SentFurigana, #BackSide .SentDef')].map(el => {
+              const rect = el.getBoundingClientRect()
+              return [rect.x, rect.y, rect.width, rect.height]
+            }),
           })
         }
         capture()
@@ -119,13 +130,20 @@ try {
         }
         window.setTimeout = nativeTimeout
         queued.forEach(fn => fn())
-        return frames
+        return { frames, pendingState }
       }, { back, name })
-      assert.equal(frames.length, 13)
-      for (const frame of frames) {
-        assert.equal(frame.initialized, false, 'this check must run before delayed initialization')
+      assert.equal(frames.frames.length, 13)
+      if (name === 'jlpt') assert.deepEqual(frames.pendingState, { answerHidden: true, titleHidden: true })
+      for (const frame of frames.frames) {
+        assert.equal(frame.initialized, name === 'jlpt', `${name}: unexpected initialization phase`)
         assert.equal(frame.hidden, true, `${name}/${width}: inherited front flashed`)
         assert.equal(frame.answerVisible, true, `${name}/${width}: hiding must not blank the answer`)
+        if (name === 'jlpt') {
+          assert.equal(frame.ready, true)
+          assert.equal(frame.vocabularyButton, true)
+          assert.deepEqual(frame.labels, ['［動詞］', '［補］', '［例］', '［訳］'])
+          assert.deepEqual(frame.geometry, frames.frames[0].geometry, 'prepared elements moved between frames')
+        }
       }
       // Replacing the card removes its inline guard, so the next front is visible.
       await page.evaluate(front => {
@@ -140,5 +158,5 @@ try {
       flipCount++
     }
   }
-  console.log(`Flip verified ${flipCount} slow-CPU scenarios across 13 pre-initialization samples each.`)
+  console.log(`Flip verified ${flipCount} slow-CPU scenarios across 13 samples each with deferred tasks held.`)
 } finally { await browser.close() }

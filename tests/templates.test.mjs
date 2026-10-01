@@ -201,7 +201,7 @@ test('Anki shown hooks do not double-play or survive a card replacement', async 
   } finally { app.close() }
 })
 
-test('Japanese answers hide inherited front content before any initializer runs', async () => {
+test('Japanese answers hide inherited front content before deferred timers run', async () => {
   const outputs = await generate()
   for (const name of ['jlpt', 'ja_grammar']) {
     const template = templates.find(item => item.name === name)
@@ -229,4 +229,50 @@ test('Japanese answers hide inherited front content before any initializer runs'
       assert.deepEqual(app.errors, [])
     } finally { app.close() }
   }
+})
+
+test('JLPT prepares labels and vocabulary audio before showing the answer, without waiting for timers', async () => {
+  const outputs = await generate()
+  const fields = { ...sampleFields, VocabPoS: '名' }
+  const front = await cardHtml('jlpt', 'front', fields)
+  const back = await cardHtml('jlpt', 'back', fields)
+  const app = session(front, outputs.get('jlpt/style.css'))
+  try {
+    const document = app.window.document
+    // Model the markup-inserted, scripts-not-executed interval of a slow client.
+    document.getElementById('qa').innerHTML = back.replace(/<script>[\s\S]*?<\/script>/g, '')
+    assert.equal(app.window.getComputedStyle(document.getElementById('BackSide')).visibility, 'hidden')
+    assert.equal(app.window.getComputedStyle(document.querySelector('#FrontSide .Question')).visibility, 'hidden')
+    for (const executeFront of [true, false]) {
+      app.show(back, executeFront, false)
+      assert.equal(app.window.__ankiTemplateContext.isBack, true)
+      assert.equal(document.getElementById('jlpt-layout-pending'), null)
+      assert.equal(app.window.getComputedStyle(document.getElementById('BackSide')).visibility, 'visible')
+      assert.equal(document.querySelector('.VocabPoS em').textContent, '［名］')
+      assert.equal(document.querySelector('#BackSide .SentFurigana em').textContent, '［例］')
+      assert.equal(document.querySelector('#BackSide .SentDef em').textContent, '［訳］')
+      assert.equal(document.querySelectorAll('#FrontSide .VocabAudio .replay-button').length, 1)
+      const prepared = document.getElementById('qa').innerHTML
+      app.advance(0)
+      assert.equal(document.getElementById('qa').innerHTML, prepared, 'deferred FrontSide must not alter the prepared answer')
+      app.show(front)
+    }
+    assert.deepEqual(app.errors, [])
+  } finally { app.close() }
+})
+
+test('JLPT releases its visibility gate if layout initialization throws', async () => {
+  const app = session(await cardHtml('jlpt', 'front'))
+  try {
+    const document = app.window.document
+    const original = document.querySelectorAll.bind(document)
+    document.querySelectorAll = selector => {
+      if (selector === '.SentKanji') throw new Error('simulated layout failure')
+      return original(selector)
+    }
+    app.show(await cardHtml('jlpt', 'back'), false, false)
+    assert.equal(document.getElementById('jlpt-layout-pending'), null)
+    assert.equal(app.window.getComputedStyle(document.getElementById('BackSide')).visibility, 'visible')
+    assert.equal(app.errors.length, 1)
+  } finally { app.close() }
 })

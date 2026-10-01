@@ -241,7 +241,7 @@ const settings = {
     "ankiweb": false
   }
 }
-setTimeout(() => {
+function initialize() {
   const context = createContext()
   if (!context) return
   try {
@@ -470,7 +470,14 @@ setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS,
     context.dispose()
     console.error(error)
   }
-}, 0)
+  finally {
+    if (context.isBack) {
+      const pending = document.getElementById('jlpt-layout-pending')
+      if (pending) pending.remove()
+    }
+  }
+}
+setTimeout(initialize, 0)
 })()
 </script>
 {{/Alt1}}

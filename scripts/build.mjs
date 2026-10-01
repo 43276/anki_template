@@ -34,14 +34,20 @@ export async function generate() {
     const { name } = template
     const settings = name === 'jlpt' ? JSON.parse(await read(`src/${name}/config.json`)) : {}
     const cardRuntime = await read(`src/${name}/card.js`)
-    // The delayed initializer sees BackSide after FrontSide has finished parsing.
-    // Both sides include it to cover clients that do not execute FrontSide scripts.
-    const runtime = `<script>\n${jsHeader};(function () {\n${sharedRuntime}\n${petRuntime}\n` +
+    // FrontSide still defers so its embedded script can see the complete answer.
+    // JLPT's own back script runs synchronously, after all answer markup exists.
+    const runtimePrefix = `<script>\n${jsHeader};(function () {\n${sharedRuntime}\n${petRuntime}\n` +
       `const petConfig = ${JSON.stringify(petConfig, null, 2)}\n` +
-      `const settings = ${JSON.stringify(settings, null, 2)}\n` +
-      `setTimeout(() => {\n  const context = createContext()\n  if (!context) return\n  try {\n${cardRuntime}\n` +
-      `  } catch (error) {\n    context.dispose()\n    console.error(error)\n  }\n}, 0)\n})()\n</script>`
+      `const settings = ${JSON.stringify(settings, null, 2)}\n`
+    const reveal = name === 'jlpt' ?
+      `\n  finally {\n    if (context.isBack) {\n      const pending = document.getElementById('jlpt-layout-pending')\n      if (pending) pending.remove()\n    }\n  }` : ''
+    const initializeBody = `  const context = createContext()\n  if (!context) return\n  try {\n${cardRuntime}\n` +
+      `  } catch (error) {\n    context.dispose()\n    console.error(error)\n  }${reveal}\n`
     for (const side of ['front', 'back']) {
+      const invoke = name === 'jlpt' && side === 'back' ? 'initialize()' : 'setTimeout(initialize, 0)'
+      const initializer = name === 'jlpt' ? `function initialize() {\n${initializeBody}}\n${invoke}\n` :
+        `setTimeout(() => {\n${initializeBody}}, 0)\n`
+      const runtime = runtimePrefix + initializer + `})()\n</script>`
       let html = await expandPartials(await read(`src/${name}/${side}.html`), name)
       html = html.replace('<!-- @runtime -->', runtime)
       if (/<!-- @|@@\w+@@/.test(html)) throw new Error(`Unresolved directive in ${name}/${side}`)

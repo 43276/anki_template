@@ -6,6 +6,10 @@
 <style>
   #FrontSide.jlpt-card > .SentenceList { display: none !important; }
 </style>
+<!-- 布局准备完成前保持不可见，避免标签和按钮分帧出现。 -->
+<style id="jlpt-layout-pending">
+  #FrontSide.jlpt-card, #BackSide.jlpt-card { visibility: hidden; }
+</style>
 {{FrontSide}}
 
 <div class="VocabAudio !hidden">{{VocabAudio}}</div>
