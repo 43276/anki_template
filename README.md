@@ -78,6 +78,8 @@ npm run verify:browser
 
 Android 和 iOS 的 WebView 仍建议在 Anki 中各试一次：注音、音频按钮、翻面、停留桌宠和夜间模式。
 
+JLPT 的 MathJax 误检测修正另提供 [temp 下的完整测试模板与验证程序](temp/README.md)。`npm run build:jlpt-test` 生成可粘贴到 Anki 的完整正面、背面和 CSS；`npm test` 包含该修正的回归检查；`npm run verify:jlpt-anki` 在独立浏览器中使用本机 Anki 的真实页面脚本验证，不操作牌组。该验证不包含实际 Qt 界面的点击到显示耗时。
+
 ## 来源
 
 - JLPT 基于 [anki-jlpt-decks](https://github.com/5mdld/anki-jlpt-decks) 修改。

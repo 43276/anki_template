@@ -8,3 +8,4 @@ agent.md
 *.txt
 node_modules/
 preview/
+temp/jlpt-mathjax-report.json

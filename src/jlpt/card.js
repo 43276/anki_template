@@ -16,7 +16,8 @@ function isBackSide() {
   return !!document.getElementById('BackSide')
 }
 function cleanWord(word = readField('kanji')) {
-  return word.replace(/\[[^\]]*\]|\([^)]*\)|[0-9!@#$%^&*()_+\-='":\\|,.<>/?~～〜\s]+/g, '')
+  // 用 Unicode 转义匹配括号，避免 Anki 将脚本误判为 MathJax 公式。
+  return word.replace(/\u005b[^\u005d]*\u005d|\u0028[^\u0029]*\u0029|[0-9!@#$%^&*()_+\-='":\\|,.<>/?~～〜\s]+/g, '')
 }
 function setupPlayback() {
   if (settings.playback !== 'force') return
