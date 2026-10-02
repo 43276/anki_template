@@ -2,6 +2,14 @@
 
 三套带桌宠的 Anki 模板：CET 英语词汇、JLPT 日语词汇、日语语法。中文内容只保留简体中文，字段名沿用原牌组。
 
+## 来源
+
+- JLPT 基于 [anki-jlpt-decks](https://github.com/5mdld/anki-jlpt-decks) 修改。
+- 日语语法基于 [Anki 共享牌组 1748349244](https://ankiweb.net/shared/info/1748349244) 修改。
+- CET 基于 [Anki 共享牌组 1045914331](https://ankiweb.net/shared/info/1045914331) 修改。
+
+详细修改见 [changeLog.md](changeLog.md)。
+
 ## 直接使用
 
 以下目录中的 HTML/CSS 是生成好的完整文件，可以直接复制到 Anki 的卡片模板编辑器。使用模板不需要 Node.js，也不需要额外加载脚本文件。
@@ -104,10 +112,3 @@ Android 和 iOS 的 WebView 仍建议在 Anki 中各试一次：注音、音频�
 
 用户本次 AnkiDroid 实测中，字体可观察到先使用默认/后备字体再替换的 `swap` 加载表现，但未出现 PC 测试中的页面整体延迟显示现象。PC 上的 JLPT 翻面延迟原因仍未知，排查暂时搁置；不能据此认定它由字体加载策略引起。避免脚本误触发 MathJax 的正则修正保留，但未解决 PC 上的延迟，详见修改记录。
 
-## 来源
-
-- JLPT 基于 [anki-jlpt-decks](https://github.com/5mdld/anki-jlpt-decks) 修改。
-- 日语语法基于 [Anki 共享牌组 1748349244](https://ankiweb.net/shared/info/1748349244) 修改。
-- CET 基于 [Anki 共享牌组 1045914331](https://ankiweb.net/shared/info/1045914331) 修改；样式保留原 ODH 模板署名。
-
-详细修改见 [changeLog.md](changeLog.md)。
