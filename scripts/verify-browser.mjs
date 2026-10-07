@@ -19,6 +19,15 @@ for (const candidate of candidates) {
 if (!executablePath) throw new Error('Set ANKI_BROWSER_PATH to an installed Chrome/Edge/Chromium browser.')
 const browser = await chromium.launch({ executablePath, headless: true })
 const outputs = await generate()
+// Match the new AnkiDroid reviewer's theme injection. Its body uses --canvas
+// and --fg, so private card variables must not overwrite either host token.
+const reviewerThemeCss = `
+  :root { --canvas: #fff; --fg: #222; }
+  :root[class*='night-mode'] { --canvas: #000; --fg: #fff; }
+  html.night-mode { color-scheme: dark; }
+  body { background-color: #fff; color: #222; }
+  body.nightMode { background-color: var(--canvas); color: var(--fg); }
+`
 const preview = path.join(root, 'preview')
 await mkdir(preview, { recursive: true })
 let count = 0
@@ -34,8 +43,9 @@ try {
           await page.evaluate(() => { Math.random = () => 0.5 })
           const fields = { ...sampleFields, Chinese1: '', Image1: '' }
           const html = await cardHtml(name, side, fields)
-          const classes = `${width < 475 ? 'android' : ''} ${theme === 'dark' ? 'nightMode' : ''}`
-          await page.setContent(`<html class="${classes}"><head><style>body { background: ${theme === 'dark' ? '#202020' : '#fff'}; color: ${theme === 'dark' ? '#eee' : '#222'}; }</style><style>${outputs.get(`${name}/style.css`)}</style></head><body class="card"><div id="qa">${html}</div></body></html>`)
+          const classes = `${width < 475 ? 'android' : ''} ${theme === 'dark' ? 'night-mode' : ''}`
+          const bodyClasses = `card ${theme === 'dark' ? 'nightMode night_mode' : ''}`
+          await page.setContent(`<html class="${classes}" data-bs-theme="${theme}"><head><style>${reviewerThemeCss}</style><style>${outputs.get(`${name}/style.css`)}</style></head><body class="${bodyClasses}"><div id="qa">${html}</div></body></html>`)
           await page.waitForFunction(() => !!window.__ankiTemplateContext)
           assert.deepEqual(errors, [], `${name}/${side}/${theme}/${width}`)
           const result = await page.evaluate(() => {
@@ -50,10 +60,17 @@ try {
               fonts, isBack: window.__ankiTemplateContext.isBack,
               overflow: document.documentElement.scrollWidth > window.innerWidth,
               frontHidden: document.getElementById('FrontSide').hidden,
+              bodyBackground: getComputedStyle(document.body).backgroundColor,
+              bodyForeground: getComputedStyle(document.body).color,
+              cardForeground: getComputedStyle(root).color,
             }
           })
           assert.equal(result.isBack, side === 'back')
           assert.equal(result.overflow, false, `${name}: horizontal overflow at ${width}`)
+          if (theme === 'dark') {
+            assert.equal(result.bodyBackground, 'rgb(0, 0, 0)', `${name}/${side}/${width}: host background must stay black`)
+            assert.equal(result.bodyForeground, 'rgb(255, 255, 255)', `${name}/${side}/${width}: host text color was overwritten`)
+          }
           if (name === 'ja_grammar') {
             assert.match(result.fonts['.word'].family, /^KleeOne/)
             assert.match(result.fonts['.content .num'].family, /^"Source Han Sans JP"/)
@@ -63,6 +80,7 @@ try {
             }
           }
           if (name === 'jlpt') {
+            assert.equal(result.cardForeground, theme === 'dark' ? 'rgb(229, 231, 235)' : 'rgb(31, 41, 55)')
             if (side === 'front') assert.match(result.fonts['.VocabKanji [lang="ja"]'].family, /^KleeOne/)
             if (side === 'back') assert.match(result.fonts['.VocabDef'].family, /^"Source Han Sans CN"/)
           }

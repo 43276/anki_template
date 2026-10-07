@@ -96,39 +96,40 @@ body {
 }
 
 /* --- Design tokens --- */
+/* Keep private tokens separate from Anki reviewer variables such as --canvas/--fg. */
 :root {
-  --fg: #1f2937;
-  --fg-subtle: #737373;
-  --canvas: transparent;
-  --border: #d1d5db;
-  --border-subtle: #e4e4e4;
-  --border-radius: 7px;
-  --button-bg: #f3f3f3;
-  --button-gradient-start: #f7f7f7;
-  --button-primary-bg: #306bec;
-  --button-primary-gradient-start: #3b82f6;
-  --svg-path: #555;
-  --fg-highlight-red: #ef4444;
-  --fg-highlight-orange: #f97316;
-  --fg-highlight-lime: #84cc16;
-  --fg-highlight-teal: #14b8a6;
-  --fg-highlight-blue: #3b82f6;
-  --fg-highlight-indigo: #6366f1;
-  --fg-highlight-purple: #a855f7;
-  --font-size: 16px;
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-4xl: 36px;
-  --label-indent-padding: calc(52 / 18 * 1em);
-  --label-indent-text: calc(-54 / 18 * 1em);
-  --label-indent2-padding: calc(11 / 18 * 1em);
-  --label-indent2-text: calc(-13 / 18 * 1em);
-  --audio-button-size: calc(32 / 18 * 1em);
-  --modal-padding-top: 12vh;
-  --modal-max-width: 80%;
+  --jlpt-fg: #1f2937;
+  --jlpt-fg-subtle: #737373;
+  --jlpt-canvas: transparent;
+  --jlpt-border: #d1d5db;
+  --jlpt-border-subtle: #e4e4e4;
+  --jlpt-border-radius: 7px;
+  --jlpt-button-bg: #f3f3f3;
+  --jlpt-button-gradient-start: #f7f7f7;
+  --jlpt-button-primary-bg: #306bec;
+  --jlpt-button-primary-gradient-start: #3b82f6;
+  --jlpt-svg-path: #555;
+  --jlpt-fg-highlight-red: #ef4444;
+  --jlpt-fg-highlight-orange: #f97316;
+  --jlpt-fg-highlight-lime: #84cc16;
+  --jlpt-fg-highlight-teal: #14b8a6;
+  --jlpt-fg-highlight-blue: #3b82f6;
+  --jlpt-fg-highlight-indigo: #6366f1;
+  --jlpt-fg-highlight-purple: #a855f7;
+  --jlpt-font-size: 16px;
+  --jlpt-text-xs: 12px;
+  --jlpt-text-sm: 14px;
+  --jlpt-text-lg: 18px;
+  --jlpt-text-xl: 20px;
+  --jlpt-text-2xl: 24px;
+  --jlpt-text-4xl: 36px;
+  --jlpt-label-indent-padding: calc(52 / 18 * 1em);
+  --jlpt-label-indent-text: calc(-54 / 18 * 1em);
+  --jlpt-label-indent2-padding: calc(11 / 18 * 1em);
+  --jlpt-label-indent2-text: calc(-13 / 18 * 1em);
+  --jlpt-audio-button-size: calc(32 / 18 * 1em);
+  --jlpt-modal-padding-top: 12vh;
+  --jlpt-modal-max-width: 80%;
 }
 
 .night-mode,
@@ -137,50 +138,50 @@ body {
 .nightmode,
 [data-bs-theme='dark'],
 [data-theme='dark'] {
-  --fg: #e5e7eb;
-  --fg-subtle: #a3a3a3;
-  --canvas: transparent;
-  --border: #494949;
-  --button-bg: #404040;
-  --button-gradient-start: #4a4a4a;
-  --button-primary-bg: #2652cf;
-  --button-primary-gradient-start: #2f67e1;
-  --svg-path: #e5e7eb;
-  --fg-highlight-red: #fca5a5;
-  --fg-highlight-orange: #fdba74;
-  --fg-highlight-lime: #bef264;
-  --fg-highlight-teal: #5eead4;
-  --fg-highlight-blue: #93c5fd;
-  --fg-highlight-indigo: #a5b4fc;
-  --fg-highlight-purple: #d8b4fe;
+  --jlpt-fg: #e5e7eb;
+  --jlpt-fg-subtle: #a3a3a3;
+  --jlpt-canvas: transparent;
+  --jlpt-border: #494949;
+  --jlpt-button-bg: #404040;
+  --jlpt-button-gradient-start: #4a4a4a;
+  --jlpt-button-primary-bg: #2652cf;
+  --jlpt-button-primary-gradient-start: #2f67e1;
+  --jlpt-svg-path: #e5e7eb;
+  --jlpt-fg-highlight-red: #fca5a5;
+  --jlpt-fg-highlight-orange: #fdba74;
+  --jlpt-fg-highlight-lime: #bef264;
+  --jlpt-fg-highlight-teal: #5eead4;
+  --jlpt-fg-highlight-blue: #93c5fd;
+  --jlpt-fg-highlight-indigo: #a5b4fc;
+  --jlpt-fg-highlight-purple: #d8b4fe;
 }
 
 @media (min-width: 475px) {
   :root {
-    --text-xs: 14px;
-    --text-sm: 16px;
-    --text-lg: 22px;
-    --text-xl: 24px;
-    --text-2xl: 28px;
-    --text-4xl: 40px;
-    --label-indent-padding: calc(64 / 22 * 1em);
-    --label-indent-text: calc(-66 / 22 * 1em);
-    --label-indent2-padding: calc(14 / 22 * 1em);
-    --label-indent2-text: calc(-16 / 22 * 1em);
-    --modal-padding-top: 15vh;
-    --modal-max-width: 28em;
+    --jlpt-text-xs: 14px;
+    --jlpt-text-sm: 16px;
+    --jlpt-text-lg: 22px;
+    --jlpt-text-xl: 24px;
+    --jlpt-text-2xl: 28px;
+    --jlpt-text-4xl: 40px;
+    --jlpt-label-indent-padding: calc(64 / 22 * 1em);
+    --jlpt-label-indent-text: calc(-66 / 22 * 1em);
+    --jlpt-label-indent2-padding: calc(14 / 22 * 1em);
+    --jlpt-label-indent2-text: calc(-16 / 22 * 1em);
+    --jlpt-modal-padding-top: 15vh;
+    --jlpt-modal-max-width: 28em;
   }
 }
 
 .jlpt-card {
   text-align: left;
-  color: var(--fg);
-  background-color: var(--canvas);
-  font-size: var(--text-lg);
+  color: var(--jlpt-fg);
+  background-color: var(--jlpt-canvas);
+  font-size: var(--jlpt-text-lg);
 }
 
 .jlpt-card.nightMode {
-  background-color: var(--canvas);
+  background-color: var(--jlpt-canvas);
 }
 
 .jlpt-card a.hint {
@@ -224,18 +225,18 @@ body {
 }
 
 .jlpt-card .replay-button svg {
-  width: var(--audio-button-size);
-  height: var(--audio-button-size);
+  width: var(--jlpt-audio-button-size);
+  height: var(--jlpt-audio-button-size);
 }
 
 .jlpt-card .replay-button svg circle {
-  fill: var(--canvas);
-  stroke: var(--svg-path);
+  fill: var(--jlpt-canvas);
+  stroke: var(--jlpt-svg-path);
   stroke-width: 2.5px;
 }
 
 .jlpt-card .replay-button svg path {
-  fill: var(--svg-path);
+  fill: var(--jlpt-svg-path);
 }
 
 .jlpt-card.CardSide {
@@ -245,28 +246,28 @@ body {
 }
 
 .jlpt-card .LabelIndent {
-  padding-left: var(--label-indent-padding);
-  text-indent: var(--label-indent-text);
+  padding-left: var(--jlpt-label-indent-padding);
+  text-indent: var(--jlpt-label-indent-text);
 }
 
 .jlpt-card .LabelIndent2 {
-  padding-left: var(--label-indent2-padding);
-  text-indent: var(--label-indent2-text);
+  padding-left: var(--jlpt-label-indent2-padding);
+  text-indent: var(--jlpt-label-indent2-text);
 }
 
 .jlpt-card .Question {
-  min-height: calc(var(--text-4xl) * 2.5);
+  min-height: calc(var(--jlpt-text-4xl) * 2.5);
   display: flex;
   align-items: center;
   justify-content: center;
   border-width: 0 0 1px 0;
-  border-color: var(--border);
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-color: var(--jlpt-border);
+  border-radius: var(--jlpt-border-radius) var(--jlpt-border-radius) 0 0;
   padding: 0 0.5em;
 }
 
 .jlpt-card .VocabAudio {
-  width: var(--audio-button-size);
+  width: var(--jlpt-audio-button-size);
 }
 
 .jlpt-card .VocabAudio,
@@ -286,7 +287,7 @@ body {
 .jlpt-card .VocabKanji {
   flex: 1 1 0%;
   text-align: center;
-  font-size: var(--text-4xl);
+  font-size: var(--jlpt-text-4xl);
 }
 
 .jlpt-card .VocabPitch {
@@ -306,7 +307,7 @@ body {
   align-items: flex-start;
   row-gap: 12px;
   border: 0;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border-radius: 0 0 var(--jlpt-border-radius) var(--jlpt-border-radius);
   padding: 12px 8px 12px 0;
 }
 
@@ -320,7 +321,7 @@ body {
 
 .jlpt-card .SentKanji {
   flex: 1 1 0%;
-  color: var(--fg-subtle);
+  color: var(--jlpt-fg-subtle);
   line-height: 1.625;
   padding-top: 0.26em;
 }
@@ -340,8 +341,8 @@ body {
 
 .jlpt-card .SentKanji.blur b,
 .jlpt-card .SentKanji.blur strong {
-  color: var(--canvas);
-  border-bottom: 1px solid var(--border);
+  color: var(--jlpt-canvas);
+  border-bottom: 1px solid var(--jlpt-border);
 }
 
 .jlpt-card .Answer {
@@ -356,12 +357,12 @@ body {
 .jlpt-card .VocabFurigana {
   width: 100%;
   padding-left: 0.4em;
-  font-size: var(--text-2xl);
+  font-size: var(--jlpt-text-2xl);
 }
 
 .jlpt-card .VocabPlus {
   width: 100%;
-  color: var(--fg-subtle);
+  color: var(--jlpt-fg-subtle);
 }
 
 .jlpt-card .SentGroup {
@@ -384,7 +385,7 @@ body {
 
 .jlpt-card .SentFurigana b,
 .jlpt-card .SentFurigana strong {
-  color: var(--fg-highlight-orange);
+  color: var(--jlpt-fg-highlight-orange);
 }
 
 .jlpt-card .SentFurigana i {
@@ -397,15 +398,15 @@ body {
 }
 
 .jlpt-card .SentFurigana .antonym {
-  color: var(--fg-highlight-blue);
+  color: var(--jlpt-fg-highlight-blue);
 }
 
 .jlpt-card .SentFurigana .synonym {
-  color: var(--fg-highlight-teal);
+  color: var(--jlpt-fg-highlight-teal);
 }
 
 .jlpt-card .SentDef {
-  color: var(--fg-subtle);
+  color: var(--jlpt-fg-subtle);
 }
 
 /* --- 针对屏幕尺寸特殊样式 --- */
@@ -433,7 +434,7 @@ body {
 
 /* --- AnkiWeb 样式 --- */
 #quiz {
-  --canvas: #fff;
+  --jlpt-canvas: #fff;
 }
 
 #quiz #qa {
