@@ -197,21 +197,18 @@ flowchart TD
 
 | 媒体来源 | 推荐位置 | 作用与限制 |
 | --- | --- | --- |
-| 随应用提供的七个 GIF | `AnkiDroid/src/main/assets/pets/aemeath/`，由 `manifest.json` 列出可用文件 | 应用安装后即可显示，与卡片内容无耦合；更新素材需要更新 APK |
+| 桌宠应用默认素材 | 不提供 | 新安装后由用户创建媒体组并导入素材，避免预设角色或动画 |
 | 用户自行选择的图片/动图 | 导入到当前应用 Context 的 `filesDir/reviewer-pets/<groupId>/` | 桌宠媒体清单独立管理，可更换牌组；Anki 媒体同步不包含这些文件，跨设备迁移需另做导入/导出 |
-| 现有媒体库中的 GIF，作为兼容来源 | `collection.media`，沿用 `_aemeath_*.gif` | 应用可按兼容清单读取，复用现有资源处理并随 Anki 媒体同步 |
 
-本轮只读统计本项目 `aemeath/assets` 中的七个 GIF，合计 **1,364,068 字节，约 1.30 MiB**，不是解码后的内存占用，也不是最终 APK 压缩增量。这组素材随应用内置的体积成本较小。用户自定义素材通过系统文件选择器导入应用目录，避免要求用户操作应用私有路径。[Android：应用专属文件](https://developer.android.com/training/data-storage/app-specific)
+本项目目前的七个模板桌宠 GIF 合计 **1,364,068 字节，约 1.30 MiB**，但不打包为新全局桌宠的默认素材。用户自定义素材通过系统文件选择器导入应用目录，避免要求用户操作应用私有路径。[Android：应用专属文件](https://developer.android.com/training/data-storage/app-specific)
 
 `collection.media` 可以存放不在笔记字段中引用的静态模板资源。Anki 的检查媒体功能不扫描问答模板，官方要求此类资源以 `_` 开头，以免被当作未使用媒体；现有文件已符合这个约定。[Anki：检查媒体与静态模板资源](https://docs.ankiweb.net/manual/media)
 
-因此，媒体库可以作为既有桌宠资源的兼容来源。将桌宠作为应用设置中的独立功能时，推荐默认资源放 assets，自定义资源放应用目录；此时配置、导入和删除都能独立于牌组管理。移除模板内的桌宠后，用户不需要再把默认素材复制到媒体库。
+`collection.media` 继续负责卡片媒体。即使迁移期间其中留有旧模板 GIF，新全局桌宠也不自动扫描或启用；只有用户在设置中主动创建媒体组并导入的资源才加入桌宠列表。这样不依赖旧笔记类型，也不会把桌宠文件管理混入卡片媒体清理。
 
 本地 [BackgroundImage.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/deckpicker/BackgroundImage.kt) 的背景图实际存为当前 AnkiDroid 集合根目录下的 `DeckPickerBackground.png`，不在 `collection.media`。桌宠可复用背景设置的系统文件选择和导入方式，但采用自己的多文件清单与目录，不直接调用固定单文件目标的 `BackgroundImage.import()`。图片/GIF 按原始内容复制到应用私有目录，原生层提供受控资源地址给注入脚本；路径比较见[设置与媒体方案](pet-reviewer-settings.md#5-保存位置与回到复习后的行为)。
 
 ### WebView 如何读取独立资源
-
-默认素材可以使用 `file:///android_asset/pets/aemeath/<file>.gif`，与本地宿主脚本加载 assets 的方式一致。
 
 应用私有目录的自定义文件建议增加限定的虚拟 GET 路径，例如 `/reviewer-pets/<groupId>/<file>`，在复习 WebView 的资源拦截器中映射到该目录。复用 `ViewerResourceHandler` 或在复习子类中提供专门处理器，校验目录及文件名。现有 `ViewerResourceHandler` 只从卡片媒体目录读取文件，仍需增加这段映射。
 
