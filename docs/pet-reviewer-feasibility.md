@@ -2,6 +2,8 @@
 
 评估日期：2026-10-08。
 
+模板配套迁移已于 2026-10-08 完成：三套模板已删除旧桌宠实现、配置和构建拼接，并重新生成九份成品；共享卡片运行时保留。下文中的旧模板源码分析基于迁移前版本，相关实现可在 Git 历史中查看。应用功能源码已在相邻 Anki-Android 仓库实现，实机体验仍待验收；当前使用说明见[应用桌宠说明](../../Anki-Android/docs/development/reviewer-pets.md)，参数以应用实际实现为准。
+
 依据：引用对话“桌宠全局显示改动评估”、本项目源码、本地 AnkiDroid 源码及已生成的后端渲染资源。
 
 模板项目评估版本：`070d8d4`。AnkiDroid：`0c0a878221`，2.25.1，分支 `my-change`；后端依赖为 `0.1.68-anki26.05`。AnkiDroid 工作区另有新学习屏夜间背景等本地变更。
@@ -33,8 +35,8 @@
 | 新学习屏初始化加载页面 | [CardViewerFragment.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/previewer/CardViewerFragment.kt) 的 `setupWebView()` 调用 `loadDataWithBaseURL()`；`onWebViewRecreated()` 会重新初始化。 |
 | 新学习屏翻面和换卡 | [CardViewerViewModel.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/previewer/CardViewerViewModel.kt) 的 `showQuestion()` / `showAnswer()` 通过 `eval` 发出 `_showQuestion(...)` / `_showAnswer(...)`。 |
 | 宿主与卡片内容的分界 | [PreviewerHelpers.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/previewer/PreviewerHelpers.kt) 的 `stdHtml()` 创建 `<div id="qa">`。本机打包的 `backend/js/reviewer.js` 中，`_updateQA` 取得这个节点，替换它的 `innerHTML`，重执行其中的脚本。 |
-| 现有桌宠已经在卡片节点外 | [pet.js](../src/shared/pet.js) 的 `create()` 将 `.pet` 追加到 `document.body`。正常替换 `#qa` 本身不会删除这个节点。 |
-| 桌宠仍被清理的直接原因 | [runtime.js](../src/shared/runtime.js) 在卡片根节点移除或新根节点初始化时执行 `context.dispose()`；[pet.js](../src/shared/pet.js) 在这个 context 上注册了动画取消、节点删除和计时器清理。 |
+| 迁移前的桌宠已经在卡片节点外 | 旧 `src/shared/pet.js` 的 `create()` 将 `.pet` 追加到 `document.body`。正常替换 `#qa` 本身不会删除这个节点。 |
+| 旧桌宠仍被清理的直接原因 | [runtime.js](../src/shared/runtime.js) 在卡片根节点移除或新根节点初始化时执行 `context.dispose()`；旧 `src/shared/pet.js` 在这个 context 上注册了动画取消、节点删除和计时器清理。 |
 | 旧学习屏确实重新加载页面 | [AbstractFlashcardViewer.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/AbstractFlashcardViewer.kt) 的 `loadContentIntoCard()` 在展示卡片内容时调用 `loadDataWithBaseURL()`。同一页面的 JS 单例无法跨越这种加载。 |
 | 两套界面均存在 | [Reviewer.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/Reviewer.kt) 的 `getIntent()` 根据 `Prefs.isNewStudyScreenEnabled` 选择 `ReviewerFragment` 或旧 `Reviewer`。 |
 | 可接入独立宿主脚本 | [ReviewerFragment.kt](../../Anki-Android/AnkiDroid/src/main/java/com/ichi2/anki/ui/windows/reviewer/ReviewerFragment.kt) 的 `onLoadInitialHtml()` 已通过 `extraJsAssets` 加载 `scripts/ankidroid-reviewer.js`。 |
@@ -46,7 +48,7 @@
 
 ## 现有功能可以复用多少
 
-可复用 GIF 文件列表、随机选图、从边缘入场/路过、镜像方向、CSS 关键帧移动、点击换位，以及三套模板的障碍物选择器。[pet-config.json](../src/shared/pet-config.json) 是现有配置来源，[pet.css](../src/shared/pet.css) 当前以 `130px` 定义尺寸。推荐将这些能力迁入应用 assets，由应用配置取代模板配置；几何检测增加通用实现。
+迁移前的模板可复用随机选图、从边缘入场/路过、镜像方向、CSS 关键帧移动、点击换位，以及三套模板的障碍物选择器。旧 `src/shared/pet-config.json` 提供分组配置结构，旧 `src/shared/pet.css` 以 `130px` 定义尺寸。模板迁移后这些文件已删除；应用使用独立配置、用户导入的媒体和通用几何检测，不打包原有七种 GIF。
 
 现有逻辑与对话描述有三处差异，实施时应明确处理：
 
@@ -185,7 +187,7 @@ flowchart TD
 
 常用参数覆盖评分飞过概率/冷却、同卡停留提醒、三连击退场后的再次出现、大小、透明度、移动时长及边框收起/展开。停留提醒建议默认60秒，“三连击退场后再次出现”默认关闭、间隔2分钟。边框自动展开提供独立开关和等待时长，默认开启并等待60秒，适应用户长时间记忆同一卡片的需求。
 
-本项目模板在迁移时移除旧桌宠代码，之后应用开关只控制应用注入的桌宠。已安装的旧模板仍带有独立桌宠，需要更新一次模板或停用原桌宠，避免出现两只；应用注入不能自动保证阻止任意第三方自带脚本。普通不含桌宠的模板无需修改。
+本项目模板已移除旧桌宠代码，应用开关只控制应用注入的桌宠。已安装的旧模板仍带有独立桌宠，需要将正面、背面和样式一起更新一次，避免出现两只；应用注入不能自动保证阻止任意第三方自带脚本。普通不含桌宠的模板无需修改。
 
 如果过渡版仍保留模板桌宠作为其他客户端的兼容功能，则模板需要一次性加入宿主管理标记判断；这个标记在应用关闭桌宠时也应存在，并传递 `enabled: false`，防止回退创建旧桌宠。这属于旧实现的迁移兼容，不是普通模板必须实现的空位接口。推荐新学习屏方案不再依赖这段兼容逻辑。
 
@@ -200,7 +202,7 @@ flowchart TD
 | 桌宠应用默认素材 | 不提供 | 新安装后由用户创建媒体组并导入素材，避免预设角色或动画 |
 | 用户自行选择的图片/动图 | 导入到当前应用 Context 的 `filesDir/reviewer-pets/<groupId>/` | 桌宠媒体清单独立管理，可更换牌组；Anki 媒体同步不包含这些文件，跨设备迁移需另做导入/导出 |
 
-本项目目前的七个模板桌宠 GIF 合计 **1,364,068 字节，约 1.30 MiB**，但不打包为新全局桌宠的默认素材。用户自定义素材通过系统文件选择器导入应用目录，避免要求用户操作应用私有路径。[Android：应用专属文件](https://developer.android.com/training/data-storage/app-specific)
+迁移前模板使用的七种桌宠 GIF 合计 **1,364,068 字节，约 1.30 MiB**，不打包为新全局桌宠的默认素材；生成模板也不再引用这些文件。用户自定义素材通过系统文件选择器导入应用目录，避免要求用户操作应用私有路径。[Android：应用专属文件](https://developer.android.com/training/data-storage/app-specific)
 
 `collection.media` 可以存放不在笔记字段中引用的静态模板资源。Anki 的检查媒体功能不扫描问答模板，官方要求此类资源以 `_` 开头，以免被当作未使用媒体；现有文件已符合这个约定。[Anki：检查媒体与静态模板资源](https://docs.ankiweb.net/manual/media)
 
@@ -276,15 +278,15 @@ fetch('ankidroid/petGeometry', {
 - 修改 `CardViewerViewModel.kt` 的显示 JS 组装，向现有渲染队列加入可选的开始/完成通知；保持没有桌宠入口的预览流程。
 - 修改 `ReviewerViewModel.kt`，保存卡片停留实例、累计、手动退场、边框模式和展开等待状态，在评分成功后生成带人工/自动来源和唯一标识的桌宠事件；由 `ReviewerFragment` 独立转交，不依赖评分图标反馈开关。新增窄 POST 控制消息接收 JS 的退场、收起/展开及拖动结束操作。
 - 修改 `CardViewerActivity.kt`，观察原生用户活动并转交复习 Fragment；需要保持职责独立时新增通知接口。
-- 在新学习屏底部、“相关设置”之前增加桌宠分组，提供 `Prefs` 总开关和参数/媒体子页，沿用新学习屏关闭时的禁用逻辑；参数覆盖概率、冷却、提醒、再次出现和边框等待，将现有七个 GIF 放入应用 assets，由 manifest 管理。
+- 在新学习屏底部、“相关设置”之前增加桌宠分组，提供 `Prefs` 总开关和参数/媒体子页，沿用新学习屏关闭时的禁用逻辑；参数覆盖概率、冷却、提醒、再次出现和边框等待。不内置默认素材，媒体清单初始为空，由用户创建组并导入。
 - 新增媒体组列表/详情、多文件导入和独立清单管理，自定义文件放入 `filesDir/reviewer-pets/<groupId>/`；增加复习 WebView 的限定资源读取，以及配置变化后的状态更新。
 
-**阶段二：清理本项目模板中的旧桌宠。**
+**阶段二：清理本项目模板中的旧桌宠（已完成）。**
 
-- 从三套 `src/*/card.js` 移除 `setupPet()` 调用。
-- 从 `scripts/build.mjs` 移除桌宠运行代码、`petConfig` 和 `pet.css` 的拼接，不移除供音频、标签等功能使用的共享 `runtime.js`。
-- 移除或归档不再使用的模板桌宠源码与配置，更新使用说明并重新生成九份 HTML/CSS 成品；不向模板加入新的检测或传递代码。
-- 提供旧安装模板的一次性更新说明。模板迁移与应用功能分别提交，明确更新后的模板在其他客户端也不再包含桌宠。
+- 已从三套 `src/*/card.js` 移除 `setupPet()` 调用。
+- 已从 `scripts/build.mjs` 移除桌宠运行代码、`petConfig` 和 `pet.css` 的拼接，保留供音频、标签等功能使用的共享 `runtime.js`。
+- 已删除不再使用的模板桌宠源码与配置，更新使用说明并重新生成九份 HTML/CSS 成品；模板不加入新的检测或传递代码。
+- README 已提供旧安装模板的一次性更新说明，明确更新后的模板在其他客户端也不再包含桌宠。
 - 模板清理不承担应用媒体管理，参数、导入与列表都由应用设置提供。
 
 **阶段三：若需要旧学习屏，增加独立覆盖层。**
@@ -327,4 +329,4 @@ fetch('ankidroid/petGeometry', {
 | 旧模板迁移后关闭桌宠开关 | 不再出现模板内的第二只桌宠，无需用户编写几何接口 |
 | 白板、标记图标、全屏视频、明暗主题 | 桌宠行为按排除或隐藏规则执行，相关交互正常 |
 
-首期落点：应用注入完整桌宠与通用空位检测，清理本项目模板内的旧桌宠。普通用户只需要开启设置；旧学习屏支持单独估算。本次仍是方案评估，尚未实施功能。
+首期落点：应用注入完整桌宠与通用空位检测；本项目旧桌宠的模板迁移已完成。用户通过应用设置开启功能并导入媒体，普通模板无需增加接口。旧学习屏支持单独估算，应用功能的实施与验收请查看 Anki-Android 仓库。

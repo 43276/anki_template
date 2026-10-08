@@ -39,8 +39,6 @@ try {
           const page = await browser.newPage({ viewport: { width, height: 900 } })
           const errors = []
           page.on('pageerror', error => errors.push(error.message))
-          // Exclude probabilistic pet fly-throughs from layout screenshots.
-          await page.evaluate(() => { Math.random = () => 0.5 })
           const fields = { ...sampleFields, Chinese1: '', Image1: '' }
           const html = await cardHtml(name, side, fields)
           const classes = `${width < 475 ? 'android' : ''} ${theme === 'dark' ? 'night-mode' : ''}`

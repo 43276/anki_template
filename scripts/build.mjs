@@ -27,17 +27,14 @@ async function expandPartials(html, name) {
 
 export async function generate() {
   const outputs = new Map()
-  const petConfig = JSON.parse(await read('src/shared/pet-config.json'))
   const sharedRuntime = await read('src/shared/runtime.js')
-  const petRuntime = await read('src/shared/pet.js')
   for (const template of templates) {
     const { name } = template
     const settings = name === 'jlpt' ? JSON.parse(await read(`src/${name}/config.json`)) : {}
     const cardRuntime = await read(`src/${name}/card.js`)
     // Standalone JLPT fronts and backs prepare layout synchronously. Only the
     // front embedded in an unfinished answer defers to its back initializer.
-    const runtimePrefix = `<script>\n${jsHeader};(function () {\n${sharedRuntime}\n${petRuntime}\n` +
-      `const petConfig = ${JSON.stringify(petConfig, null, 2)}\n` +
+    const runtimePrefix = `<script>\n${jsHeader};(function () {\n${sharedRuntime}\n` +
       `const settings = ${JSON.stringify(settings, null, 2)}\n`
     const reveal = name === 'jlpt' ?
       `\n  finally {\n    const frontPending = document.getElementById('jlpt-front-layout-pending')\n    if (frontPending) frontPending.remove()\n    if (context.isBack) {\n      const pending = document.getElementById('jlpt-layout-pending')\n      if (pending) pending.remove()\n    }\n  }` : ''
@@ -56,7 +53,7 @@ export async function generate() {
     }
     const css = [await read('src/shared/tokens.css')]
     if (template.fonts) css.push(await read('src/shared/fonts.css'))
-    css.push(await read(`src/${name}/card.css`), await read('src/shared/pet.css'))
+    css.push(await read(`src/${name}/card.css`))
     outputs.set(`${name}/style.css`, cssHeader + css.join('\n\n') + '\n')
   }
   return outputs

@@ -11,7 +11,7 @@ test('generated files match sources, contain valid JS/CSS and no obsolete refere
   await build(true)
   const outputs = await generate()
   for (const [name, content] of outputs) {
-    assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(/, name)
+    assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(|setupPet|petConfig|--pet-size|_aemeath_/, name)
     assert.doesNotMatch(content, /<!-- @|@@INDEX@@|@@NUMBER@@/, name)
     if (name.endsWith('.css')) {
       const errors = []
@@ -86,28 +86,6 @@ test('JLPT uses actual field indexes when an earlier sentence is absent', async 
     assert.equal(sentence.querySelector('em').textContent, '［関］')
     assert.equal(sentence.querySelector('.synonym').textContent, '習う')
     assert.equal(app.window.document.querySelector('.VocabPoS em').textContent, '［動詞"引用"`記号`］')
-    assert.deepEqual(app.errors, [])
-  } finally { app.close() }
-})
-
-test('pet sizes come from CSS and pets/styles/timers are removed on card replacement', async () => {
-  const css = 'body .pet { --pet-size: 90px; }'
-  const front = await cardHtml('cet', 'front')
-  const app = session(front, css)
-  try {
-    app.window.Math.random = () => 0
-    app.advance(15000)
-    const pet = app.window.document.querySelector('.pet')
-    assert.ok(pet)
-    assert.match(pet.style.transform, /-90px/)
-    assert.equal(app.window.document.head.querySelectorAll('style').length, 2)
-    pet.dispatchEvent(new app.window.Event('click', { bubbles: true }))
-    pet.dispatchEvent(new app.window.Event('click', { bubbles: true }))
-    assert.equal(app.window.document.head.querySelectorAll('style').length, 2, 'cancelled animation styles leaked')
-    app.show(front)
-    assert.equal(app.window.document.querySelector('.pet'), null)
-    assert.equal(app.window.document.head.querySelectorAll('style').length, 1)
-    assert.equal(app.timers.size, 1)
     assert.deepEqual(app.errors, [])
   } finally { app.close() }
 })

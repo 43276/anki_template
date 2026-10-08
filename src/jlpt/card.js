@@ -219,4 +219,3 @@ if (context.isBack) {
 }
 setAnkiWebAudio()
 if (context.isBack) setupPlayback()
-setupPet(context, petConfig, '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS, .VocabPlus, .SentKanji, .SentFurigana, .SentDef, .VocabPitch, .VocabAudio, .SentAudio')
