@@ -1,0 +1,192 @@
+<!-- 自动生成：请修改 src 并运行 npm run build:no-pets。 -->
+<main id="FrontSide" class="anki-card grammar-card GrammarBody" lang="zh-Hans">
+  <header class="header"><span class="word" lang="ja">{{kanji:Word}}</span></header>
+  <hr>
+  <div class="content">
+    {{#Example1}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">①</span>
+  <span lang="ja">{{kanji:Example1}}</span>
+</div>
+{{/Example1}}
+{{#Example2}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">②</span>
+  <span lang="ja">{{kanji:Example2}}</span>
+</div>
+{{/Example2}}
+{{#Example3}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">③</span>
+  <span lang="ja">{{kanji:Example3}}</span>
+</div>
+{{/Example3}}
+{{#Example4}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">④</span>
+  <span lang="ja">{{kanji:Example4}}</span>
+</div>
+{{/Example4}}
+{{#Example5}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑤</span>
+  <span lang="ja">{{kanji:Example5}}</span>
+</div>
+{{/Example5}}
+{{#Example6}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑥</span>
+  <span lang="ja">{{kanji:Example6}}</span>
+</div>
+{{/Example6}}
+{{#Example7}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑦</span>
+  <span lang="ja">{{kanji:Example7}}</span>
+</div>
+{{/Example7}}
+{{#Example8}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑧</span>
+  <span lang="ja">{{kanji:Example8}}</span>
+</div>
+{{/Example8}}
+{{#Example9}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑨</span>
+  <span lang="ja">{{kanji:Example9}}</span>
+</div>
+{{/Example9}}
+{{#Example10}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑩</span>
+  <span lang="ja">{{kanji:Example10}}</span>
+</div>
+{{/Example10}}
+{{#Example11}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑪</span>
+  <span lang="ja">{{kanji:Example11}}</span>
+</div>
+{{/Example11}}
+{{#Example12}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑫</span>
+  <span lang="ja">{{kanji:Example12}}</span>
+</div>
+{{/Example12}}
+{{#Example13}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑬</span>
+  <span lang="ja">{{kanji:Example13}}</span>
+</div>
+{{/Example13}}
+{{#Example14}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑭</span>
+  <span lang="ja">{{kanji:Example14}}</span>
+</div>
+{{/Example14}}
+{{#Example15}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑮</span>
+  <span lang="ja">{{kanji:Example15}}</span>
+</div>
+{{/Example15}}
+{{#Example16}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑯</span>
+  <span lang="ja">{{kanji:Example16}}</span>
+</div>
+{{/Example16}}
+{{#Example17}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑰</span>
+  <span lang="ja">{{kanji:Example17}}</span>
+</div>
+{{/Example17}}
+{{#Example18}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑱</span>
+  <span lang="ja">{{kanji:Example18}}</span>
+</div>
+{{/Example18}}
+{{#Example19}}
+<div class="examplefront">
+  <span class="leader" lang="ja">[例]</span><span class="num">⑲</span>
+  <span lang="ja">{{kanji:Example19}}</span>
+</div>
+{{/Example19}}
+  </div>
+</main>
+<script>
+// Generated from src; edit source files, then run npm run build:no-pets.
+;(function () {
+// Each generated script is enclosed in an IIFE; Anki may reuse the same WebView.
+function createContext() {
+  const back = document.getElementById('BackSide')
+  const root = back || document.getElementById('FrontSide')
+  if (!root) return null
+  const previous = window.__ankiTemplateContext
+  if (previous && previous.root === root) return null
+  if (previous) previous.dispose()
+
+  const disposers = new Set()
+  let disposed = false
+  const context = {
+    root,
+    isBack: !!back,
+    get active() { return !disposed && root.isConnected },
+    onCleanup(fn) { disposers.add(fn); return fn },
+    timeout(fn, delay) {
+      const cleanup = () => clearTimeout(id)
+      const id = setTimeout(() => {
+        disposers.delete(cleanup)
+        if (context.active) fn()
+      }, delay)
+      disposers.add(cleanup)
+      return id
+    },
+    listen(target, event, fn, options) {
+      target.addEventListener(event, fn, options)
+      disposers.add(() => target.removeEventListener(event, fn, options))
+    },
+    dispose() {
+      if (disposed) return
+      disposed = true
+      disposers.forEach(fn => fn())
+      disposers.clear()
+      if (window.__ankiTemplateContext === context) delete window.__ankiTemplateContext
+    },
+  }
+  const observer = new MutationObserver(() => {
+    if (!root.isConnected) context.dispose()
+  })
+  observer.observe(document.body, { childList: true, subtree: true })
+  context.onCleanup(() => observer.disconnect())
+  window.__ankiTemplateContext = context
+  return context
+}
+
+// Edit text nodes only: keep ruby structure, audio nodes and their listeners.
+function stripSpaces(element) {
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT)
+  while (walker.nextNode()) walker.currentNode.nodeValue = walker.currentNode.nodeValue.replace(/\s+/g, '')
+}
+const settings = {}
+setTimeout(() => {
+  const context = createContext()
+  if (!context) return
+  try {
+document.querySelectorAll('.grammar-card [lang="ja"]').forEach(stripSpaces)
+if (context.isBack) {
+  const front = document.getElementById('FrontSide')
+  if (front) front.hidden = true
+}
+  } catch (error) {
+    context.dispose()
+    console.error(error)
+  }
+}, 0)
+})()
+</script>

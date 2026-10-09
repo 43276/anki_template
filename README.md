@@ -20,6 +20,16 @@
 | JLPT | `jlpt/ja-zh_front.html` | `jlpt/ja-zh_back.html` | `jlpt/style.css` |
 | 日语语法 | `ja_grammar/front.html` | `ja_grammar/back.html` | `ja_grammar/style.css` |
 
+配套应用管理桌宠时，可统一使用 `no_pets/` 下的无桌宠成品：
+
+| 模板 | 正面 | 背面 | 样式 |
+| --- | --- | --- | --- |
+| CET | `no_pets/cet/front.html` | `no_pets/cet/back.html` | `no_pets/cet/style.css` |
+| JLPT | `no_pets/jlpt/ja-zh_front.html` | `no_pets/jlpt/ja-zh_back.html` | `no_pets/jlpt/style.css` |
+| 日语语法 | `no_pets/ja_grammar/front.html` | `no_pets/ja_grammar/back.html` | `no_pets/ja_grammar/style.css` |
+
+当前两组产物共用已移除桌宠的 `src` 源码，卡片内容和功能一致；`no_pets/` 的文件头标注独立的重建命令。
+
 本次重构增加了根类和调整后的 HTML 结构，升级时请将同一模板的正面、背面、样式三项一起替换。旧 HTML 与新 CSS 混用会导致部分样式不生效。原有笔记数据和字段不用迁移。
 
 ## 媒体依赖
@@ -53,10 +63,14 @@
 npm ci
 npm run build
 npm run check
+npm run build:no-pets
+npm run check:no-pets
 npm test
 ```
 
-修改 `src` 后运行 `npm run build`，生成的九个文件会更新到上表目录。`npm run check` 只核对成品与源码是否一致，发现手动修改或未构建的文件时会报错。已有成品文件被人工修改时，应先把修改同步回源码再构建。
+修改 `src` 后运行 `npm run build`，生成的九个文件会更新到根目录的 `cet/`、`jlpt/`、`ja_grammar/`。`npm run check` 只核对成品与源码是否一致，发现手动修改或未构建的文件时会报错。已有成品文件被人工修改时，应先把修改同步回源码再构建。
+
+新增的 `scripts/build-no-pets.mjs` 通过 `npm run build:no-pets` 将九个完整 HTML/CSS 文件生成到 `no_pets/cet/`、`no_pets/jlpt/`、`no_pets/ja_grammar/`，不修改原目录的成品。`npm run check:no-pets` 只检查这组产物与源码是否一致。修改共用源码后，请运行两组构建命令；`npm test` 会检查两组生成一致性和 JavaScript/CSS 语法。
 
 ```text
 src/
@@ -71,6 +85,7 @@ tests/          模板结构、字段缺失、字体及翻页行为检查
 cet/            CET 成品
 jlpt/           JLPT 成品
 ja_grammar/     日语语法成品
+no_pets/        无桌宠成品，包含 cet、jlpt、ja_grammar 三个子目录
 ```
 
 ## 调整设置

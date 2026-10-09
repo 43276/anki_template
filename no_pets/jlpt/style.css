@@ -1,0 +1,470 @@
+/* 自动生成：请修改 src 并运行 npm run build:no-pets。 */
+/* Shared values; template-specific aliases preserve each card's appearance. */
+:root {
+  --font-cn: 'Source Han Sans CN', 'Source Han Sans JP', serif;
+  --font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 12px;
+}
+
+@font-face {
+  font-family: 'Source Han Sans CN';
+  src: url('_SourceHanSansCN-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Han Sans JP';
+  src: url('_SourceHanSansJP-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KleeOne';
+  src: url('_KleeOne_Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+.\!hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.jlpt-card,
+.jlpt-card *,
+.jlpt-card::after,
+.jlpt-card::before,
+.jlpt-card *::after,
+.jlpt-card *::before {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+}
+
+:host,
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  line-height: inherit;
+}
+
+.jlpt-card h1,
+.jlpt-card h2,
+.jlpt-card h3,
+.jlpt-card a,
+.jlpt-card p {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: inherit;
+  margin: 0;
+}
+
+.jlpt-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jlpt-card,
+.jlpt-card :lang(zh-Hans) {
+  font-family: var(--font-cn);
+}
+
+.jlpt-card :lang(ja) {
+  font-family: var(--font-ja);
+}
+
+.jlpt-card .VocabKanji :lang(ja) {
+  font-family: 'KleeOne', 'Source Han Sans JP', serif;
+}
+
+/* --- Design tokens --- */
+/* Keep private tokens separate from Anki reviewer variables such as --canvas/--fg. */
+:root {
+  --jlpt-fg: #1f2937;
+  --jlpt-fg-subtle: #737373;
+  --jlpt-canvas: transparent;
+  --jlpt-border: #d1d5db;
+  --jlpt-border-subtle: #e4e4e4;
+  --jlpt-border-radius: 7px;
+  --jlpt-button-bg: #f3f3f3;
+  --jlpt-button-gradient-start: #f7f7f7;
+  --jlpt-button-primary-bg: #306bec;
+  --jlpt-button-primary-gradient-start: #3b82f6;
+  --jlpt-svg-path: #555;
+  --jlpt-fg-highlight-red: #ef4444;
+  --jlpt-fg-highlight-orange: #f97316;
+  --jlpt-fg-highlight-lime: #84cc16;
+  --jlpt-fg-highlight-teal: #14b8a6;
+  --jlpt-fg-highlight-blue: #3b82f6;
+  --jlpt-fg-highlight-indigo: #6366f1;
+  --jlpt-fg-highlight-purple: #a855f7;
+  --jlpt-font-size: 16px;
+  --jlpt-text-xs: 12px;
+  --jlpt-text-sm: 14px;
+  --jlpt-text-lg: 18px;
+  --jlpt-text-xl: 20px;
+  --jlpt-text-2xl: 24px;
+  --jlpt-text-4xl: 36px;
+  --jlpt-label-indent-padding: calc(52 / 18 * 1em);
+  --jlpt-label-indent-text: calc(-54 / 18 * 1em);
+  --jlpt-label-indent2-padding: calc(11 / 18 * 1em);
+  --jlpt-label-indent2-text: calc(-13 / 18 * 1em);
+  --jlpt-audio-button-size: calc(32 / 18 * 1em);
+  --jlpt-modal-padding-top: 12vh;
+  --jlpt-modal-max-width: 80%;
+}
+
+.night-mode,
+.night_mode,
+.nightMode,
+.nightmode,
+[data-bs-theme='dark'],
+[data-theme='dark'] {
+  --jlpt-fg: #e5e7eb;
+  --jlpt-fg-subtle: #a3a3a3;
+  --jlpt-canvas: transparent;
+  --jlpt-border: #494949;
+  --jlpt-button-bg: #404040;
+  --jlpt-button-gradient-start: #4a4a4a;
+  --jlpt-button-primary-bg: #2652cf;
+  --jlpt-button-primary-gradient-start: #2f67e1;
+  --jlpt-svg-path: #e5e7eb;
+  --jlpt-fg-highlight-red: #fca5a5;
+  --jlpt-fg-highlight-orange: #fdba74;
+  --jlpt-fg-highlight-lime: #bef264;
+  --jlpt-fg-highlight-teal: #5eead4;
+  --jlpt-fg-highlight-blue: #93c5fd;
+  --jlpt-fg-highlight-indigo: #a5b4fc;
+  --jlpt-fg-highlight-purple: #d8b4fe;
+}
+
+@media (min-width: 475px) {
+  :root {
+    --jlpt-text-xs: 14px;
+    --jlpt-text-sm: 16px;
+    --jlpt-text-lg: 22px;
+    --jlpt-text-xl: 24px;
+    --jlpt-text-2xl: 28px;
+    --jlpt-text-4xl: 40px;
+    --jlpt-label-indent-padding: calc(64 / 22 * 1em);
+    --jlpt-label-indent-text: calc(-66 / 22 * 1em);
+    --jlpt-label-indent2-padding: calc(14 / 22 * 1em);
+    --jlpt-label-indent2-text: calc(-16 / 22 * 1em);
+    --jlpt-modal-padding-top: 15vh;
+    --jlpt-modal-max-width: 28em;
+  }
+}
+
+.jlpt-card {
+  text-align: left;
+  color: var(--jlpt-fg);
+  background-color: var(--jlpt-canvas);
+  font-size: var(--jlpt-text-lg);
+}
+
+.jlpt-card.nightMode {
+  background-color: var(--jlpt-canvas);
+}
+
+.jlpt-card a.hint {
+  cursor: pointer;
+  color: inherit;
+}
+
+.jlpt-card a.hint[style*='display: none'] + div.hint {
+  display: inline !important;
+}
+
+.jlpt-card .blur.has-hint {
+  filter: none;
+}
+
+.jlpt-card em,
+.jlpt-card ruby rt,
+.jlpt-card .blur b,
+.jlpt-card .blur span,
+.jlpt-card .VocabPitch {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.jlpt-card u,
+.jlpt-card i,
+.jlpt-card em,
+.jlpt-card b,
+.jlpt-card strong {
+  font-style: normal;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
+.jlpt-card .replay-button {
+  margin: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.jlpt-card .replay-button svg {
+  width: var(--jlpt-audio-button-size);
+  height: var(--jlpt-audio-button-size);
+}
+
+.jlpt-card .replay-button svg circle {
+  fill: var(--jlpt-canvas);
+  stroke: var(--jlpt-svg-path);
+  stroke-width: 2.5px;
+}
+
+.jlpt-card .replay-button svg path {
+  fill: var(--jlpt-svg-path);
+}
+
+.jlpt-card.CardSide {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+.jlpt-card .LabelIndent {
+  padding-left: var(--jlpt-label-indent-padding);
+  text-indent: var(--jlpt-label-indent-text);
+}
+
+.jlpt-card .LabelIndent2 {
+  padding-left: var(--jlpt-label-indent2-padding);
+  text-indent: var(--jlpt-label-indent2-text);
+}
+
+.jlpt-card .Question {
+  min-height: calc(var(--jlpt-text-4xl) * 2.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 0 0 1px 0;
+  border-color: var(--jlpt-border);
+  border-radius: var(--jlpt-border-radius) var(--jlpt-border-radius) 0 0;
+  padding: 0 0.5em;
+}
+
+.jlpt-card .VocabAudio {
+  width: var(--jlpt-audio-button-size);
+}
+
+.jlpt-card .VocabAudio,
+.jlpt-card .SentAudio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.jlpt-card .SentDef:empty,
+.jlpt-card .SentAudio:empty {
+  display: none;
+}
+
+.jlpt-card .VocabKanji {
+  flex: 1 1 0%;
+  text-align: center;
+  font-size: var(--jlpt-text-4xl);
+}
+
+.jlpt-card .VocabPitch {
+  vertical-align: text-top;
+  font-size: 16px;
+  margin-left: -0.3em;
+}
+
+.jlpt-card .VocabKanji .VocabPitch {
+  margin-left: -0.6em;
+}
+
+.jlpt-card .SentenceList {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 12px;
+  border: 0;
+  border-radius: 0 0 var(--jlpt-border-radius) var(--jlpt-border-radius);
+  padding: 12px 8px 12px 0;
+}
+
+.jlpt-card .Sentence {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 2px;
+}
+
+.jlpt-card .SentKanji {
+  flex: 1 1 0%;
+  color: var(--jlpt-fg-subtle);
+  line-height: 1.625;
+  padding-top: 0.26em;
+}
+
+.jlpt-card .SentKanji span {
+  color: inherit !important;
+  background-color: inherit !important;
+  font-weight: inherit !important;
+  font-style: inherit !important;
+}
+
+.jlpt-card .VocabPlus.blur,
+.jlpt-card .VocabKanji.blur,
+.jlpt-card .VocabFurigana.blur {
+  filter: blur(10px);
+}
+
+.jlpt-card .SentKanji.blur b,
+.jlpt-card .SentKanji.blur strong {
+  color: var(--jlpt-canvas);
+  border-bottom: 1px solid var(--jlpt-border);
+}
+
+.jlpt-card .Answer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 6px;
+  border: 0;
+  padding: 8px 8px 8px 0;
+}
+
+.jlpt-card .VocabFurigana {
+  width: 100%;
+  padding-left: 0.4em;
+  font-size: var(--jlpt-text-2xl);
+}
+
+.jlpt-card .VocabPlus {
+  width: 100%;
+  color: var(--jlpt-fg-subtle);
+}
+
+.jlpt-card .SentGroup {
+  display: grid;
+  flex: 1 1 0%;
+  row-gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.jlpt-card .SentFurigana {
+  overflow-wrap: break-word;
+  word-break: break-all;
+  line-height: 1.625;
+  line-break: anywhere;
+  -webkit-line-break: anywhere;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.jlpt-card .SentFurigana b,
+.jlpt-card .SentFurigana strong {
+  color: var(--jlpt-fg-highlight-orange);
+}
+
+.jlpt-card .SentFurigana i {
+  font-style: italic;
+}
+
+.jlpt-card .SentFurigana u {
+  text-decoration-line: underline;
+  text-underline-offset: 5px;
+}
+
+.jlpt-card .SentFurigana .antonym {
+  color: var(--jlpt-fg-highlight-blue);
+}
+
+.jlpt-card .SentFurigana .synonym {
+  color: var(--jlpt-fg-highlight-teal);
+}
+
+.jlpt-card .SentDef {
+  color: var(--jlpt-fg-subtle);
+}
+
+/* --- 针对屏幕尺寸特殊样式 --- */
+@media (min-width: 475px) {
+  .CardSide {
+    padding: 0 24px;
+    max-width: 720px;
+  }
+
+  .SentenceList {
+    min-height: 364px;
+  }
+
+  .VocabAudio,
+  .SentAudio {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .CardSide {
+    max-width: 1024px;
+  }
+}
+
+/* --- AnkiWeb 样式 --- */
+#quiz {
+  --jlpt-canvas: #fff;
+}
+
+#quiz #qa {
+  margin-top: 0;
+}
+
+#quiz .CardSide {
+  padding: 0;
+}
+
+/* --- iOS 思源宋体振假名高度修复 --- */
+.ios .jlpt-card rt,
+.safari .jlpt-card rt {
+  transform: translateY(0.6em);
+}
+
+/* --- 移动端不显示左右边框和底部边框 --- */
+.ios .CardSide,
+.android .CardSide,
+.ios .Question,
+.android .Question,
+.ios .SentenceList,
+.android .SentenceList {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
+}
+
+.ios .SentenceList,
+.android .SentenceList {
+  border-bottom-width: 0;
+  min-height: 0;
+}

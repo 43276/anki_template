@@ -1,0 +1,104 @@
+/* 自动生成：请修改 src 并运行 npm run build:no-pets。 */
+/* Shared values; template-specific aliases preserve each card's appearance. */
+:root {
+  --font-cn: 'Source Han Sans CN', 'Source Han Sans JP', serif;
+  --font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 12px;
+}
+
+/*
+ODH Template
+author:ninja huang
+site:https://github.com/ninja33/odh
+*/
+
+:root {
+  --cet-fg: #414141;
+  --cet-hr: #e5e5e5;
+  --cet-font-family: "Segoe UI", Arial, "Microsoft Yahei", sans-serif;
+  --cet-space-sm: var(--space-1);
+  --cet-space-md: var(--space-3);
+}
+
+.night-mode,
+.night_mode,
+.nightMode,
+.nightmode,
+[data-bs-theme='dark'],
+[data-theme='dark'] {
+  --cet-fg: #e5e7eb;
+  --cet-hr: #494949;
+}
+
+.card {
+  margin: var(--cet-space-md);
+  text-align: left;
+  background-color: transparent;
+  color: var(--cet-fg);
+}
+
+.cet-card {
+  color: var(--cet-fg);
+  background-color: transparent;
+  font-family: var(--cet-font-family);
+  font-size: 16px;
+  margin: var(--cet-space-md) 0;
+}
+
+#FrontSide.cet-card {
+  margin-bottom: var(--cet-space-sm);
+}
+
+.cet-card__section {
+  margin: 0 var(--cet-space-md);
+  padding: 10px 0;
+}
+
+.cet-card__audio {
+  margin-left: var(--cet-space-sm);
+}
+
+.cet-card__audio img {
+  width: 64px;
+  height: 64px;
+  vertical-align: middle;
+}
+
+.cet-divider,
+.cet-card hr {
+  border: 0;
+  margin: 0 var(--cet-space-md);
+  border-top: 1px solid var(--cet-hr);
+}
+
+.cet-card__section hr {
+  border: 0;
+  margin: var(--cet-space-md) 0;
+  border-top: 1px solid var(--cet-hr);
+}
+
+/* 词汇和音标之间不使用分隔线 */
+
+
+.cet-card__definition {
+  line-height: 1.5em;
+}
+
+.cet-card__word {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: left;
+  line-height: 1.2;
+  padding-bottom: 0;
+}
+
+.cet-card__phonetic {
+  font-size: 0.8em;
+  line-height: 1.3;
+  padding-top: 0;
+  padding-bottom: var(--cet-space-sm);
+}

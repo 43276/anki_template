@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:no-pets": "node scripts/build-no-pets.mjs",
     "check": "node scripts/build.mjs --check",
+    "check:no-pets": "node scripts/build-no-pets.mjs --check",
     "verify:browser": "node scripts/verify-browser.mjs",
     "test": "node --test tests/*.test.mjs"
   },

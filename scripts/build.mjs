@@ -9,9 +9,6 @@ export const templates = [
   { name: 'ja_grammar', front: 'front.html', back: 'back.html', fonts: true },
 ]
 const read = async name => (await readFile(path.join(root, name), 'utf8')).replace(/\r\n/g, '\n').trimEnd()
-const jsHeader = '// Generated from src; edit source files, then run npm run build.\n'
-const htmlHeader = '<!-- 自动生成：请修改 src 并运行 npm run build。 -->\n'
-const cssHeader = '/* 自动生成：请修改 src 并运行 npm run build。 */\n'
 
 async function expandPartials(html, name) {
   const pattern = /<!-- @repeat ([\w-]+\.html) (\d+) -->/g
@@ -25,7 +22,10 @@ async function expandPartials(html, name) {
   return html
 }
 
-export async function generate() {
+export async function generate({ command = 'npm run build' } = {}) {
+  const jsHeader = `// Generated from src; edit source files, then run ${command}.\n`
+  const htmlHeader = `<!-- 自动生成：请修改 src 并运行 ${command}。 -->\n`
+  const cssHeader = `/* 自动生成：请修改 src 并运行 ${command}。 */\n`
   const outputs = new Map()
   const sharedRuntime = await read('src/shared/runtime.js')
   for (const template of templates) {
@@ -59,23 +59,24 @@ export async function generate() {
   return outputs
 }
 
-export async function build(check = false) {
-  const outputs = await generate()
+export async function build(check = false, { outputDir = '', command = 'npm run build' } = {}) {
+  const outputs = await generate({ command })
   const stale = []
   for (const [name, content] of outputs) {
-    const filename = path.join(root, name)
+    const outputName = path.join(outputDir, name)
+    const filename = path.join(root, outputName)
     if (check) {
       let actual = ''
       try { actual = (await readFile(filename, 'utf8')).replace(/\r\n/g, '\n') } catch (error) {
         if (error.code !== 'ENOENT') throw error
       }
-      if (actual !== content) stale.push(name)
+      if (actual !== content) stale.push(outputName)
     } else {
       await mkdir(path.dirname(filename), { recursive: true })
       await writeFile(filename, content, 'utf8')
     }
   }
-  if (stale.length) throw new Error(`Generated templates are stale: ${stale.join(', ')}. Run npm run build.`)
+  if (stale.length) throw new Error(`Generated templates are stale: ${stale.join(', ')}. Run ${command}.`)
   return outputs.size
 }
 

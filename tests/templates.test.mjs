@@ -5,24 +5,41 @@ import path from 'node:path'
 import vm from 'node:vm'
 import * as cssTree from 'css-tree'
 import { generate, root, templates, build } from '../scripts/build.mjs'
+import { generate as generateNoPets, build as buildNoPets } from '../scripts/build-no-pets.mjs'
 import { cardHtml, sampleFields, session, render } from './helpers.mjs'
 
-test('generated files match sources, contain valid JS/CSS and no obsolete references', async () => {
-  await build(true)
-  const outputs = await generate()
-  for (const [name, content] of outputs) {
-    assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(|setupPet|petConfig|--pet-size|_aemeath_/, name)
-    assert.doesNotMatch(content, /<!-- @|@@INDEX@@|@@NUMBER@@/, name)
-    if (name.endsWith('.css')) {
-      const errors = []
-      cssTree.parse(content, { onParseError: error => errors.push(error) })
-      assert.deepEqual(errors, [], name)
-    } else {
-      for (const match of content.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
-        assert.doesNotMatch(match[1], /{{/, 'Anki fields must never be interpolated into JavaScript')
-        new vm.Script(match[1], { filename: name })
+for (const [label, generateFiles, checkFiles] of [
+  ['default', generate, build],
+  ['no_pets', generateNoPets, buildNoPets],
+]) {
+  test(`${label} generated files match sources, contain valid JS/CSS and no obsolete references`, async () => {
+    await checkFiles(true)
+    const outputs = await generateFiles()
+    assert.equal(outputs.size, templates.length * 3)
+    for (const [name, content] of outputs) {
+      assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(|setupPet|petConfig|--pet-size|_aemeath_/, name)
+      assert.doesNotMatch(content, /<!-- @|@@INDEX@@|@@NUMBER@@/, name)
+      if (name.endsWith('.css')) {
+        const errors = []
+        cssTree.parse(content, { onParseError: error => errors.push(error) })
+        assert.deepEqual(errors, [], name)
+      } else {
+        for (const match of content.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+          assert.doesNotMatch(match[1], /{{/, 'Anki fields must never be interpolated into JavaScript')
+          new vm.Script(match[1], { filename: name })
+        }
       }
     }
+  })
+}
+
+test('no_pets preserves card content and identifies its own rebuild command', async () => {
+  const outputs = await generate()
+  const noPets = await generateNoPets()
+  assert.deepEqual([...noPets.keys()], [...outputs.keys()])
+  for (const [name, content] of noPets) {
+    assert.match(content, /npm run build:no-pets/, name)
+    assert.equal(content.replaceAll('npm run build:no-pets', 'npm run build'), outputs.get(name), name)
   }
 })
 

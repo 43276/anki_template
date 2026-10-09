@@ -1,0 +1,232 @@
+/* 自动生成：请修改 src 并运行 npm run build:no-pets。 */
+/* Shared values; template-specific aliases preserve each card's appearance. */
+:root {
+  --font-cn: 'Source Han Sans CN', 'Source Han Sans JP', serif;
+  --font-ja: 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-display: 'KleeOne', 'Source Han Sans JP', 'Source Han Sans CN', serif;
+  --font-number: 'Source Han Sans JP', 'KleeOne', 'Source Han Sans CN', serif;
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 12px;
+}
+
+@font-face {
+  font-family: 'Source Han Sans CN';
+  src: url('_SourceHanSansCN-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Han Sans JP';
+  src: url('_SourceHanSansJP-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KleeOne';
+  src: url('_KleeOne_Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --grammar-font-sans: var(--font-cn);
+  --grammar-font-ja: var(--font-ja);
+  --grammar-font-display: var(--font-display);
+  --grammar-font-number: var(--font-number);
+  --grammar-surface: #e6e6e6;
+  --grammar-surface-accent: #e7eeff;
+  --grammar-muted: #666666;
+  --grammar-accent: #f97316;
+  --grammar-audio: #666666;
+  --grammar-radius: 5px;
+  --grammar-space-sm: var(--space-1);
+  --grammar-space-md: var(--space-2);
+}
+
+.night-mode,
+.night_mode,
+.nightMode,
+.nightmode,
+[data-bs-theme='dark'],
+[data-theme='dark'] {
+  --grammar-surface: #191919;
+  --grammar-surface-accent: #001a54;
+  --grammar-muted: #999999;
+  --grammar-accent: #fdba74;
+  --grammar-audio: #999999;
+}
+
+.grammar-card {
+  font-family: var(--grammar-font-sans);
+}
+
+.grammar-card :lang(zh) {
+  font-family: var(--grammar-font-sans);
+}
+
+.grammar-card :lang(ja) {
+  font-family: var(--grammar-font-ja);
+}
+
+.grammar-card .num {
+  font-family: var(--grammar-font-number);
+}
+
+.grammar-card .word,
+.grammar-card .word * {
+  font-family: var(--grammar-font-display);
+  font-size: 36px;
+}
+
+.grammar-card .word rt {
+  font-family: var(--grammar-font-display);
+  font-size: 14px;
+}
+
+.grammar-card .footer,
+.grammar-card .footer * {
+  font-family: var(--grammar-font-display);
+}
+
+.grammar-card .leader {
+  font-family: var(--grammar-font-display);
+}
+
+body.card,
+.GrammarBody {
+  text-align: left;
+  padding: var(--grammar-space-md);
+}
+
+.grammar-card .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 var(--grammar-space-md);
+  font-size: 24px;
+}
+
+.grammar-card .right-side {
+  display: flex;
+  align-items: center;
+}
+
+hr {
+  margin: 15px 0;
+}
+
+.grammar-card .content {
+  margin: var(--grammar-space-md) var(--grammar-space-md) 0;
+}
+
+.grammar-card .explain {
+  margin-bottom: var(--grammar-space-md);
+  font-size: 18px;
+}
+
+.grammar-card .examplefront {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--grammar-space-md);
+  font-size: 18px;
+}
+
+.grammar-card .exampleback {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--grammar-space-sm);
+  font-size: 18px;
+}
+
+.grammar-card .examplesentences {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.grammar-card .num,
+.grammar-card .leader {
+  margin-right: var(--grammar-space-sm);
+  font-weight: bold;
+}
+
+.grammar-card .footer {
+  margin: 0 0 var(--grammar-space-md);
+  padding: var(--grammar-space-md);
+  border-radius: var(--grammar-radius);
+  background-color: var(--grammar-surface);
+  font-size: 18px;
+}
+
+.grammar-card .categoryheader {
+  display: inline-block;
+  padding: var(--grammar-space-md);
+  border-radius: var(--grammar-radius);
+  background-color: var(--grammar-surface-accent);
+  font-size: 18px;
+}
+
+.grammar-card .connectiveTag {
+  margin-right: var(--grammar-space-sm);
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.grammar-card .connectiveNote {
+  margin-top: var(--grammar-space-md);
+  color: var(--grammar-muted);
+  font-size: 18px;
+  text-align: left;
+}
+
+.grammar-card .cnote {
+  display: inline-flex;
+  align-items: flex-start;
+  color: var(--grammar-muted);
+  font-size: 18px;
+}
+
+.grammar-card .image {
+  margin-top: var(--grammar-space-md);
+  text-align: center;
+}
+
+.grammar-card b {
+  color: var(--grammar-accent);
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+}
+
+.ios .grammar-card [lang="ja"]:not(.word) rt,
+.safari .grammar-card [lang="ja"]:not(.word) rt {
+  transform: translateY(0.6em);
+}
+
+.grammar-card .replay-button svg {
+  width: 30px;
+  height: 30px;
+}
+
+
+.grammar-card .replay-button svg circle {
+  fill: transparent;
+  stroke: var(--grammar-audio);
+}
+
+.grammar-card .replay-button svg path {
+  fill: var(--grammar-audio);
+}
+
+.grammar-card .examplesentences > div:first-child {
+  min-width: 0;
+  flex: 1;
+}
+
+.grammar-card .image img {
+  max-width: 100%;
+  height: auto;
+}
