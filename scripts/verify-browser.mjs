@@ -37,6 +37,8 @@ try {
       for (const theme of ['light', 'dark']) {
         for (const side of ['front', 'back']) {
           const page = await browser.newPage({ viewport: { width, height: 900 } })
+          // Keep probabilistic pet fly-throughs out of layout screenshots.
+          await page.evaluate(() => { Math.random = () => 0.5 })
           const errors = []
           page.on('pageerror', error => errors.push(error.message))
           const fields = { ...sampleFields, Chinese1: '', Image1: '' }

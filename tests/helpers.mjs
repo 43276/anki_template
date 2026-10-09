@@ -38,8 +38,8 @@ export const sampleFields = {
   SentAudio1: '<a class="replay-button">▶</a>',
 }
 
-export async function cardHtml(name, side, fields = sampleFields) {
-  const outputs = await generate()
+export async function cardHtml(name, side, fields = sampleFields, options = {}) {
+  const outputs = await generate(options)
   const template = templates.find(item => item.name === name)
   const front = render(outputs.get(`${name}/${template.front}`), fields)
   return side === 'front' ? front : render(outputs.get(`${name}/${template.back}`), { ...fields, FrontSide: front })
@@ -55,6 +55,8 @@ export function session(html, css = '', classes = '', ankiWeb = false) {
     runScripts: 'outside-only', virtualConsole,
   })
   const { window } = dom
+  // Keep probabilistic fly-throughs out of unrelated layout/audio assertions.
+  window.Math.random = () => 0.5
   window.HTMLMediaElement.prototype.play = function () {
     this.dataset.plays = String(Number(this.dataset.plays || 0) + 1)
     return Promise.resolve()

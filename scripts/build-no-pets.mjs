@@ -2,8 +2,8 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { generate as generateTemplates, build as buildTemplates } from './build.mjs'
 
-// The shared sources already omit pets; AnkiDroid manages them in the app.
-const options = { outputDir: 'no_pets', command: 'npm run build:no-pets' }
+// Exclude template pets completely when AnkiDroid manages them in the app.
+const options = { outputDir: 'no_pets', command: 'npm run build:no-pets', pets: false }
 
 export const generate = () => generateTemplates(options)
 export const build = (check = false) => buildTemplates(check, options)

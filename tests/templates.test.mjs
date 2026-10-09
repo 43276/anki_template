@@ -17,7 +17,12 @@ for (const [label, generateFiles, checkFiles] of [
     const outputs = await generateFiles()
     assert.equal(outputs.size, templates.length * 3)
     for (const [name, content] of outputs) {
-      assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(|setupPet|petConfig|--pet-size|_aemeath_/, name)
+      assert.doesNotMatch(content, /zh-Hant|SourceHanSansTW|VocabDefTC|SentDefTC|:has\(/, name)
+      if (label === 'no_pets') {
+        assert.doesNotMatch(content, /setupPet|petConfig|--pet-size|_aemeath_/, name)
+      } else {
+        assert.match(content, name.endsWith('.css') ? /--pet-size/ : /setupPet\(context, petConfig,/, name)
+      }
       assert.doesNotMatch(content, /<!-- @|@@INDEX@@|@@NUMBER@@/, name)
       if (name.endsWith('.css')) {
         const errors = []
@@ -34,12 +39,71 @@ for (const [label, generateFiles, checkFiles] of [
 }
 
 test('no_pets preserves card content and identifies its own rebuild command', async () => {
-  const outputs = await generate()
+  const outputs = await generate({ pets: false })
+  const withPets = await generate()
   const noPets = await generateNoPets()
   assert.deepEqual([...noPets.keys()], [...outputs.keys()])
   for (const [name, content] of noPets) {
     assert.match(content, /npm run build:no-pets/, name)
     assert.equal(content.replaceAll('npm run build:no-pets', 'npm run build'), outputs.get(name), name)
+    if (name.endsWith('.html')) {
+      const markup = html => html.replace(/<script>[\s\S]*?<\/script>/g, '')
+      assert.equal(markup(content.replaceAll('npm run build:no-pets', 'npm run build')), markup(withPets.get(name)), name)
+    }
+  }
+})
+
+test('template pets use CSS sizes and clean up on flips and card replacement', async () => {
+  for (const { name } of templates) {
+    const front = await cardHtml(name, 'front')
+    const back = await cardHtml(name, 'back')
+    const app = session(front, 'body .pet { --pet-size: 90px; }')
+    try {
+      app.window.Math.random = () => 0
+      app.advance(15000)
+      const pet = app.window.document.querySelector('.pet')
+      assert.ok(pet, name)
+      assert.match(pet.style.transform, /-90px/, name)
+      pet.click()
+      pet.click()
+      assert.equal(app.window.document.head.querySelectorAll('style').length, 2, name)
+      app.show(back)
+      assert.equal(pet.isConnected, false, name)
+      assert.ok(app.window.document.querySelector('.pet'), `${name}: back fly-through missing`)
+      app.advance(2100)
+      assert.equal(app.window.document.querySelector('.pet'), null, name)
+      assert.equal(app.window.document.head.querySelectorAll('style').length, 1, name)
+      app.advance(12900)
+      assert.ok(app.window.document.querySelector('.pet'), `${name}: back idle pet missing`)
+      app.show(front)
+      assert.equal(app.window.document.querySelector('.pet'), null, name)
+      assert.equal(app.window.document.head.querySelectorAll('style').length, 1, name)
+      assert.equal(app.timers.size, 1, name)
+      assert.deepEqual(app.errors, [], name)
+    } finally { app.close() }
+  }
+})
+
+test('no_pets initializes both sides without pet nodes, animations or idle timers', async () => {
+  const outputs = await generateNoPets()
+  for (const { name } of templates) {
+    const front = await cardHtml(name, 'front', sampleFields, { pets: false })
+    const back = await cardHtml(name, 'back', sampleFields, { pets: false })
+    const app = session(front, outputs.get(`${name}/style.css`))
+    try {
+      app.window.Math.random = () => 0
+      for (const html of [back, front, back]) {
+        app.show(html)
+        const context = app.window.__ankiTemplateContext
+        assert.ok(context, name)
+        app.advance(60000)
+        assert.equal(app.window.__ankiTemplateContext, context, name)
+        assert.equal(app.window.document.querySelector('.pet'), null, name)
+        assert.equal(app.window.document.head.querySelectorAll('style').length, 1, name)
+        assert.equal(app.timers.size, 0, name)
+      }
+      assert.deepEqual(app.errors, [], name)
+    } finally { app.close() }
   }
 })
 
