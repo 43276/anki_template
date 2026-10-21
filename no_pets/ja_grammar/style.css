@@ -110,7 +110,7 @@ body.card,
 }
 
 .grammar-card .honorific {
-  margin-top: 2px;
+  margin-top: -2px;
   color: var(--grammar-muted);
   font-size: 14px;
   line-height: 1.1;
@@ -119,7 +119,7 @@ body.card,
 }
 
 .grammar-card .honorific + hr {
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .grammar-card .explain-divider {

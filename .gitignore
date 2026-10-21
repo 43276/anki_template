@@ -1,10 +1,13 @@
 .reasonix/
 aemeath/
+node_modules/
+preview/
+docs/
+
 agent.md
 *.gif
 *.jpg
 *.png
 *.webp
 *.txt
-node_modules/
-preview/
+
