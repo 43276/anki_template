@@ -7,7 +7,12 @@
   <header class="header"><span class="word" lang="ja">{{furigana:Word}}</span></header>
   <!-- @repeat connective.html 5 -->
   {{#Explain1}}
-  <hr>
+  <div class="explain-divider">
+    <hr>
+    {{#Honorific}}
+    <div class="honorific honorific--back" lang="ja">{{Honorific}}</div>
+    {{/Honorific}}
+  </div>
   <div class="categoryheader"><span class="leader" lang="ja">解説</span></div>
   <div class="content"><div class="explain" lang="ja">{{furigana:Explain1}}</div></div>
   {{/Explain1}}

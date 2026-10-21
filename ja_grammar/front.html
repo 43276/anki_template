@@ -1,6 +1,9 @@
 <!-- 自动生成：请修改 src 并运行 npm run build。 -->
 <main id="FrontSide" class="anki-card grammar-card GrammarBody" lang="zh-Hans">
   <header class="header"><span class="word" lang="ja">{{kanji:Word}}</span></header>
+  {{#Honorific}}
+  <div class="honorific" lang="ja">{{Honorific}}</div>
+  {{/Honorific}}
   <hr>
   <div class="content">
     {{#Example1}}
@@ -304,7 +307,7 @@ if (context.isBack) {
   const front = document.getElementById('FrontSide')
   if (front) front.hidden = true
 }
-setupPet(context, petConfig, ".grammar-card .word, .grammar-card .content, .grammar-card .footer, .grammar-card .right-side")
+setupPet(context, petConfig, ".grammar-card .word, .grammar-card .honorific, .grammar-card .content, .grammar-card .footer, .grammar-card .right-side")
   } catch (error) {
     context.dispose()
     console.error(error)

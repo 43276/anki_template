@@ -9,7 +9,7 @@ export const templates = [
   { name: 'jlpt', front: 'ja-zh_front.html', back: 'ja-zh_back.html', fonts: true,
     petObstacles: '.VocabKanji, .VocabFurigana, .VocabDef, .VocabPoS, .VocabPlus, .SentKanji, .SentFurigana, .SentDef, .VocabPitch, .VocabAudio, .SentAudio' },
   { name: 'ja_grammar', front: 'front.html', back: 'back.html', fonts: true,
-    petObstacles: '.grammar-card .word, .grammar-card .content, .grammar-card .footer, .grammar-card .right-side' },
+    petObstacles: '.grammar-card .word, .grammar-card .honorific, .grammar-card .content, .grammar-card .footer, .grammar-card .right-side' },
 ]
 const read = async name => (await readFile(path.join(root, name), 'utf8')).replace(/\r\n/g, '\n').trimEnd()
 

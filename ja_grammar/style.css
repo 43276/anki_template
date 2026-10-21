@@ -109,6 +109,36 @@ body.card,
   font-size: 24px;
 }
 
+.grammar-card .honorific {
+  margin-top: 2px;
+  color: var(--grammar-muted);
+  font-size: 14px;
+  line-height: 1.1;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.grammar-card .honorific + hr {
+  margin-top: 3px;
+}
+
+.grammar-card .explain-divider {
+  position: relative;
+  margin: 15px 0;
+}
+
+.grammar-card .explain-divider hr {
+  margin: 0;
+}
+
+.grammar-card .honorific--back {
+  position: absolute;
+  top: calc(100% + 3px);
+  right: 0;
+  max-width: calc(100% - 80px);
+  margin-top: 0;
+}
+
 .grammar-card .right-side {
   display: flex;
   align-items: center;
